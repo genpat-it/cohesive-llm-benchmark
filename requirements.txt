@@ -1,0 +1,9 @@
+# Runtime dependencies of the bench.
+# Targets Python >= 3.11 (subprocess.run capture_output + modern type hints).
+
+# eval/run_llm.py talks to the LLM server over HTTP
+requests>=2.31
+
+# nothing else is strictly required by the bench itself.
+# Everything else (langchain, mistral, fastapi, …) belongs to the LLM
+# server you point LLM_API_URL at, NOT to this repo.

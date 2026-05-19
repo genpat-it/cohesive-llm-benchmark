@@ -1,0 +1,1827 @@
+{
+  "steps": {
+    "step_0SQ_rawreads__fastq": {
+      "id": "step_0SQ_rawreads__fastq",
+      "rel_path": "steps/step_0SQ_rawreads__fastq.nf",
+      "containers": [
+        "biocontainers/fastqc:v0.11.5_cv4",
+        "quay.io/biocontainers/biopython:1.78",
+        "quay.io/biocontainers/nanoplot:1.41.3--pyhdfd78af_0"
+      ],
+      "subworkflows": [
+        "step_0SQ_rawreads__fastq"
+      ],
+      "take": {
+        "step_0SQ_rawreads__fastq": [
+          "data"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n  step_0SQ_rawreads__fastq(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['illumina_paired','ion'], null)",
+        "isCompatibleWithSeqType(reads, ['nanopore'], null)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": true,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory from ../functions/common",
+        "getInput;isCompatibleWithSeqType;isIlluminaPaired from ../functions/parameters.nf",
+        "stepInputs;parseRISCD from ../functions/common.nf"
+      ]
+    },
+    "step_1PP_downsampling__bbnorm": {
+      "id": "step_1PP_downsampling__bbnorm",
+      "rel_path": "steps/step_1PP_downsampling__bbnorm.nf",
+      "containers": [
+        "quay.io/biocontainers/bbmap:39.01--h5c4e2a8_0"
+      ],
+      "subworkflows": [
+        "step_1PP_downsampling__bbnorm"
+      ],
+      "take": {
+        "step_1PP_downsampling__bbnorm": [
+          "reads",
+          "k",
+          "target"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_1PP_downsampling__bbnorm(getSingleInput(), param('k'), param('target'))\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, 'illumina_paired', task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "stepInputs;parseMetadataFromFileName;executionMetadata from ../functions/common.nf",
+        "getSingleInput;param;isIlluminaPaired;isCompatibleWithSeqType from ../functions/parameters.nf"
+      ]
+    },
+    "step_1PP_filtering__bowtie": {
+      "id": "step_1PP_filtering__bowtie",
+      "rel_path": "steps/step_1PP_filtering__bowtie.nf",
+      "containers": [
+        "ghcr.io/genpat-it/bowtie2:2.1.0--37ad014737",
+        "quay.io/biocontainers/samtools:0.1.19--hf89b575_7"
+      ],
+      "subworkflows": [
+        "step_1PP_filtering__bowtie"
+      ],
+      "take": {
+        "step_1PP_filtering__bowtie": [
+          "reads",
+          "reference"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getReference('fa')) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "referencePath && referencePath.exists() && !referencePath.empty() && (isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process))"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName; executionMetadata;taskMemory;extractKey from ../functions/common",
+        "stepInputs;getRisCd from ../functions/common.nf",
+        "getSingleInput;getReference;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf"
+      ]
+    },
+    "step_1PP_filtering__krakentools": {
+      "id": "step_1PP_filtering__krakentools",
+      "rel_path": "steps/step_1PP_filtering__krakentools.nf",
+      "containers": [
+        "quay.io/biocontainers/krakentools:1.2--pyh5e36f6f_0"
+      ],
+      "subworkflows": [
+        "step_1PP_filtering__krakentools"
+      ],
+      "take": {
+        "step_1PP_filtering__krakentools": [
+          "kraken",
+          "trimmed",
+          "taxaid",
+          "include_children",
+          "include_parents"
+        ]
+      },
+      "emits": [],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": true,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;extractKey from ../functions/common",
+        "getTrimmedReads;getParamTaxaId;getParamIncludeChildren;getParamIncludeParents;getKrakenResults from ../functions/parameters.nf",
+        "stepInputs from ../functions/common.nf"
+      ]
+    },
+    "step_1PP_filtering__minimap2": {
+      "id": "step_1PP_filtering__minimap2",
+      "rel_path": "steps/step_1PP_filtering__minimap2.nf",
+      "containers": [
+        "quay.io/biocontainers/minimap2:2.26--he4a0461_1",
+        "quay.io/biocontainers/samtools:1.10--h9402c20_1"
+      ],
+      "subworkflows": [
+        "step_1PP_filtering__minimap2"
+      ],
+      "take": {
+        "step_1PP_filtering__minimap2": [
+          "reads",
+          "reference"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getReference('fa')) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['nanopore'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;stepInputs;extractKey from ../functions/common.nf",
+        "getSingleInput;isCompatibleWithSeqType;getReference;getRisCd from ../functions/parameters.nf"
+      ]
+    },
+    "step_1PP_generated__fasta2fastq": {
+      "id": "step_1PP_generated__fasta2fastq",
+      "rel_path": "steps/step_1PP_generated__fasta2fastq.nf",
+      "containers": [
+        "quay.io/biocontainers/biopython:1.78"
+      ],
+      "subworkflows": [
+        "step_1PP_generated__fasta2fastq"
+      ],
+      "take": {
+        "step_1PP_generated__fasta2fastq": [
+          "reads"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_1PP_generated__fasta2fastq(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "stepInputs;parseMetadataFromFileName;executionMetadata;flattenPath from ../functions/common.nf",
+        "getSingleInput from ../functions/parameters.nf"
+      ]
+    },
+    "step_1PP_hostdepl__bowtie": {
+      "id": "step_1PP_hostdepl__bowtie",
+      "rel_path": "steps/step_1PP_hostdepl__bowtie.nf",
+      "containers": [
+        "ghcr.io/genpat-it/bowtie2:2.1.0--37ad014737",
+        "quay.io/biocontainers/samtools:0.1.19--hf89b575_7"
+      ],
+      "subworkflows": [
+        "step_1PP_hostdepl__bowtie"
+      ],
+      "take": {
+        "step_1PP_hostdepl__bowtie": [
+          "trimmedAndHost"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {    \n    input = getSingleInput()\n      .combine(getHostUnkeyed())\n    step_1PP_hostdepl__bowtie(input)    \n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common",
+        "param;getSingleInput;getHostUnkeyed;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_1PP_hostdepl__minimap2": {
+      "id": "step_1PP_hostdepl__minimap2",
+      "rel_path": "steps/step_1PP_hostdepl__minimap2.nf",
+      "containers": [
+        "quay.io/biocontainers/minimap2:2.26--he4a0461_1",
+        "quay.io/biocontainers/samtools:1.10--h9402c20_1"
+      ],
+      "subworkflows": [
+        "step_1PP_hostdepl__minimap2"
+      ],
+      "take": {
+        "step_1PP_hostdepl__minimap2": [
+          "reads",
+          "host"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getHostReference()) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['nanopore'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;stepInputs;extractKey from ../functions/common.nf",
+        "getSingleInput;isCompatibleWithSeqType;getHostReference;getRisCd from ../functions/parameters.nf"
+      ]
+    },
+    "step_1PP_trimming__chopper": {
+      "id": "step_1PP_trimming__chopper",
+      "rel_path": "steps/step_1PP_trimming__chopper.nf",
+      "containers": [
+        "quay.io/biocontainers/chopper:0.7.0--hdcf5f25_0",
+        "quay.io/biocontainers/nanoplot:1.41.3--pyhdfd78af_0"
+      ],
+      "subworkflows": [
+        "step_1PP_trimming__chopper"
+      ],
+      "take": {
+        "step_1PP_trimming__chopper": [
+          "rawreads"
+        ]
+      },
+      "emits": [
+        "trimmed"
+      ],
+      "example_invocation": "workflow {\n    step_1PP_trimming__chopper(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['nanopore'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": true,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;taskTime from ../functions/common.nf",
+        "getInput;isCompatibleWithSeqType;paramWrap;optWrap from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_1PP_trimming__fastp": {
+      "id": "step_1PP_trimming__fastp",
+      "rel_path": "steps/step_1PP_trimming__fastp.nf",
+      "containers": [
+        "biocontainers/fastqc:v0.11.5_cv4",
+        "ghcr.io/genpat-it/fastp:0.23.1--e4ac3df4c5",
+        "quay.io/biocontainers/biopython:1.78"
+      ],
+      "subworkflows": [
+        "step_1PP_trimming__fastp"
+      ],
+      "take": {
+        "step_1PP_trimming__fastp": [
+          "rawreads"
+        ]
+      },
+      "emits": [
+        "trimmed"
+      ],
+      "example_invocation": "workflow {\n    step_1PP_trimming__fastp(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": true,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;taskTime from ../functions/common.nf",
+        "getInput;isIonTorrent;isIlluminaPaired;isCompatibleWithSeqType from ../functions/parameters.nf",
+        "stepInputs;getRisCd;extractKey from ../functions/common.nf"
+      ]
+    },
+    "step_1PP_trimming__trimmomatic": {
+      "id": "step_1PP_trimming__trimmomatic",
+      "rel_path": "steps/step_1PP_trimming__trimmomatic.nf",
+      "containers": [
+        "biocontainers/fastqc:v0.11.5_cv4",
+        "quay.io/biocontainers/biopython:1.78",
+        "quay.io/biocontainers/trimmomatic:0.36--6"
+      ],
+      "subworkflows": [
+        "step_1PP_trimming__trimmomatic"
+      ],
+      "take": {
+        "step_1PP_trimming__trimmomatic": [
+          "rawreads"
+        ]
+      },
+      "emits": [
+        "trimmed"
+      ],
+      "example_invocation": "workflow {\n    step_1PP_trimming__trimmomatic(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": true,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;extractKey from ../functions/common",
+        "getInput;isIonTorrent;isIlluminaPaired;isCompatibleWithSeqType from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_denovo__flye": {
+      "id": "step_2AS_denovo__flye",
+      "rel_path": "steps/step_2AS_denovo__flye.nf",
+      "containers": [
+        "quay.io/biocontainers/flye:2.9.2--py310h2b6aa90_2",
+        "quay.io/biocontainers/quast:4.4--boost1.61_1"
+      ],
+      "subworkflows": [
+        "step_2AS_denovo__flye"
+      ],
+      "take": {
+        "step_2AS_denovo__flye": [
+          "reads"
+        ]
+      },
+      "emits": [
+        "assembly"
+      ],
+      "example_invocation": "workflow {\n    step_2AS_denovo__flye(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['nanopore'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent;optional from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_denovo__plasmidspades": {
+      "id": "step_2AS_denovo__plasmidspades",
+      "rel_path": "steps/step_2AS_denovo__plasmidspades.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "quay.io/biocontainers/quast:4.4--boost1.61_1",
+        "quay.io/biocontainers/spades:3.11.1--py27_zlib1.2.8_0"
+      ],
+      "subworkflows": [
+        "step_2AS_denovo__plasmidspades"
+      ],
+      "take": {
+        "step_2AS_denovo__plasmidspades": [
+          "data"
+        ]
+      },
+      "emits": [
+        "assembled"
+      ],
+      "example_invocation": "workflow {\n    step_2AS_denovo__plasmidspades(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_denovo__shovill": {
+      "id": "step_2AS_denovo__shovill",
+      "rel_path": "steps/step_2AS_denovo__shovill.nf",
+      "containers": [
+        "ghcr.io/genpat-it/shovill-se:1.1.1--ba51ea69e5",
+        "ghcr.io/genpat-it/shovill:1.1.0--d84470570e",
+        "quay.io/biocontainers/checkm-genome:1.1.3--py_1",
+        "quay.io/biocontainers/quast:4.4--boost1.61_1"
+      ],
+      "subworkflows": [
+        "step_2AS_denovo__shovill"
+      ],
+      "take": {
+        "step_2AS_denovo__shovill": [
+          "rawreads"
+        ]
+      },
+      "emits": [
+        "assembly"
+      ],
+      "example_invocation": "workflow {\n    step_2AS_denovo__shovill(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['illumina_paired'], null)",
+        "isCompatibleWithSeqType(reads, ['ion'], null)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;taskTime from ../functions/common.nf",
+        "getSingleInput;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_denovo__spades": {
+      "id": "step_2AS_denovo__spades",
+      "rel_path": "steps/step_2AS_denovo__spades.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "quay.io/biocontainers/quast:4.4--boost1.61_1",
+        "quay.io/biocontainers/spades:3.11.1--py27_zlib1.2.8_0"
+      ],
+      "subworkflows": [
+        "step_2AS_denovo__spades"
+      ],
+      "take": {
+        "step_2AS_denovo__spades": [
+          "data"
+        ]
+      },
+      "emits": [
+        "assembled"
+      ],
+      "example_invocation": "workflow {\n    step_2AS_denovo__spades(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_denovo__unicycler": {
+      "id": "step_2AS_denovo__unicycler",
+      "rel_path": "steps/step_2AS_denovo__unicycler.nf",
+      "containers": [
+        "docker.io/biocontainers/unicycler:v0.4.7dfsg-2-deb_cv1",
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "quay.io/biocontainers/quast:4.4--boost1.61_1"
+      ],
+      "subworkflows": [
+        "step_2AS_denovo__unicycler"
+      ],
+      "take": {
+        "step_2AS_denovo__unicycler": [
+          "data"
+        ]
+      },
+      "emits": [
+        "assembled"
+      ],
+      "example_invocation": "workflow {\n    step_2AS_denovo__unicycler(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, 'illumina_paired', task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;isIlluminaPaired;isCompatibleWithSeqType from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_filtering__seqio": {
+      "id": "step_2AS_filtering__seqio",
+      "rel_path": "steps/step_2AS_filtering__seqio.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1"
+      ],
+      "subworkflows": [
+        "step_2AS_filtering__seqio"
+      ],
+      "take": {
+        "step_2AS_filtering__seqio": [
+          "calls",
+          "assembly",
+          "reference"
+        ]
+      },
+      "emits": [],
+      "when_clauses": [
+        "isReferenceFilterable(reference, referencePath)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "stepInputs;getRisCd from ../functions/common.nf",
+        "param from ../functions/parameters.nf"
+      ]
+    },
+    "step_2AS_hybrid__unicycler": {
+      "id": "step_2AS_hybrid__unicycler",
+      "rel_path": "steps/step_2AS_hybrid__unicycler.nf",
+      "containers": [
+        "quay.io/biocontainers/quast:4.4--boost1.61_1",
+        "quay.io/biocontainers/unicycler:0.5.0--py38h5cf8b27_3"
+      ],
+      "subworkflows": [
+        "step_2AS_hybrid__unicycler"
+      ],
+      "take": {
+        "step_2AS_hybrid__unicycler": [
+          "short_reads",
+          "long_reads"
+        ]
+      },
+      "emits": [
+        "scaffolds"
+      ],
+      "example_invocation": "workflow {  \n    step_2AS_hybrid__unicycler(getSingleInput(), getLongReads())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(short_reads, 'illumina_paired', \"${ENTRYPOINT} short_reads\") // not robust enough && isCompatibleWithSeqType(long_reads, 'nanopore', \"${ENTRYPOINT} long_reads\")"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;isIlluminaPaired;isCompatibleWithSeqType;getLongReads;param from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_mapping__bowtie": {
+      "id": "step_2AS_mapping__bowtie",
+      "rel_path": "steps/step_2AS_mapping__bowtie.nf",
+      "containers": [
+        "ghcr.io/genpat-it/bowtie2:2.1.0--37ad014737",
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/samtools:0.1.19--f3869562fe",
+        "quay.io/biocontainers/matplotlib:3.1.2",
+        "quay.io/biocontainers/samtools:1.10--h9402c20_1",
+        "ubuntu:20.04"
+      ],
+      "subworkflows": [
+        "step_2AS_mapping__bowtie"
+      ],
+      "take": {
+        "step_2AS_mapping__bowtie": [
+          "reads",
+          "reference"
+        ]
+      },
+      "emits": [
+        "consensus"
+      ],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getReference('fa')) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "referencePath && referencePath.exists() && !referencePath.empty() && (isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process))"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "extractDsRef;parseMetadataFromFileName;executionMetadata;extractKey;taskMemory;getEmpty from ../functions/common.nf",
+        "getSingleInput;getReference;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_mapping__ivar": {
+      "id": "step_2AS_mapping__ivar",
+      "rel_path": "steps/step_2AS_mapping__ivar.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/samtools:0.1.19--f3869562fe",
+        "ghcr.io/genpat-it/snippy:4.5.1--7be4a1c45a",
+        "quay.io/biocontainers/ivar:1.3--h089eab3_1",
+        "quay.io/biocontainers/matplotlib:3.1.2",
+        "quay.io/biocontainers/samtools:1.10--h2e538c0_3",
+        "quay.io/biocontainers/samtools:1.10--h9402c20_1",
+        "ubuntu:20.04"
+      ],
+      "subworkflows": [
+        "step_2AS_mapping__ivar"
+      ],
+      "take": {
+        "step_2AS_mapping__ivar": [
+          "reads",
+          "reference"
+        ]
+      },
+      "emits": [
+        "consensus"
+      ],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getReferences('any')) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput",
+        "getReferences"
+      ],
+      "when_clauses": [
+        "reference_path && reference_path.exists() && !reference_path.empty() && isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)",
+        "(files instanceof java.util.Collection) && files.size() > 1",
+        "isSegmentedMapping() && canBeAggregated(references)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "extractDsRef;getEmpty;flattenPath; parseMetadataFromFileName; executionMetadata; extractKey;taskMemory from ../functions/common.nf",
+        "getSingleInput;getReferences;getReferenceCodes;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent;isSegmentedMapping from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_2AS_mapping__medaka": {
+      "id": "step_2AS_mapping__medaka",
+      "rel_path": "steps/step_2AS_mapping__medaka.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/samtools:0.1.19--f3869562fe",
+        "quay.io/biocontainers/matplotlib:3.1.2",
+        "quay.io/biocontainers/medaka:1.8.0--py38hdaa7744_0",
+        "quay.io/biocontainers/samtools:1.10--h9402c20_1",
+        "ubuntu:20.04"
+      ],
+      "subworkflows": [
+        "step_2AS_mapping__medaka"
+      ],
+      "take": {
+        "step_2AS_mapping__medaka": [
+          "reads",
+          "reference"
+        ]
+      },
+      "emits": [
+        "consensus"
+      ],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getReference('fa')) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "reference_path && reference_path.exists() && !reference_path.empty() && (isCompatibleWithSeqType(reads, ['nanopore'], task.process))"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName; executionMetadata;extractKey;taskMemory;stepInputs;getRisCd;extractDsRef from ../functions/common.nf",
+        "getSingleInput;getReference;isCompatibleWithSeqType from ../functions/parameters.nf"
+      ]
+    },
+    "step_2AS_mapping__minimap2": {
+      "id": "step_2AS_mapping__minimap2",
+      "rel_path": "steps/step_2AS_mapping__minimap2.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/samtools:0.1.19--f3869562fe",
+        "quay.io/biocontainers/matplotlib:3.1.2",
+        "quay.io/biocontainers/minimap2:2.26--he4a0461_1",
+        "quay.io/biocontainers/samtools:1.10--h9402c20_1",
+        "ubuntu:20.04"
+      ],
+      "subworkflows": [
+        "step_2AS_mapping__minimap2"
+      ],
+      "take": {
+        "step_2AS_mapping__minimap2": [
+          "reads",
+          "reference"
+        ]
+      },
+      "emits": [
+        "consensus"
+      ],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getReference('fa')) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "referencePath && referencePath.exists() && !referencePath.empty() && (isCompatibleWithSeqType(reads, ['nanopore'], task.process))"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName; executionMetadata;extractKey;taskMemory;stepInputs;getRisCd;extractDsRef from ../functions/common.nf",
+        "getSingleInput;getReference;isCompatibleWithSeqType from ../functions/parameters.nf"
+      ]
+    },
+    "step_2AS_mapping__snippy": {
+      "id": "step_2AS_mapping__snippy",
+      "rel_path": "steps/step_2AS_mapping__snippy.nf",
+      "containers": [
+        "ghcr.io/genpat-it/snippy:4.5.1--7be4a1c45a"
+      ],
+      "subworkflows": [
+        "step_2AS_mapping__snippy"
+      ],
+      "take": {
+        "step_2AS_mapping__snippy": [
+          "reads",
+          "reference"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    getSingleInput().cross(getReference('any')) { extractKey(it) }",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "reference_path && reference_path.exists() && !reference_path.empty() && (isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process))"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": true,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata; extractKey;taskMemory;stepInputs from ../functions/common.nf",
+        "getSingleInput;getReference;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf"
+      ]
+    },
+    "step_2MG_denovo__metaspades": {
+      "id": "step_2MG_denovo__metaspades",
+      "rel_path": "steps/step_2MG_denovo__metaspades.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "quay.io/biocontainers/quast:4.4--boost1.61_1",
+        "quay.io/biocontainers/spades:3.11.1--py27_zlib1.2.8_0"
+      ],
+      "subworkflows": [
+        "step_2MG_denovo__metaspades"
+      ],
+      "take": {
+        "step_2MG_denovo__metaspades": [
+          "data"
+        ]
+      },
+      "emits": [
+        "assembled"
+      ],
+      "example_invocation": "workflow {\n    step_2MG_denovo__metaspades(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, 'illumina_paired', task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;isIlluminaPaired;isCompatibleWithSeqType from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_3TX_class__centrifuge": {
+      "id": "step_3TX_class__centrifuge",
+      "rel_path": "steps/step_3TX_class__centrifuge.nf",
+      "containers": [
+        "quay.io/biocontainers/biopython:1.78",
+        "quay.io/biocontainers/centrifuge:1.0.4_beta--h9a82719_6"
+      ],
+      "subworkflows": [
+        "step_3TX_class__centrifuge"
+      ],
+      "take": {
+        "step_3TX_class__centrifuge": [
+          "reads"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n  step_3TX_class__centrifuge(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['nanopore'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "getEmpty;flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "param;isFullOutput;getSingleInput;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_3TX_class__confindr": {
+      "id": "step_3TX_class__confindr",
+      "rel_path": "steps/step_3TX_class__confindr.nf",
+      "containers": [
+        "ghcr.io/genpat-it/confindr:0.7.4--8fe19dd246"
+      ],
+      "subworkflows": [
+        "step_3TX_class__confindr"
+      ],
+      "take": {
+        "step_3TX_class__confindr": [
+          "reads",
+          "genus_species"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_3TX_class__confindr(getSingleInput(),param('genus_species'))\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process) && isSpeciesSupported(genus_species, GENUS_ALLOWED, reads, task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "stepInputs;parseMetadataFromFileName;executionMetadata;isSpeciesSupported;taskMemory from ../functions/common.nf",
+        "getSingleInput;param;isIlluminaPaired;isCompatibleWithSeqType from ../functions/parameters.nf"
+      ]
+    },
+    "step_3TX_class__kraken": {
+      "id": "step_3TX_class__kraken",
+      "rel_path": "steps/step_3TX_class__kraken.nf",
+      "containers": [
+        "quay.io/biocontainers/bracken:1.0.0--1",
+        "quay.io/biocontainers/kraken:1.0--pl5.22.0_0"
+      ],
+      "subworkflows": [
+        "step_3TX_class__kraken"
+      ],
+      "take": {
+        "step_3TX_class__kraken": [
+          "reads"
+        ]
+      },
+      "emits": [
+        "genus_report"
+      ],
+      "example_invocation": "workflow {\n  step_3TX_class__kraken(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "(isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)) && !(isSarsCov2(riscd_input) || isPositiveControlSarsCov2(riscd_input) || isNegativeControlSarsCov2(riscd_input) || isNGSMG16S(riscd_input))"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "getEmpty;flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "isSarsCov2;isPositiveControlSarsCov2;isNegativeControlSarsCov2;isNGSMG16S from ../functions/sampletypes",
+        "param;isFullOutput;getSingleInput;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_3TX_class__kraken2": {
+      "id": "step_3TX_class__kraken2",
+      "rel_path": "steps/step_3TX_class__kraken2.nf",
+      "containers": [
+        "quay.io/biocontainers/bracken:2.6.1--py39h7cff6ad_2",
+        "quay.io/biocontainers/kraken2:2.1.2--pl5262h7d875b9_0"
+      ],
+      "subworkflows": [
+        "step_3TX_class__kraken2"
+      ],
+      "take": {
+        "step_3TX_class__kraken2": [
+          "reads"
+        ]
+      },
+      "emits": [
+        "genus_report"
+      ],
+      "example_invocation": "workflow {\n  step_3TX_class__kraken2(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "isSarsCov2;isPositiveControlSarsCov2;isNegativeControlSarsCov2 from ../functions/sampletypes",
+        "param;getSingleInput;isIlluminaPaired;isCompatibleWithSeqType from ../functions/parameters",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_3TX_species__kmerfinder": {
+      "id": "step_3TX_species__kmerfinder",
+      "rel_path": "steps/step_3TX_species__kmerfinder.nf",
+      "containers": [
+        "python:2.7.8"
+      ],
+      "subworkflows": [
+        "step_3TX_species__kmerfinder"
+      ],
+      "take": {
+        "step_3TX_species__kmerfinder": [
+          "data"
+        ]
+      },
+      "emits": [
+        "assigned_species"
+      ],
+      "example_invocation": "workflow {\n    step_3TX_species__kmerfinder(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata; csv2map; extractKey;taskMemory from ../functions/common.nf",
+        "param;getInput from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_3TX_species__mash": {
+      "id": "step_3TX_species__mash",
+      "rel_path": "steps/step_3TX_species__mash.nf",
+      "containers": [
+        "ghcr.io/genpat-it/mash:2.3--debdd7eb23"
+      ],
+      "subworkflows": [
+        "step_3TX_species__mash"
+      ],
+      "take": {
+        "step_3TX_species__mash": [
+          "reads"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_3TX_species__mash(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "stepInputs;parseMetadataFromFileName;executionMetadata;taskMemory from ../functions/common.nf",
+        "getInput;isCompatibleWithSeqType from ../functions/parameters.nf"
+      ]
+    },
+    "step_3TX_species__vdabricate": {
+      "id": "step_3TX_species__vdabricate",
+      "rel_path": "steps/step_3TX_species__vdabricate.nf",
+      "containers": [
+        "quay.io/biocontainers/abricate:0.9.8--h1341992_0"
+      ],
+      "subworkflows": [
+        "step_3TX_species__vdabricate"
+      ],
+      "take": {
+        "step_3TX_species__vdabricate": [
+          "data"
+        ]
+      },
+      "emits": [
+        "calls"
+      ],
+      "example_invocation": "workflow {\n    getInput()\n        .combine(['viruses_TREF'])\n        .set { scaffoldsAbricatedb }",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName; executionMetadata; taskMemory from ../functions/common.nf",
+        "param;getInput from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_4AN_AMR__abricate": {
+      "id": "step_4AN_AMR__abricate",
+      "rel_path": "steps/step_4AN_AMR__abricate.nf",
+      "containers": [
+        "staphb/abricate:1.0.0"
+      ],
+      "subworkflows": [
+        "step_4AN_AMR__abricate"
+      ],
+      "take": {
+        "step_4AN_AMR__abricate": [
+          "data"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_4AN_AMR__abricate(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory from ../functions/common.nf",
+        "getInput from ../functions/parameters.nf",
+        "stepInputs from ../functions/common.nf"
+      ]
+    },
+    "step_4AN_AMR__filtering": {
+      "id": "step_4AN_AMR__filtering",
+      "rel_path": "steps/step_4AN_AMR__filtering.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1"
+      ],
+      "subworkflows": [
+        "step_4AN_AMR__filtering"
+      ],
+      "take": {
+        "step_4AN_AMR__filtering": [
+          "data",
+          "coverage",
+          "identity"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_4AN_AMR__filtering(getSingleInput(), param('coverage'), param('identity'))\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "stepInputs;parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;param from ../functions/parameters.nf"
+      ]
+    },
+    "step_4AN_AMR__resfinder": {
+      "id": "step_4AN_AMR__resfinder",
+      "rel_path": "steps/step_4AN_AMR__resfinder.nf",
+      "containers": [
+        "ghcr.io/genpat-it/resfinder:4.1.5--858219071c"
+      ],
+      "subworkflows": [
+        "step_4AN_AMR__resfinder"
+      ],
+      "take": {
+        "step_4AN_AMR__resfinder": [
+          "reads",
+          "genus_species"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_4AN_AMR__resfinder(getSingleInput(),param('genus_species'))\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;param;isCompatibleWithSeqType from ../functions/parameters.nf",
+        "stepInputs from ../functions/common.nf"
+      ]
+    },
+    "step_4AN_AMR__staramr": {
+      "id": "step_4AN_AMR__staramr",
+      "rel_path": "steps/step_4AN_AMR__staramr.nf",
+      "containers": [
+        "ghcr.io/genpat-it/staramr:0.9.1--8fe6b5a239"
+      ],
+      "subworkflows": [
+        "step_4AN_AMR__staramr"
+      ],
+      "take": {
+        "step_4AN_AMR__staramr": [
+          "assembly",
+          "genus_species"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_4AN_AMR__staramr(getSingleInput(), param('genus_species'))\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "isSpeciesSupported(genus_species, GENUS_ALLOWED, assembly, task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;isSpeciesSupported from ../functions/common.nf",
+        "getSingleInput;param from ../functions/parameters.nf",
+        "stepInputs;flattenPath from ../functions/common.nf"
+      ]
+    },
+    "step_4AN_genes__prokka": {
+      "id": "step_4AN_genes__prokka",
+      "rel_path": "steps/step_4AN_genes__prokka.nf",
+      "containers": [
+        "quay.io/biocontainers/prokka:1.14.5--pl526_1"
+      ],
+      "subworkflows": [
+        "step_4AN_genes__prokka"
+      ],
+      "take": {
+        "step_4AN_genes__prokka": [
+          "data"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n  getInput()\n      .cross(getKingdom()) { extractKey(it) }",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "checkEnum(KINGDOM, kingdom)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory;extractKey from ../functions/common.nf",
+        "getInput;getKingdom;getReferenceOptional;checkEnum from ../functions/parameters.nf",
+        "stepInputs from ../functions/common.nf"
+      ]
+    },
+    "step_4TY_MLST__mlst": {
+      "id": "step_4TY_MLST__mlst",
+      "rel_path": "steps/step_4TY_MLST__mlst.nf",
+      "containers": [
+        "ghcr.io/genpat-it/mlst-w-db:2.23.0--60b8b2e3dd_231219.124455"
+      ],
+      "subworkflows": [
+        "step_4TY_MLST__mlst"
+      ],
+      "take": {
+        "step_4TY_MLST__mlst": [
+          "assembly"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n  step_4TY_MLST__mlst(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory from ../functions/common.nf",
+        "getInput;param from ../functions/parameters.nf",
+        "stepInputs from ../functions/common.nf"
+      ]
+    },
+    "step_4TY_cgMLST__chewbbaca": {
+      "id": "step_4TY_cgMLST__chewbbaca",
+      "rel_path": "steps/step_4TY_cgMLST__chewbbaca.nf",
+      "containers": [
+        "ghcr.io/genpat-it/chewbbaca-w-chewie-schemas:2.8.5--16b816c96d",
+        "ghcr.io/genpat-it/hashing:1.0--29180a232f",
+        "quay.io/biocontainers/python:3.9"
+      ],
+      "subworkflows": [
+        "step_4TY_cgMLST__chewbbaca"
+      ],
+      "take": {
+        "step_4TY_cgMLST__chewbbaca": [
+          "assembly",
+          "genus_species",
+          "schema"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "getSchema(genus_species, schema)"
+      ],
+      "supported_species_or_schemas": [
+        "e_coli_chewie_2360_210531",
+        "escherichia_coli",
+        "l_mono_chewie_1748_220623",
+        "listeria_monocytogenes",
+        "s_enterica_chewie_3255_210531",
+        "salmonella_enterica"
+      ],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;taskTime from ../functions/common.nf",
+        "getInput;param;optionalOrDefault;isIonTorrent from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_4TY_flaA__flaA": {
+      "id": "step_4TY_flaA__flaA",
+      "rel_path": "steps/step_4TY_flaA__flaA.nf",
+      "containers": [
+        "ghcr.io/genpat-it/mlst-w-db:2.23.0--60b8b2e3dd_231219.124455"
+      ],
+      "subworkflows": [
+        "step_4TY_flaA__flaA"
+      ],
+      "take": {
+        "step_4TY_flaA__flaA": [
+          "assembly",
+          "genus_species"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_4TY_flaA__flaA(getInput(), param('genus_species'))\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [
+        "isSpeciesSupported(genus_species, GENUS_ALLOWED, scaffolds200, task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory;isSpeciesSupported from ../functions/common.nf",
+        "getInput;param from ../functions/parameters.nf",
+        "stepInputs from ../functions/common.nf"
+      ]
+    },
+    "step_4TY_lineage__pangolin": {
+      "id": "step_4TY_lineage__pangolin",
+      "rel_path": "steps/step_4TY_lineage__pangolin.nf",
+      "containers": [
+        "ghcr.io/genpat-it/pangolin:v4.3.1-v0.1.12-v0.3.17-v1.21"
+      ],
+      "subworkflows": [
+        "step_4TY_lineage__pangolin"
+      ],
+      "take": {
+        "step_4TY_lineage__pangolin": [
+          "consensus"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    step_4TY_lineage__pangolin(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory from ../functions/common.nf",
+        "getInput from ../functions/parameters.nf",
+        "stepInputs from ../functions/common.nf"
+      ]
+    },
+    "step_4TY_lineage__westnile": {
+      "id": "step_4TY_lineage__westnile",
+      "rel_path": "steps/step_4TY_lineage__westnile.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/snippy:4.5.1--7be4a1c45a",
+        "quay.io/biocontainers/samtools:1.10--h9402c20_1"
+      ],
+      "subworkflows": [
+        "step_4TY_lineage__westnile"
+      ],
+      "take": {
+        "step_4TY_lineage__westnile": [
+          "reads"
+        ]
+      },
+      "emits": [
+        "lineage"
+      ],
+      "example_invocation": "workflow {  \n    step_4TY_lineage__westnile(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [
+        "reference_path && reference_path.exists() && !reference_path.empty()"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseMetadataFromFileName;executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;_getSingleReference from ../functions/parameters.nf",
+        "stepInputs;csv2map;getRisCd;parseRISCD from ../functions/common.nf"
+      ]
+    },
+    "step_4TY_plasmid__mobsuite": {
+      "id": "step_4TY_plasmid__mobsuite",
+      "rel_path": "steps/step_4TY_plasmid__mobsuite.nf",
+      "containers": [
+        "ghcr.io/genpat-it/mobsuite:3.1.4--c2c728b1a2"
+      ],
+      "subworkflows": [
+        "step_4TY_plasmid__mobsuite"
+      ],
+      "take": {
+        "step_4TY_plasmid__mobsuite": [
+          "reads"
+        ]
+      },
+      "emits": [
+        "plasmids"
+      ],
+      "example_invocation": "workflow {\n    step_4TY_plasmid__mobsuite(getSingleInput())\n}",
+      "input_getters": [
+        "getSingleInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getSingleInput;param;isCompatibleWithSeqType from ../functions/parameters.nf",
+        "stepInputs;getRisCd from ../functions/common.nf"
+      ]
+    },
+    "step_TEST_custom__kmer": {
+      "id": "step_TEST_custom__kmer",
+      "rel_path": "steps/step_TEST_custom__kmer.nf",
+      "containers": [
+        "staphb/seqtk:latest"
+      ],
+      "subworkflows": [],
+      "take": {},
+      "emits": [],
+      "example_invocation": "workflow {\n    reads = getInput()\n    kmer_count(reads)\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "getInput from ../functions/parameters.nf",
+        "parseMetadataFromFileName; executionMetadata from ../functions/common.nf"
+      ]
+    }
+  },
+  "multi": {
+    "multi_alignment__snippycore": {
+      "id": "multi_alignment__snippycore",
+      "rel_path": "multi/multi_alignment__snippycore.nf",
+      "containers": [
+        "ghcr.io/genpat-it/snippy:4.5.1--7be4a1c45a"
+      ],
+      "subworkflows": [
+        "multi_alignment__snippycore",
+        "multi_alignment__snippycore_vcf"
+      ],
+      "take": {
+        "multi_alignment__snippycore": [
+          "reads",
+          "reference"
+        ],
+        "multi_alignment__snippycore_vcf": [
+          "input",
+          "reference"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    // 1PP_* => snippy + snippycore\n    multi_alignment__snippycore(getInput().filter( ~/^.*\\/1PP_.*/ ), getReferenceUnkeyed('gb'))\n    // 2AS_* => snippycore only\n    multi_alignment__snippycore_vcf(getInputFolders().filter( ~/^.*\\/2AS_.*/ ), getReferenceUnkeyed('gb'))\n}",
+      "input_getters": [
+        "getReferenceUnkeyed",
+        "getInputFolders",
+        "getInput"
+      ],
+      "when_clauses": [
+        "isCompatibleWithSeqType(reads, ['ion','illumina_paired'], task.process)"
+      ],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "flattenPath; parseMetadataFromFileName; executionMetadata;taskMemory from ../functions/common.nf",
+        "getInput;getReferenceUnkeyed;getInputFolders;isIlluminaPaired;isCompatibleWithSeqType;isIonTorrent from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__augur": {
+      "id": "multi_clustering__augur",
+      "rel_path": "multi/multi_clustering__augur.nf",
+      "containers": [
+        "quay.io/biocontainers/augur:23.1.1--pyhdfd78af_1"
+      ],
+      "subworkflows": [
+        "multi_clustering__augur"
+      ],
+      "take": {
+        "multi_clustering__augur": [
+          "reference",
+          "raw_metadata",
+          "geodata",
+          "ref2"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    reference = getReferenceUnkeyed('gb')      \n    multi_clustering__augur(reference, param('metadata'), param('geodata'), reference)\n}",
+      "input_getters": [
+        "getReferenceUnkeyed"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "taskMemory from ../functions/common.nf",
+        "getInput;getReferenceUnkeyed;param;optional from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__cfsan": {
+      "id": "multi_clustering__cfsan",
+      "rel_path": "multi/multi_clustering__cfsan.nf",
+      "containers": [
+        "quay.io/biocontainers/augur:22.0.0--pyhdfd78af_0",
+        "quay.io/biocontainers/iqtree:1.6.12--he513fc3_0"
+      ],
+      "subworkflows": [
+        "multi_clustering__cfsan"
+      ],
+      "take": {
+        "multi_clustering__cfsan": [
+          "input",
+          "reference",
+          "metadata",
+          "geodata"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    reads = getInput()\n        .map { it[1] }",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "taskMemory;flattenPath from ../functions/common.nf",
+        "getReferenceUnkeyed;getResult;getInput;param from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__grapetree": {
+      "id": "multi_clustering__grapetree",
+      "rel_path": "multi/multi_clustering__grapetree.nf",
+      "containers": [
+        "ghcr.io/genpat-it/chewbbaca-w-chewie-schemas:2.8.5--16b816c96d",
+        "quay.io/biocontainers/augur:22.0.0--pyhdfd78af_0",
+        "quay.io/biocontainers/cgmlst-dists:0.4.0--hec16e2b_2",
+        "quay.io/biocontainers/grapetree:2.1--pyh3252c3a_0"
+      ],
+      "subworkflows": [
+        "multi_clustering__grapetree"
+      ],
+      "take": {
+        "multi_clustering__grapetree": [
+          "input",
+          "metadata",
+          "geodata"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    multi_clustering__grapetree(getInput(), param('metadata'), param('geodata'));\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "parseRISCD;taskMemory from ../functions/common.nf",
+        "_getAlleles;param from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__ksnp3": {
+      "id": "multi_clustering__ksnp3",
+      "rel_path": "multi/multi_clustering__ksnp3.nf",
+      "containers": [
+        "ghcr.io/genpat-it/ksnp3:3.0--addd2c2d0e",
+        "quay.io/biocontainers/augur:22.0.0--pyhdfd78af_0",
+        "quay.io/biocontainers/grapetree:2.1--pyh3252c3a_0",
+        "quay.io/biocontainers/iqtree:1.6.12--he513fc3_0"
+      ],
+      "subworkflows": [
+        "multi_clustering__ksnp3"
+      ],
+      "take": {
+        "multi_clustering__ksnp3": [
+          "input",
+          "kmers_size",
+          "analysis_type",
+          "metadata",
+          "geodata"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    multi_clustering__ksnp3(getInput(), param('kmers_size'), param('analysis_type'), param('metadata'), param('geodata'));\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "getInput;param from ../functions/parameters.nf",
+        "taskMemory;flattenPath from ../functions/common.nf"
+      ]
+    },
+    "multi_clustering__reportree": {
+      "id": "multi_clustering__reportree",
+      "rel_path": "multi/multi_clustering__reportree.nf",
+      "containers": [],
+      "subworkflows": [],
+      "take": {},
+      "emits": [],
+      "example_invocation": "workflow {    \n    multi_clustering__reportree(inputFn(),  param('metadata'), param('geodata'), optionalOrDefault('multi_clustering__reportree__nomenclature', getEmpty()));\n}",
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": true,
+      "includes": [
+        "getVCFs;param;optionalOrDefault from ../functions/parameters.nf",
+        "taskMemory;getEmpty from ../functions/common.nf",
+        "getInput as inputFn from ../functions/parameters.nf",
+        "getVCFs as inputFn from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__reportree_alignment": {
+      "id": "multi_clustering__reportree_alignment",
+      "rel_path": "multi/multi_clustering__reportree_alignment.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/reportree:2.4.1--088b6651b8",
+        "quay.io/biocontainers/augur:22.0.0--pyhdfd78af_0",
+        "quay.io/biocontainers/mafft:7.520--h031d066_3",
+        "ubuntu:20.04"
+      ],
+      "subworkflows": [
+        "multi_clustering__reportree"
+      ],
+      "take": {
+        "multi_clustering__reportree": [
+          "input",
+          "raw_metadata",
+          "geodata",
+          "nomenclature"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n  multi_clustering__reportree(getInput(),  param('metadata'), param('geodata'), optionalOrDefault('multi_clustering__reportree__nomenclature', getEmpty()));\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": true,
+      "includes": [
+        "taskMemory;getEmpty from ../functions/common.nf",
+        "_getAlleles;param;optional;optionalOrDefault;getVCFs from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__reportree_alleles": {
+      "id": "multi_clustering__reportree_alleles",
+      "rel_path": "multi/multi_clustering__reportree_alleles.nf",
+      "containers": [
+        "ghcr.io/genpat-it/chewbbaca-w-chewie-schemas:2.8.5--16b816c96d",
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/reportree:2.4.1--088b6651b8",
+        "quay.io/biocontainers/augur:22.0.0--pyhdfd78af_0",
+        "ubuntu:20.04"
+      ],
+      "subworkflows": [
+        "multi_clustering__reportree"
+      ],
+      "take": {
+        "multi_clustering__reportree": [
+          "input",
+          "raw_metadata",
+          "geodata",
+          "nomenclature"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    multi_clustering__reportree(getAlleles(),  param('metadata'), param('geodata'), optionalOrDefault('multi_clustering__reportree__nomenclature', getEmpty()));\n}",
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "taskMemory;getEmpty from ../functions/common.nf",
+        "_getAlleles;param;optional;optionalOrDefault from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__reportree_vcf": {
+      "id": "multi_clustering__reportree_vcf",
+      "rel_path": "multi/multi_clustering__reportree_vcf.nf",
+      "containers": [
+        "ghcr.io/genpat-it/python3:3.10.1--29cf21c1f1",
+        "ghcr.io/genpat-it/reportree:2.4.1--088b6651b8",
+        "quay.io/biocontainers/augur:22.0.0--pyhdfd78af_0",
+        "ubuntu:20.04"
+      ],
+      "subworkflows": [
+        "multi_clustering__reportree"
+      ],
+      "take": {
+        "multi_clustering__reportree": [
+          "input",
+          "raw_metadata",
+          "geodata",
+          "nomenclature"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n  multi_clustering__reportree(getVCFs(),  param('metadata'), param('geodata'), optionalOrDefault('multi_clustering__reportree__nomenclature', getEmpty()));\n}",
+      "input_getters": [
+        "getVCFs"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": true,
+      "includes": [
+        "taskMemory;getEmpty from ../functions/common.nf",
+        "_getAlleles;param;optional;optionalOrDefault;getVCFs from ../functions/parameters.nf"
+      ]
+    },
+    "multi_clustering__vcf2mst": {
+      "id": "multi_clustering__vcf2mst",
+      "rel_path": "multi/multi_clustering__vcf2mst.nf",
+      "containers": [
+        "ghcr.io/genpat-it/vcf2mst:0.0.1--d587d682e9",
+        "quay.io/biocontainers/cgmlst-dists:0.4.0--hec16e2b_2"
+      ],
+      "subworkflows": [
+        "multi_clustering__vcf2mst"
+      ],
+      "take": {
+        "multi_clustering__vcf2mst": [
+          "input"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    getVCFs()\n    .map { it[1] }",
+      "input_getters": [
+        "getVCFs"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": true,
+      "includes": [
+        "taskMemory from ../functions/common.nf",
+        "getVCFs from ../functions/parameters.nf"
+      ]
+    },
+    "multi_pangenome__panaroo": {
+      "id": "multi_pangenome__panaroo",
+      "rel_path": "multi/multi_pangenome__panaroo.nf",
+      "containers": [
+        "quay.io/biocontainers/panaroo:1.3.3--pyhdfd78af_0"
+      ],
+      "subworkflows": [
+        "multi_pangenome__panaroo"
+      ],
+      "take": {
+        "multi_pangenome__panaroo": [
+          "input"
+        ]
+      },
+      "emits": [],
+      "example_invocation": "workflow {\n    multi_pangenome__panaroo(getInput())\n}",
+      "input_getters": [
+        "getInput"
+      ],
+      "when_clauses": [],
+      "supported_species_or_schemas": [],
+      "uses_assembly": false,
+      "uses_fastq": false,
+      "uses_vcf": false,
+      "includes": [
+        "getInput;param;optional from ../functions/parameters.nf",
+        "flattenPath from ../functions/common.nf"
+      ]
+    }
+  },
+  "pipelines_examples": {}
+}

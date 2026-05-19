@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Local secrets - configure your LLM credentials OUTSIDE this repo
+# (in your LLM server's own .env, never here)
+.env
+.env.*
+!.env.example
+
+# Eval runs land here -- commit only the reference example
+results/*/
+!results/example_run_mistral/
+
+# Harness scratch (work dirs, dummy inputs)
+_scratch/
+_out/
+*.nextflow.log*
+.nextflow/
+work/
