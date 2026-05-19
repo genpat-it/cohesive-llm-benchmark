@@ -26,13 +26,22 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-FW = Path(os.environ.get(
-    "NGSMANAGER_DIR",
-    "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager",
-)).resolve()
+_NGSMANAGER_DIR = os.environ.get("NGSMANAGER_DIR")
+if not _NGSMANAGER_DIR:
+    raise SystemExit(
+        "NGSMANAGER_DIR is not set.\n"
+        "Point it at your cohesive-ngsmanager checkout, e.g.:\n"
+        "    export NGSMANAGER_DIR=/path/to/cohesive-ngsmanager\n"
+        "See INSTALL.md for details."
+    )
+FW = Path(_NGSMANAGER_DIR).resolve()
 
 if not (FW / "steps").is_dir():
-    raise SystemExit(f"cohesive-ngsmanager not found at {FW}")
+    raise SystemExit(
+        f"cohesive-ngsmanager not found at {FW}\n"
+        f"NGSMANAGER_DIR must point at the cohesive-ngsmanager repo root "
+        f"(the directory that contains steps/, functions/, modules/, multi/)."
+    )
 
 NEXTFLOW = shutil.which("nextflow") or "/usr/local/bin/nextflow"
 if not Path(NEXTFLOW).exists():

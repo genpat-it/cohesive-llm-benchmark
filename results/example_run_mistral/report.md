@@ -127,7 +127,7 @@ Step-set vs. ground truth:  exact match **37**  ·  extra steps **10**  ·  miss
 
 ### `A03_mlst_salmonella` — `missing_param`
 
-**Prompt:** MLST tipico (PubMLST) su un'assembly di Salmonella enterica.
+**Prompt:** Classic MLST (PubMLST) on a Salmonella enterica assembly.
 
 **Steps (LLM):** `step_3TX_species__kmerfinder, step_2AS_mapping__bowtie, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4AN_AMR__staramr, step_4TY_MLST__mlst, step_4TY_flaA__flaA, step_4TY_cgMLST__chewbbaca`
 **Steps (GT):**  `step_4TY_MLST__mlst`
@@ -228,7 +228,7 @@ ERROR ~ missing required param: step_3TX_species__kmerfinder__db
 
 ### `A04_cgmlst_listeria` — `missing_param`
 
-**Prompt:** Profilo allelico cgMLST per Listeria monocytogenes a partire dall'assembly già pronta.
+**Prompt:** cgMLST allelic profile for Listeria monocytogenes from a pre-existing assembly.
 
 **Steps (LLM):** `(none)`
 **Steps (GT):**  `step_4TY_cgMLST__chewbbaca`
@@ -376,7 +376,7 @@ No process placeholders appeared. when: clause filtered everything?
 
 ### `E05_flaa_cam` — `silent_no_op`
 
-**Prompt:** Pipeline per la tipizzazione flaA di Campylobacter da FASTQ paired Illumina.
+**Prompt:** flaA typing pipeline for Campylobacter from paired-end Illumina FASTQ.
 
 **Steps (LLM):** `step_3TX_species__kmerfinder, step_2AS_mapping__bowtie, step_4TY_flaA__flaA`
 **Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA`

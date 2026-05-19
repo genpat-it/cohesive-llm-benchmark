@@ -78,10 +78,13 @@ For each example the harness:
 ## Reproducing the validation
 
 ```bash
-cd /home/IZSNT/a.deruvo/cohesive-llm
-python3.11 dataset_harness.py            # all 50 examples (~25 min)
-python3.11 dataset_harness.py --only=E02_cgmlst_lis_fastp_spades   # one
-python3.11 dataset_harness.py --first=10 # first ten
+# Assumes you have cloned this repo and exported NGSMANAGER_DIR.
+# See ../INSTALL.md for the full setup.
+cd <path-to>/cohesive-llm-benchmark
+export NGSMANAGER_DIR=/path/to/cohesive-ngsmanager
+python harness/harness.py                                  # all 50 examples (~25 min)
+python harness/harness.py --only=E02_cgmlst_lis_fastp_spades  # one
+python harness/harness.py --first=10                       # first ten
 ```
 
 Output PASS/FAIL per example plus a final summary. Logs land in

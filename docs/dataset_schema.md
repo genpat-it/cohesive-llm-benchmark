@@ -22,7 +22,7 @@ validation end-to-end against the framework at the commit pinned in
 {
   "id": "A04_cgmlst_listeria",
   "category": "mono-typing",
-  "prompt": "Profilo allelico cgMLST per Listeria monocytogenes a partire dall'assembly già pronta.",
+  "prompt": "cgMLST allelic profile for Listeria monocytogenes from a pre-existing assembly.",
   "nextflow_code": "nextflow.enable.dsl=2\n\ninclude { getInput; optionalOrDefault; param } from '../functions/parameters.nf'\ninclude { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'\nworkflow {\n    step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))\n}\n",
   "params": {
     "cmp": "2026.LIS.2.1.1",

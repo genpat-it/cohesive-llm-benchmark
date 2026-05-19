@@ -14,10 +14,14 @@ import os
 import re
 from pathlib import Path
 
-FW = Path(os.environ.get(
-    "NGSMANAGER_DIR",
-    "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager",
-)).resolve()
+_NGSMANAGER_DIR = os.environ.get("NGSMANAGER_DIR")
+if not _NGSMANAGER_DIR:
+    raise SystemExit(
+        "NGSMANAGER_DIR is not set.\n"
+        "Point it at your cohesive-ngsmanager checkout, e.g.:\n"
+        "    export NGSMANAGER_DIR=/path/to/cohesive-ngsmanager"
+    )
+FW = Path(_NGSMANAGER_DIR).resolve()
 OUT = Path(__file__).resolve().parent / "_inventory.json"
 
 

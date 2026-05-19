@@ -322,15 +322,15 @@ def build_all() -> list[Example]:
     ))
     L.append(mono_typing(
         eid="A03_mlst_salmonella",
-        prompt="MLST tipico (PubMLST) su un'assembly di Salmonella enterica.",
+        prompt="Classic MLST (PubMLST) on a Salmonella enterica assembly.",
         step="step_4TY_MLST__mlst",
         cmp="2026.SAL.1.1.1",
         genus_species="salmonella_enterica",
-        notes="prompt in italiano",
+        notes="",
     ))
     L.append(mono_typing(
         eid="A04_cgmlst_listeria",
-        prompt="Profilo allelico cgMLST per Listeria monocytogenes a partire dall'assembly già pronta.",
+        prompt="cgMLST allelic profile for Listeria monocytogenes from a pre-existing assembly.",
         step="step_4TY_cgMLST__chewbbaca",
         cmp="2026.LIS.2.1.1",
         genus_species="listeria_monocytogenes",
@@ -362,7 +362,7 @@ def build_all() -> list[Example]:
         step="step_4AN_AMR__staramr",
         cmp="2026.CAM.2.1.1",
         genus_species="campylobacter_jejuni",
-        notes="staramr usa POINTFINDER_ORGANISM solo per campylobacter",
+        notes="staramr uses POINTFINDER_ORGANISM only for campylobacter",
     ))
 
     # ------------------ B. Mono-step assembly (FASTQ -> assembly) ----------
@@ -448,7 +448,7 @@ def build_all() -> list[Example]:
     ))
     L.append(trim_assembly(
         eid="D05_fastp_spades_cam",
-        prompt="Trim e assemblaggio de novo (fastp + SPAdes) per un campione Campylobacter Illumina paired-end.",
+        prompt="Trim and de novo assembly (fastp + SPAdes) for a paired-end Illumina Campylobacter sample.",
         trim_step="step_1PP_trimming__fastp",
         asm_step="step_2AS_denovo__spades",
         cmp="2026.CAM.3.1.1",
@@ -457,7 +457,7 @@ def build_all() -> list[Example]:
     # ------------------ E. 3-step trim+asm+typing (15) --------------------
     L.append(trim_assembly_typing(
         eid="E01_mlst_lis",
-        prompt="MLST classico su Listeria monocytogenes a partire da FASTQ paired Illumina (trim + assembly + MLST).",
+        prompt="Classic MLST on Listeria monocytogenes from paired-end Illumina FASTQ (trim + assembly + MLST).",
         trim_step="step_1PP_trimming__fastp",
         asm_step="step_2AS_denovo__spades",
         typing_step="step_4TY_MLST__mlst",
@@ -493,7 +493,7 @@ def build_all() -> list[Example]:
     ))
     L.append(trim_assembly_typing(
         eid="E05_flaa_cam",
-        prompt="Pipeline per la tipizzazione flaA di Campylobacter da FASTQ paired Illumina.",
+        prompt="flaA typing pipeline for Campylobacter from paired-end Illumina FASTQ.",
         trim_step="step_1PP_trimming__fastp",
         asm_step="step_2AS_denovo__spades",
         typing_step="step_4TY_flaA__flaA",
