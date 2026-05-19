@@ -212,14 +212,3 @@ Re-emit the JSONL:
 ```bash
 python dataset/emit_jsonl.py
 ```
-
----
-
-## Citation
-
-If you use this bench in a paper, please cite it as:
-
-> *cohesive-llm-benchmark: an end-to-end Nextflow-aware benchmark for natural
-> language → bioinformatics pipeline generation, version 1.0, 2026.*
-
-A bib entry will be added once the paper is published.
