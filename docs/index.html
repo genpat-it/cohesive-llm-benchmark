@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cohesive-llm-benchmark</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <a class="github-link" href="https://github.com/genpat-it/cohesive-llm-benchmark" target="_blank">GitHub →</a>
+  <h1>cohesive-llm-benchmark</h1>
+  <div class="tagline">An end-to-end Nextflow-aware benchmark for natural-language → bioinformatics pipeline generators.</div>
+  <nav>
+    <a href="./" class="active">Overview</a>
+    <a href="explorer.html">Explorer</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/METHODOLOGY.md">Methodology</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/docs/error_taxonomy.md">Error taxonomy</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/docs/dataset_schema.md">Schema</a>
+  </nav>
+</header>
+
+<main>
+  <h2>What it does</h2>
+  <p>The bench takes a natural-language prompt asking for a bioinformatics pipeline, feeds it to your LLM, captures the generated Nextflow <code>.nf</code>, and validates the result end-to-end against the real <a href="https://github.com/genpat-it/cohesive-ngsmanager">cohesive-ngsmanager</a> framework: the workflow must parse (DSL2), build a valid DAG, and schedule at least the expected number of step processes when run with <code>nextflow -stub-run</code>.</p>
+
+  <p>Failures are auto-categorised across 13 axes (arity, wrong emit, missing param, silent no-op, hallucinated step, …) so the bench surfaces <em>why</em> the model is wrong, not just <em>that</em> it is.</p>
+
+  <h2>Reference results — izs-llm vs the corpus</h2>
+  <p>Headline numbers from the run captured in
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/tree/main/results/example_run_mistral"><code>results/example_run_mistral/</code></a>
+    and
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/tree/main/results/example_run_mistral_multi_turn"><code>results/example_run_mistral_multi_turn/</code></a>.
+    Re-runs land in your own <code>$BENCH_RUNS_DIR</code>.</p>
+
+  <div class="metrics" id="metrics-single"></div>
+  <h3>Single-turn corpus  (50 prompts)</h3>
+  <p id="single-summary" class="muted">loading…</p>
+
+  <div class="metrics" id="metrics-multi"></div>
+  <h3>Multi-turn corpus  (17 conversations · 34 turns)</h3>
+  <p id="multi-summary" class="muted">loading…</p>
+
+  <h3>Error category breakdown</h3>
+  <table class="bench" id="errors-table">
+    <thead><tr><th>Category</th><th>Single-turn</th><th>Multi-turn</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>How to use it</h2>
+  <pre style="background: var(--code-bg); color: var(--code-fg); padding: 1rem; border-radius: 6px; overflow-x: auto;">
+git clone https://github.com/genpat-it/cohesive-llm-benchmark
+cd cohesive-llm-benchmark
+pip install -r requirements.txt
+
+export NGSMANAGER_DIR=/path/to/cohesive-ngsmanager
+export LLM_API_URL=http://localhost:8765
+export BENCH_RUNS_DIR=$(pwd)/results/my_run
+
+python eval/run_llm.py             # single-turn  (~10 min for 50)
+python eval/validate_llm.py        # (~20 min)
+python eval/emit_report.py         # TSV/CSV/MD reports
+
+python eval/run_llm_multi_turn.py        # multi-turn  (~10 min for 17)
+python eval/validate_llm_multi_turn.py   # (~15 min)
+python eval/emit_report.py               # picks up multi-turn too</pre>
+
+  <h2>Explore the results</h2>
+  <p>The <a href="explorer.html">interactive explorer</a> lets you filter every example by category, pass/fail and error type, and compare the LLM-generated <code>.nf</code> with the ground truth side-by-side.</p>
+</main>
+
+<footer>
+  cohesive-llm-benchmark · <a href="https://github.com/genpat-it/cohesive-llm-benchmark">source</a> · published under the IZS Bioinformatics genpat-it org
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+(async function () {
+  try {
+    const [vSingle, vMulti] = await Promise.all([
+      loadJsonl(DATA.SINGLE_TURN_VERDICTS),
+      loadJsonl(DATA.MULTI_TURN_VERDICTS),
+    ]);
+
+    function renderCards(target, s) {
+      target.innerHTML = `
+        <div class="card"><div class="label">prompts</div><div class="value">${s.total}</div></div>
+        <div class="card"><div class="label">code returned</div><div class="value">${s.code}</div></div>
+        <div class="card"><div class="label">syntax OK</div><div class="value">${s.syntax}</div></div>
+        <div class="card"><div class="label">semantic OK</div><div class="value">${s.semantic}</div><div class="sub">${s.pct}%</div></div>
+        <div class="card"><div class="label">hallucinated</div><div class="value">${s.hallucinated}</div></div>`;
+    }
+
+    const sStats = summaryStats(vSingle);
+    renderCards(document.getElementById("metrics-single"), sStats);
+    document.getElementById("single-summary").textContent =
+      `${sStats.semantic}/${sStats.total} pipelines pass nextflow -stub-run validation against the framework.`;
+
+    const mStats = summaryStats(vMulti);
+    renderCards(document.getElementById("metrics-multi"), mStats);
+    const convCount = new Set(vMulti.map(v => v.conv_id)).size;
+    const fullyOk = (function () {
+      const by = {};
+      for (const v of vMulti) (by[v.conv_id] = by[v.conv_id] || []).push(v);
+      return Object.values(by).filter(rs => rs.every(r => r.semantic_valid)).length;
+    })();
+    document.getElementById("multi-summary").textContent =
+      `${sStats.total ? mStats.semantic + "/" + mStats.total : "0/0"} turns pass, ${fullyOk}/${convCount} conversations fully pass.`;
+
+    // error breakdown table
+    const eSingle = Object.fromEntries(errorBreakdown(vSingle));
+    const eMulti = Object.fromEntries(errorBreakdown(vMulti));
+    const allCats = Array.from(new Set([...Object.keys(eSingle), ...Object.keys(eMulti)]));
+    allCats.sort((a, b) => (eSingle[b] || 0) + (eMulti[b] || 0) - (eSingle[a] || 0) - (eMulti[a] || 0));
+    const tbody = document.querySelector("#errors-table tbody");
+    tbody.innerHTML = allCats.map(c =>
+      `<tr><td><code>${esc(c)}</code></td><td>${eSingle[c] || 0}</td><td>${eMulti[c] || 0}</td></tr>`
+    ).join("");
+  } catch (err) {
+    console.error(err);
+    document.getElementById("single-summary").textContent = "Failed to load data: " + err.message;
+  }
+})();
+</script>
+</body>
+</html>

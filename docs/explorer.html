@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explorer · cohesive-llm-benchmark</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <a class="github-link" href="https://github.com/genpat-it/cohesive-llm-benchmark" target="_blank">GitHub →</a>
+  <h1>cohesive-llm-benchmark · explorer</h1>
+  <div class="tagline">Click any row to see the prompt, ground-truth <code>.nf</code> and the LLM-generated <code>.nf</code> side-by-side.</div>
+  <nav>
+    <a href="./">Overview</a>
+    <a href="explorer.html" class="active">Explorer</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/METHODOLOGY.md">Methodology</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/docs/error_taxonomy.md">Error taxonomy</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/docs/dataset_schema.md">Schema</a>
+  </nav>
+</header>
+
+<main>
+  <div class="filters">
+    <label>corpus
+      <select id="corpus">
+        <option value="single">single-turn (50)</option>
+        <option value="multi">multi-turn (34 turns)</option>
+      </select>
+    </label>
+    <label>category
+      <select id="filter-category"><option value="">all</option></select>
+    </label>
+    <label>error category
+      <select id="filter-error"><option value="">all</option></select>
+    </label>
+    <label>outcome
+      <select id="filter-outcome">
+        <option value="">all</option>
+        <option value="pass">PASS only</option>
+        <option value="fail">FAIL only</option>
+      </select>
+    </label>
+    <label>search
+      <input id="filter-text" type="text" placeholder="id / prompt / step…">
+    </label>
+    <span class="stat" id="row-stat"></span>
+  </div>
+
+  <table class="bench" id="tbl">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>category</th>
+        <th>outcome</th>
+        <th>n_proc</th>
+        <th>error</th>
+        <th>steps used</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="detail" id="detail">
+    <div class="header">
+      <span class="title" id="detail-title"></span>
+      <button onclick="document.getElementById('detail').classList.remove('visible')">close ×</button>
+    </div>
+    <div class="body" id="detail-body"></div>
+  </div>
+</main>
+
+<footer>
+  cohesive-llm-benchmark · <a href="https://github.com/genpat-it/cohesive-llm-benchmark">source</a>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+let ALL = { single: [], multi: [] };
+let CUR = "single";
+
+async function init() {
+  ALL.single = await loadJsonl(DATA.SINGLE_TURN_VERDICTS);
+  ALL.multi  = await loadJsonl(DATA.MULTI_TURN_VERDICTS);
+  rebuildSelectors();
+  render();
+}
+
+function active() { return ALL[CUR]; }
+
+function rebuildSelectors() {
+  const data = active();
+  const cats = Array.from(new Set(data.map(d => d.category))).filter(Boolean).sort();
+  const errs = Array.from(new Set(data.map(d => d.error_category))).filter(Boolean).sort();
+  const catSel = document.getElementById("filter-category");
+  const errSel = document.getElementById("filter-error");
+  catSel.innerHTML = '<option value="">all</option>' + cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+  errSel.innerHTML = '<option value="">all</option>' + errs.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+}
+
+function render() {
+  const data = active();
+  const fc = document.getElementById("filter-category").value;
+  const fe = document.getElementById("filter-error").value;
+  const fo = document.getElementById("filter-outcome").value;
+  const ft = document.getElementById("filter-text").value.toLowerCase();
+
+  const rows = data.filter(d => {
+    if (fc && d.category !== fc) return false;
+    if (fe && d.error_category !== fe) return false;
+    if (fo === "pass" && !d.semantic_valid) return false;
+    if (fo === "fail" && d.semantic_valid) return false;
+    if (ft) {
+      const hay = (
+        d.id + " " + (d.prompt || "") + " " +
+        (d.called_steps || []).join(" ") + " " +
+        (d.included_steps || []).join(" ")
+      ).toLowerCase();
+      if (!hay.includes(ft)) return false;
+    }
+    return true;
+  });
+
+  const tbody = document.querySelector("#tbl tbody");
+  tbody.innerHTML = rows.map((d, i) => `
+    <tr data-idx="${i}">
+      <td><code>${esc(d.id)}</code></td>
+      <td>${esc(d.category)}</td>
+      <td>${passPill(d.semantic_valid)}</td>
+      <td>${d.n_processes ?? "?"}/${d.expected_processes ?? "?"}</td>
+      <td><code>${esc(d.error_category || "—")}</code></td>
+      <td>${(d.called_steps || d.included_steps || []).slice(0, 4).map(s => "<code>" + esc(s) + "</code>").join(", ")}</td>
+    </tr>`).join("");
+
+  document.getElementById("row-stat").textContent =
+    `${rows.length} / ${data.length} rows  ·  ${rows.filter(r => r.semantic_valid).length} pass  ·  ${rows.filter(r => !r.semantic_valid).length} fail`;
+
+  // attach click handlers
+  tbody.querySelectorAll("tr").forEach(tr => {
+    tr.addEventListener("click", () => showDetail(rows[parseInt(tr.dataset.idx, 10)]));
+  });
+}
+
+function showDetail(d) {
+  document.getElementById("detail").classList.add("visible");
+  document.getElementById("detail-title").textContent = d.id;
+  const errCat = d.error_category || "—";
+  const body = `
+    <div class="row"><span class="key">Prompt:</span> ${esc(d.prompt)}</div>
+    <div class="row"><span class="key">Outcome:</span> ${passPill(d.semantic_valid)} · syntax ${passPill(d.syntax_valid)} · ${d.n_processes ?? "?"}/${d.expected_processes ?? "?"} processes scheduled</div>
+    <div class="row"><span class="key">Error category:</span> <code>${esc(errCat)}</code></div>
+    ${d.error_detail ? `<div class="row"><span class="key">Detail:</span> <code>${esc(d.error_detail)}</code></div>` : ""}
+    <div class="row"><span class="key">LLM steps:</span> ${fmtSteps(d.called_steps || d.included_steps)}</div>
+    <div class="row"><span class="key">GT steps:</span> ${fmtSteps(d.ground_truth_steps)}</div>
+    ${(d.extra_steps && d.extra_steps.length) ? `<div class="row"><span class="key">Extra:</span> ${fmtSteps(d.extra_steps)}</div>` : ""}
+    ${(d.missing_steps && d.missing_steps.length) ? `<div class="row"><span class="key">Missing:</span> ${fmtSteps(d.missing_steps)}</div>` : ""}
+    ${(d.hallucinated_steps && d.hallucinated_steps.length) ? `<div class="row"><span class="key">Hallucinated:</span> ${fmtSteps(d.hallucinated_steps)}</div>` : ""}
+    ${d.conv_id ? `<div class="row"><span class="key">Conversation:</span> <code>${esc(d.conv_id)}</code>  ·  turn ${esc(d.turn_index)}  ·  kind <code>${esc(d.modification_kind)}</code>${d.base_id ? "  ·  base <code>" + esc(d.base_id) + "</code>" : ""}</div>` : ""}
+    <div class="codes">
+      <div>
+        <div class="label">Ground truth (passes validation)</div>
+        <pre>${esc(d.ground_truth_code || "")}</pre>
+      </div>
+      <div>
+        <div class="label">LLM-generated</div>
+        <pre>${esc(d.nextflow_code || "(no code returned)")}</pre>
+      </div>
+    </div>`;
+  document.getElementById("detail-body").innerHTML = body;
+  document.getElementById("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+["filter-category","filter-error","filter-outcome","filter-text"].forEach(id => {
+  document.getElementById(id).addEventListener("input", render);
+});
+document.getElementById("corpus").addEventListener("change", e => {
+  CUR = e.target.value;
+  rebuildSelectors();
+  document.getElementById("filter-category").value = "";
+  document.getElementById("filter-error").value = "";
+  render();
+});
+
+init().catch(err => {
+  console.error(err);
+  document.querySelector("#tbl tbody").innerHTML =
+    `<tr><td colspan="6"><em>Failed to load data: ${esc(err.message)}</em></td></tr>`;
+});
+</script>
+</body>
+</html>
