@@ -1,0 +1,184 @@
+name: LLM eval (single + multi turn)
+
+# This workflow runs the FULL bench against an LLM service.
+# It is heavier than validate.yml -- it spins up the LLM, sends every
+# prompt, validates each generated .nf with nextflow -stub-run, and
+# publishes the refreshed results + version-pinned metadata.json.
+#
+# Triggers:
+#   - workflow_dispatch                 (manual button)
+#   - schedule (cron weekly)            (drift detection)
+#   - repository_dispatch from izs-llm  (cross-repo: see TRIGGER_FROM_IZS_LLM.md)
+#
+# Required repo secrets:
+#   MISTRAL_API_KEY  -- forwarded to the LLM server
+#
+# Inputs (workflow_dispatch / repository_dispatch payload):
+#   izs_llm_ref         -- git ref of izs-llm to test (default: main)
+#   ngsmanager_ref      -- git ref of cohesive-ngsmanager (default: main)
+#   llm_model           -- LLM_MODEL env var (default: mistral-medium-latest)
+#   run_label           -- folder name for the results (default: ci_<sha>)
+
+on:
+  workflow_dispatch:
+    inputs:
+      izs_llm_ref:
+        description: "izs-llm git ref (branch / tag / sha)"
+        required: false
+        default: "main"
+      ngsmanager_ref:
+        description: "cohesive-ngsmanager git ref"
+        required: false
+        default: "main"
+      llm_model:
+        description: "LLM_MODEL (mistral-medium-latest, mistral-large-latest, ...)"
+        required: false
+        default: "mistral-medium-latest"
+      run_label:
+        description: "Subfolder under results/ for the output of this run"
+        required: false
+        default: ""
+  schedule:
+    - cron: "23 5 * * 1"   # every Monday 05:23 UTC
+  repository_dispatch:
+    types: [izs-llm-updated]
+
+permissions:
+  contents: write   # to commit results/<run>/ back to the repo
+
+env:
+  IZS_LLM_REF:     ${{ github.event.inputs.izs_llm_ref     || github.event.client_payload.izs_llm_ref     || 'main' }}
+  NGSMANAGER_REF:  ${{ github.event.inputs.ngsmanager_ref  || github.event.client_payload.ngsmanager_ref  || 'main' }}
+  LLM_MODEL:       ${{ github.event.inputs.llm_model       || github.event.client_payload.llm_model       || 'mistral-medium-latest' }}
+  RUN_LABEL:       ${{ github.event.inputs.run_label       || github.event.client_payload.run_label       || '' }}
+
+jobs:
+  llm-eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout cohesive-llm-benchmark
+        uses: actions/checkout@v4
+
+      - name: Checkout cohesive-ngsmanager
+        uses: actions/checkout@v4
+        with:
+          repository: genpat-it/cohesive-ngsmanager
+          ref: ${{ env.NGSMANAGER_REF }}
+          path: cohesive-ngsmanager
+
+      - name: Checkout izs-llm
+        uses: actions/checkout@v4
+        with:
+          repository: mgradyn/izs-llm
+          ref: ${{ env.IZS_LLM_REF }}
+          path: izs-llm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Nextflow
+        run: |
+          curl -fsSL https://get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+          nextflow -version
+
+      - name: Install izs-llm + bench deps
+        run: |
+          pip install -r requirements.txt
+          pip install -r izs-llm/requirements.txt
+
+      - name: Verify MISTRAL_API_KEY secret is set
+        env:
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+        run: |
+          if [ -z "$MISTRAL_API_KEY" ]; then
+            echo "::error::MISTRAL_API_KEY repo secret is not set. See README → Prerequisites."
+            exit 1
+          fi
+          echo "MISTRAL_API_KEY length=${#MISTRAL_API_KEY}"
+
+      - name: Compute run label
+        id: label
+        run: |
+          SHA=$(git -C izs-llm rev-parse --short HEAD)
+          STAMP=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
+          if [ -n "${RUN_LABEL}" ]; then
+            LABEL="${RUN_LABEL}"
+          else
+            LABEL="ci_${STAMP}_${SHA}"
+          fi
+          echo "label=${LABEL}" >> "$GITHUB_OUTPUT"
+          echo "runs_dir=${PWD}/results/${LABEL}" >> "$GITHUB_OUTPUT"
+          mkdir -p "${PWD}/results/${LABEL}"
+
+      - name: Start izs-llm server
+        env:
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          NGSMANAGER_DIR:  ${{ github.workspace }}/cohesive-ngsmanager
+        run: |
+          cd izs-llm
+          nohup python -m uvicorn app.api:app --host 127.0.0.1 --port 8765 > /tmp/llm_server.log 2>&1 &
+          # Wait up to 3 min for /health
+          for i in $(seq 1 36); do
+            sleep 5
+            if curl -sf http://127.0.0.1:8765/health > /dev/null; then
+              echo "ready after ${i}x5s"
+              exit 0
+            fi
+          done
+          tail -50 /tmp/llm_server.log
+          echo "::error::LLM server did not become ready in 3 minutes"
+          exit 1
+
+      - name: Run single-turn LLM eval
+        env:
+          NGSMANAGER_DIR:  ${{ github.workspace }}/cohesive-ngsmanager
+          LLM_API_URL:     http://127.0.0.1:8765
+          LLM_REPO_PATH:   ${{ github.workspace }}/izs-llm
+          LLM_NAME:        izs-llm
+          LLM_MODEL:       ${{ env.LLM_MODEL }}
+          BENCH_RUNS_DIR:  ${{ steps.label.outputs.runs_dir }}
+        run: |
+          python eval/run_llm.py
+          python eval/validate_llm.py
+
+      - name: Run multi-turn LLM eval
+        env:
+          NGSMANAGER_DIR:  ${{ github.workspace }}/cohesive-ngsmanager
+          LLM_API_URL:     http://127.0.0.1:8765
+          LLM_REPO_PATH:   ${{ github.workspace }}/izs-llm
+          LLM_NAME:        izs-llm
+          LLM_MODEL:       ${{ env.LLM_MODEL }}
+          BENCH_RUNS_DIR:  ${{ steps.label.outputs.runs_dir }}
+        run: |
+          python eval/run_llm_multi_turn.py
+          python eval/validate_llm_multi_turn.py
+          python eval/emit_report.py
+
+      - name: Regenerate badges
+        run: python scripts/generate_badges.py
+
+      - name: Sync docs/data snapshot
+        run: bash docs/refresh_data.sh || true
+
+      - name: Stop LLM server
+        if: always()
+        run: |
+          pkill -f "uvicorn app.api:app" || true
+          sleep 2
+
+      - name: Commit refreshed results + badges
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/ docs/badges/ docs/data/ || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "ci: LLM eval — izs-llm ${IZS_LLM_REF} (${{ steps.label.outputs.label }})"
+            git push
+          fi
