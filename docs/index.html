@@ -75,12 +75,12 @@ export NGSMANAGER_DIR=/path/to/cohesive-ngsmanager
 export LLM_API_URL=http://localhost:8765
 export BENCH_RUNS_DIR=$(pwd)/results/my_run
 
-python eval/run_llm.py             # single-turn  (~10 min for 50)
-python eval/validate_llm.py        # (~20 min)
+python eval/run_llm.py             # single-turn  (~10 min for 50, ~40 min for 200)
+python eval/validate_llm.py        # (~20 min for 50, ~90 min for 200)
 python eval/emit_report.py         # TSV/CSV/MD reports
 
-python eval/run_llm_multi_turn.py        # multi-turn  (~10 min for 17)
-python eval/validate_llm_multi_turn.py   # (~15 min)
+python eval/run_llm_multi_turn.py        # multi-turn  (~10 min for 17, ~50 min for 159)
+python eval/validate_llm_multi_turn.py   # (~15 min for 17, ~120 min for 159)
 python eval/emit_report.py               # picks up multi-turn too</pre>
 
   <h2>Explore the results</h2>
