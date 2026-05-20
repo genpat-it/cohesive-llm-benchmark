@@ -20,5 +20,8 @@ cp "$REPO/results/example_run_mistral_multi_turn/verdicts_modifications.jsonl"  
 cp -f "$REPO/results/example_run_mistral/metadata.json"             "$DEST/example_run_metadata.json"             2>/dev/null || true
 cp -f "$REPO/results/example_run_mistral_multi_turn/metadata.json"  "$DEST/example_run_metadata_multi_turn.json"  2>/dev/null || true
 
-echo "Synced data + metadata into $DEST"
+# Run history (aggregated by scripts/build_history.py)
+cp -f "$REPO/results/history.jsonl" "$DEST/history.jsonl" 2>/dev/null || true
+
+echo "Synced data + metadata + history into $DEST"
 ls -la "$DEST"

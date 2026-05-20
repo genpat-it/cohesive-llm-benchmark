@@ -49,6 +49,13 @@
     <tbody></tbody>
   </table>
 
+  <h2>Run history</h2>
+  <p>Every CI-triggered run lands as one entry. Newest first. Click a run id to open its <code>results/</code> folder on GitHub.</p>
+  <table class="bench" id="history-table">
+    <thead><tr><th>date (UTC)</th><th>run id</th><th>LLM</th><th>framework</th><th>single-turn</th><th>multi-turn (turns)</th><th>multi-turn (convs)</th></tr></thead>
+    <tbody><tr><td colspan="7"><em>loading…</em></td></tr></tbody>
+  </table>
+
   <h2>How to use it</h2>
   <pre style="background: var(--code-bg); color: var(--code-fg); padding: 1rem; border-radius: 6px; overflow-x: auto;">
 git clone https://github.com/genpat-it/cohesive-llm-benchmark
@@ -127,6 +134,34 @@ python eval/emit_report.py               # picks up multi-turn too</pre>
     tbody.innerHTML = allCats.map(c =>
       `<tr><td><code>${esc(c)}</code></td><td>${eSingle[c] || 0}</td><td>${eMulti[c] || 0}</td></tr>`
     ).join("");
+
+    // run history
+    try {
+      const hist = await loadJsonl("data/history.jsonl");
+      const histTbody = document.querySelector("#history-table tbody");
+      if (!hist.length) {
+        histTbody.innerHTML = "<tr><td colspan=7><em>no runs recorded yet</em></td></tr>";
+      } else {
+        histTbody.innerHTML = hist.map(e => {
+          const dt = (e.run_started_at || "").replace("T", " ").replace("Z", "");
+          const llm = e.llm || {}, fw = e.framework || {};
+          const st = e.single_turn, mt = e.multi_turn;
+          const runUrl = `https://github.com/genpat-it/cohesive-llm-benchmark/tree/main/results/${esc(e.run_id)}`;
+          return `<tr>
+            <td>${esc(dt)}</td>
+            <td><a href="${runUrl}" target="_blank"><code>${esc(e.run_id)}</code></a></td>
+            <td>${llm.name ? esc(llm.name) : "?"}<br><span class="muted">${esc(llm.short_commit || "?")}${llm.branch ? " · " + esc(llm.branch) : ""}</span></td>
+            <td><code>${esc(fw.short_commit || "?")}</code></td>
+            <td>${st ? `${st.passed}/${st.total} <span class="muted">(${st.pct}%)</span>` : "—"}</td>
+            <td>${mt ? `${mt.passed}/${mt.total} <span class="muted">(${mt.pct}%)</span>` : "—"}</td>
+            <td>${mt && mt.convs_total ? `${mt.convs_full_pass}/${mt.convs_total} <span class="muted">(${mt.convs_pct}%)</span>` : "—"}</td>
+          </tr>`;
+        }).join("");
+      }
+    } catch (err) {
+      document.querySelector("#history-table tbody").innerHTML =
+        `<tr><td colspan=7><em>Failed to load history: ${esc(err.message)}</em></td></tr>`;
+    }
   } catch (err) {
     console.error(err);
     document.getElementById("single-summary").textContent = "Failed to load data: " + err.message;

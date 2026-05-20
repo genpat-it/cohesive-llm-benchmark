@@ -162,6 +162,9 @@ jobs:
       - name: Regenerate badges
         run: python scripts/generate_badges.py
 
+      - name: Rebuild run history
+        run: python scripts/build_history.py
+
       - name: Sync docs/data snapshot
         run: bash docs/refresh_data.sh || true
 
