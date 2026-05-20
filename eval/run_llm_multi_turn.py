@@ -65,6 +65,13 @@ def main() -> None:
     print(f"Running {len(convs)} conversations against {API_URL}", flush=True)
     OUT_JSONL.unlink(missing_ok=True)
 
+    sys.path.insert(0, str(REPO))
+    from scripts.run_metadata import write_metadata  # noqa: E402
+    write_metadata(RUNS_DIR,
+                   llm_repo_path=os.environ.get("LLM_REPO_PATH"),
+                   llm_api_url=API_URL,
+                   dataset_used="dataset_modifications.jsonl")
+
     n_full_pass = 0   # conversations where every turn returned code
     t_start = time.time()
     with OUT_JSONL.open("a", encoding="utf-8") as out:

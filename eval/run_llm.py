@@ -105,6 +105,14 @@ def main() -> None:
     print(f"Running {len(examples)} prompts against {API_URL}")
     OUT_JSONL.unlink(missing_ok=True)
 
+    # Record version pin (bench / framework / LLM commit) for reproducibility
+    sys.path.insert(0, str(REPO))
+    from scripts.run_metadata import write_metadata  # noqa: E402
+    write_metadata(RUNS_DIR,
+                   llm_repo_path=os.environ.get("LLM_REPO_PATH"),
+                   llm_api_url=API_URL,
+                   dataset_used="dataset_50.jsonl")
+
     n_pass_call = 0
     t_start = time.time()
     with OUT_JSONL.open("a", encoding="utf-8") as out:

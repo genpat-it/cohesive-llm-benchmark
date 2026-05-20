@@ -33,6 +33,8 @@
     <a href="https://github.com/genpat-it/cohesive-llm-benchmark/tree/main/results/example_run_mistral_multi_turn"><code>results/example_run_mistral_multi_turn/</code></a>.
     Re-runs land in your own <code>$BENCH_RUNS_DIR</code>.</p>
 
+  <div id="version-banners"></div>
+
   <div class="metrics" id="metrics-single"></div>
   <h3>Single-turn corpus  (50 prompts)</h3>
   <p id="single-summary" class="muted">loading…</p>
@@ -77,10 +79,19 @@ python eval/emit_report.py               # picks up multi-turn too</pre>
 <script>
 (async function () {
   try {
-    const [vSingle, vMulti] = await Promise.all([
+    const [vSingle, vMulti, mSingle, mMulti] = await Promise.all([
       loadJsonl(DATA.SINGLE_TURN_VERDICTS),
       loadJsonl(DATA.MULTI_TURN_VERDICTS),
+      loadMeta(DATA.SINGLE_TURN_METADATA),
+      loadMeta(DATA.MULTI_TURN_METADATA),
     ]);
+
+    // version-pin banners (one per corpus if available)
+    const vb = document.getElementById("version-banners");
+    if (vb) {
+      vb.innerHTML = (metaBanner(mSingle, "dataset_50.jsonl") || "") +
+                     (metaBanner(mMulti, "dataset_modifications.jsonl") || "");
+    }
 
     function renderCards(target, s) {
       target.innerHTML = `

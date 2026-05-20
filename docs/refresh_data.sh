@@ -16,5 +16,9 @@ cp "$REPO/dataset/dataset_modifications.jsonl"                                  
 cp "$REPO/results/example_run_mistral/verdicts.jsonl"                                     "$DEST/example_run_verdicts.jsonl"
 cp "$REPO/results/example_run_mistral_multi_turn/verdicts_modifications.jsonl"            "$DEST/example_run_verdicts_modifications.jsonl"
 
-echo "Synced 4 jsonl files into $DEST"
+# metadata.json files capturing version pins of each reference run
+cp -f "$REPO/results/example_run_mistral/metadata.json"             "$DEST/example_run_metadata.json"             2>/dev/null || true
+cp -f "$REPO/results/example_run_mistral_multi_turn/metadata.json"  "$DEST/example_run_metadata_multi_turn.json"  2>/dev/null || true
+
+echo "Synced data + metadata into $DEST"
 ls -la "$DEST"

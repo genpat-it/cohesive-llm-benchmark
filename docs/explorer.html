@@ -21,6 +21,7 @@
 </header>
 
 <main>
+  <div id="version-banner"></div>
   <div class="filters">
     <label>corpus
       <select id="corpus">
@@ -77,13 +78,26 @@
 <script src="assets/app.js"></script>
 <script>
 let ALL = { single: [], multi: [] };
+let META = { single: null, multi: null };
 let CUR = "single";
 
 async function init() {
-  ALL.single = await loadJsonl(DATA.SINGLE_TURN_VERDICTS);
-  ALL.multi  = await loadJsonl(DATA.MULTI_TURN_VERDICTS);
+  const [vSingle, vMulti, mSingle, mMulti] = await Promise.all([
+    loadJsonl(DATA.SINGLE_TURN_VERDICTS),
+    loadJsonl(DATA.MULTI_TURN_VERDICTS),
+    loadMeta(DATA.SINGLE_TURN_METADATA),
+    loadMeta(DATA.MULTI_TURN_METADATA),
+  ]);
+  ALL.single = vSingle; ALL.multi = vMulti;
+  META.single = mSingle; META.multi = mMulti;
   rebuildSelectors();
+  updateBanner();
   render();
+}
+
+function updateBanner() {
+  const dsName = CUR === "single" ? "dataset_50.jsonl" : "dataset_modifications.jsonl";
+  document.getElementById("version-banner").innerHTML = metaBanner(META[CUR], dsName);
 }
 
 function active() { return ALL[CUR]; }
@@ -171,6 +185,7 @@ function turnBlock(d, isCurrent) {
           <pre>${esc(d.nextflow_code || "(no code returned)")}</pre>
         </div>
       </div>
+      ${reproduceSnippet(d)}
     </div>`;
 }
 
@@ -216,6 +231,7 @@ document.getElementById("corpus").addEventListener("change", e => {
   rebuildSelectors();
   document.getElementById("filter-category").value = "";
   document.getElementById("filter-error").value = "";
+  updateBanner();
   render();
 });
 
