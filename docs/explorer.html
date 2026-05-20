@@ -88,9 +88,10 @@ let META = { single: null, multi: null, dataset200: null, modifications_full: nu
 let CUR = "single";
 
 function flattenDatasetForExplorer(raw) {
-  // Make dataset entries look like verdicts so render() can reuse the same logic.
-  // Each line of dataset_200.jsonl is one example. Multi-turn dataset (full) has
-  // a `turns` list -- explode into one row per turn.
+  // Make dataset entries look enough like verdicts that render() can reuse the
+  // table layout, but DO NOT pretend the LLM was tested -- set is_dataset_only=true
+  // and leave the verdict-side fields null so the UI can render a "GT only"
+  // indicator instead of a misleading PASS.
   const rows = [];
   for (const d of raw) {
     if (Array.isArray(d.turns)) {
@@ -104,21 +105,10 @@ function flattenDatasetForExplorer(raw) {
           category: `${d.category}.${d.modification_kind || "?"}`,
           prompt: t.prompt,
           ground_truth_code: t.nextflow_code,
-          nextflow_code: null,                 // no LLM output for full dataset
+          nextflow_code: null,
           params: t.params,
           expected_processes: t.expected_processes,
-          // synthetic verdict fields:
-          semantic_valid: true,
-          syntax_valid: true,
-          n_processes: t.expected_processes,
-          error_category: "none",
-          error_detail: "",
-          included_steps: [],
-          called_steps: [],
-          ground_truth_steps: [],
-          extra_steps: [],
-          missing_steps: [],
-          hallucinated_steps: [],
+          is_dataset_only: true,
         });
       });
     } else {
@@ -130,17 +120,7 @@ function flattenDatasetForExplorer(raw) {
         nextflow_code: null,
         params: d.params,
         expected_processes: d.validation?.expected_processes,
-        semantic_valid: true,
-        syntax_valid: true,
-        n_processes: d.validation?.expected_processes,
-        error_category: "none",
-        error_detail: "",
-        included_steps: [],
-        called_steps: [],
-        ground_truth_steps: [],
-        extra_steps: [],
-        missing_steps: [],
-        hallucinated_steps: [],
+        is_dataset_only: true,
       });
     }
   }
@@ -225,18 +205,36 @@ function render() {
   });
 
   const tbody = document.querySelector("#tbl tbody");
-  tbody.innerHTML = rows.map((d, i) => `
-    <tr data-idx="${i}">
-      <td><code>${esc(d.id)}</code></td>
-      <td>${esc(d.category)}</td>
-      <td>${passPill(d.semantic_valid)}</td>
-      <td>${d.n_processes ?? "?"}/${d.expected_processes ?? "?"}</td>
-      <td><code>${esc(d.error_category || "—")}</code></td>
-      <td>${(d.called_steps || d.included_steps || []).slice(0, 4).map(s => "<code>" + esc(s) + "</code>").join(", ")}</td>
-    </tr>`).join("");
+  tbody.innerHTML = rows.map((d, i) => {
+    if (d.is_dataset_only) {
+      // Ground-truth-only row: no LLM verdict to display.
+      return `
+        <tr data-idx="${i}">
+          <td><code>${esc(d.id)}</code></td>
+          <td>${esc(d.category)}</td>
+          <td><span class="pill muted">GT only</span></td>
+          <td>—/${d.expected_processes ?? "?"}</td>
+          <td><span class="muted">— not LLM-evaluated —</span></td>
+          <td><span class="muted">click to view prompt + ground truth</span></td>
+        </tr>`;
+    }
+    return `
+      <tr data-idx="${i}">
+        <td><code>${esc(d.id)}</code></td>
+        <td>${esc(d.category)}</td>
+        <td>${passPill(d.semantic_valid)}</td>
+        <td>${d.n_processes ?? "?"}/${d.expected_processes ?? "?"}</td>
+        <td><code>${esc(d.error_category || "—")}</code></td>
+        <td>${(d.called_steps || d.included_steps || []).slice(0, 4).map(s => "<code>" + esc(s) + "</code>").join(", ")}</td>
+      </tr>`;
+  }).join("");
 
-  document.getElementById("row-stat").textContent =
-    `${rows.length} / ${data.length} rows  ·  ${rows.filter(r => r.semantic_valid).length} pass  ·  ${rows.filter(r => !r.semantic_valid).length} fail`;
+  const stat = document.getElementById("row-stat");
+  if (rows.length && rows[0].is_dataset_only) {
+    stat.textContent = `${rows.length} / ${data.length} rows  ·  ground-truth only (no LLM eval against this corpus)`;
+  } else {
+    stat.textContent = `${rows.length} / ${data.length} rows  ·  ${rows.filter(r => r.semantic_valid).length} pass  ·  ${rows.filter(r => !r.semantic_valid).length} fail`;
+  }
 
   // attach click handlers
   tbody.querySelectorAll("tr").forEach(tr => {
@@ -245,6 +243,27 @@ function render() {
 }
 
 function turnBlock(d, isCurrent) {
+  if (d.is_dataset_only) {
+    return `
+      <div class="turn-card ${isCurrent ? 'turn-current' : ''}">
+        <div class="turn-header">
+          ${d.turn_index ? `<span class="turn-tag">turn ${esc(d.turn_index)}</span>` : ''}
+          <span class="turn-prompt">${esc(d.prompt)}</span>
+          <span class="turn-status"><span class="pill muted">GT only</span></span>
+        </div>
+        <div class="turn-meta muted">
+          ground-truth example — expected ${d.expected_processes ?? "?"} processes ·
+          this corpus has not been LLM-evaluated yet.
+        </div>
+        <div class="codes" style="grid-template-columns: 1fr">
+          <div>
+            <div class="label">Ground truth (passes nextflow -stub-run)</div>
+            <pre>${esc(d.ground_truth_code || "")}</pre>
+          </div>
+        </div>
+        ${reproduceSnippet(d)}
+      </div>`;
+  }
   const errCat = d.error_category || "—";
   return `
     <div class="turn-card ${isCurrent ? 'turn-current' : ''}">
