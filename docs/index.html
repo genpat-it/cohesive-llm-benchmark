@@ -26,21 +26,30 @@
 
   <p>Failures are auto-categorised across 13 axes (arity, wrong emit, missing param, silent no-op, hallucinated step, …) so the bench surfaces <em>why</em> the model is wrong, not just <em>that</em> it is.</p>
 
-  <h2>Reference results — izs-llm vs the corpus</h2>
-  <p>Headline numbers from the run captured in
+  <h2>Dataset overview</h2>
+  <div class="metrics" id="metrics-dataset"></div>
+  <p class="muted">Every entry passes <code>nextflow -stub-run</code> validation against the framework. See
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/dataset/dataset_200.jsonl"><code>dataset_200.jsonl</code></a>
+    and
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/dataset/dataset_modifications_full.jsonl"><code>dataset_modifications_full.jsonl</code></a>.
+    The curated 50-prompt + 17-conversation subsets are kept as
+    <code>dataset_50.jsonl</code> and <code>dataset_modifications.jsonl</code>.</p>
+
+  <h2>Reference results — izs-llm vs the curated subset</h2>
+  <p>Headline numbers from the LLM run captured in
     <a href="https://github.com/genpat-it/cohesive-llm-benchmark/tree/main/results/example_run_mistral"><code>results/example_run_mistral/</code></a>
     and
     <a href="https://github.com/genpat-it/cohesive-llm-benchmark/tree/main/results/example_run_mistral_multi_turn"><code>results/example_run_mistral_multi_turn/</code></a>.
-    Re-runs land in your own <code>$BENCH_RUNS_DIR</code>.</p>
+    The LLM was evaluated against the curated 50 + 17 subset; the full 200 + 159 corpus is for training / future LLM runs.</p>
 
   <div id="version-banners"></div>
 
   <div class="metrics" id="metrics-single"></div>
-  <h3>Single-turn corpus  (50 prompts)</h3>
+  <h3>Single-turn — LLM eval (50 prompts)</h3>
   <p id="single-summary" class="muted">loading…</p>
 
   <div class="metrics" id="metrics-multi"></div>
-  <h3>Multi-turn corpus  (17 conversations · 34 turns)</h3>
+  <h3>Multi-turn — LLM eval (17 conversations · 34 turns)</h3>
   <p id="multi-summary" class="muted">loading…</p>
 
   <h3>Error category breakdown</h3>
@@ -86,12 +95,30 @@ python eval/emit_report.py               # picks up multi-turn too</pre>
 <script>
 (async function () {
   try {
-    const [vSingle, vMulti, mSingle, mMulti] = await Promise.all([
+    const [vSingle, vMulti, mSingle, mMulti,
+           dsSingleFull, dsMultiFull] = await Promise.all([
       loadJsonl(DATA.SINGLE_TURN_VERDICTS),
       loadJsonl(DATA.MULTI_TURN_VERDICTS),
       loadMeta(DATA.SINGLE_TURN_METADATA),
       loadMeta(DATA.MULTI_TURN_METADATA),
+      loadJsonl("data/dataset_200.jsonl").catch(() => []),
+      loadJsonl("data/dataset_modifications_full.jsonl").catch(() => []),
     ]);
+
+    // ----- dataset overview cards
+    const dsTotal = dsSingleFull.length;
+    const convs = dsMultiFull.length;
+    let turns = 0;
+    for (const c of dsMultiFull) turns += (c.turns || []).length;
+    const dsBox = document.getElementById("metrics-dataset");
+    if (dsBox) {
+      dsBox.innerHTML = `
+        <div class="card"><div class="label">single-turn</div><div class="value">${dsTotal}</div><div class="sub">examples</div></div>
+        <div class="card"><div class="label">multi-turn</div><div class="value">${convs}</div><div class="sub">conversations</div></div>
+        <div class="card"><div class="label">turns</div><div class="value">${turns}</div><div class="sub">across conversations</div></div>
+        <div class="card"><div class="label">validation</div><div class="value">100%</div><div class="sub">stub-run pass</div></div>
+      `;
+    }
 
     // version-pin banners (one per corpus if available)
     const vb = document.getElementById("version-banners");
