@@ -12,6 +12,27 @@ A benchmark for natural-language → Nextflow pipeline generators targeting the
 [cohesive-ngsmanager](https://github.com/genpat-it/cohesive-ngsmanager)
 framework.
 
+## Prerequisites — three external pieces you need
+
+This repo is the **benchmark**, not the LLM and not the framework. To run
+the bench end-to-end you need all three:
+
+| Component | Where | Why |
+|---|---|---|
+| 1. **This repo** (`cohesive-llm-benchmark`) | `git clone https://github.com/genpat-it/cohesive-llm-benchmark` | dataset, harness, eval scripts |
+| 2. **The target framework** (`cohesive-ngsmanager`) | `git clone https://github.com/genpat-it/cohesive-ngsmanager` | Nextflow steps/functions the benchmark validates against |
+| 3. **An LLM service speaking the `/chat` contract** | e.g.\ [`izs-llm`](https://github.com/mgradyn/izs-llm) — `git clone https://github.com/mgradyn/izs-llm` | the system under test |
+
+Point the bench at (2) via the `NGSMANAGER_DIR` env var, and at (3) via
+`LLM_API_URL`. See [`INSTALL.md`](INSTALL.md) for the step-by-step
+setup of each, including a working `izs-llm` reference deployment with
+its own `MISTRAL_API_KEY`.
+
+> **Validating only the ground truth?** Then you only need (1) + (2);
+> the LLM is not exercised. Just `python harness/harness.py`.
+
+---
+
 This repo contains everything needed to:
 
 1. **Train** an LLM (or RAG agent) on a small ground-truth corpus of
