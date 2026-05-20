@@ -95,11 +95,14 @@ postmortem).
 
 | File | Purpose |
 |---|---|
-| `dataset_50.jsonl`             | the dataset (one JSON object per line) |
-| `dataset_50.README.md`         | this file |
-| `dataset_blueprints.py`        | the 50 example specs and the .nf generator helpers |
-| `dataset_harness.py`           | validation runner with input materialisation |
-| `emit_jsonl.py`                | regenerates `dataset_50.jsonl` from the blueprints |
+| `dataset_50.jsonl`              | single-turn dataset (one JSON object per line) |
+| `dataset_modifications.jsonl`   | multi-turn modification conversations (17, two turns each) |
+| `README.md`                     | this file |
+| `blueprints.py`                 | the 50 single-turn example specs and the `.nf` generator helpers |
+| `modifications.py`              | the 17 multi-turn modification conversations |
+| `emit_jsonl.py`                 | regenerates `dataset_50.jsonl` from the blueprints |
+| `emit_modifications.py`         | regenerates `dataset_modifications.jsonl` from the conversations |
+| `validate_modifications.py`     | runs `nextflow -stub-run` on every turn |
 | `build_inventory.py`           | extracts step metadata from cohesive-ngsmanager |
 | `_inventory.json`              | step-by-step inventory (regenerable) |
 

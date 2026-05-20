@@ -31,9 +31,13 @@ cohesive-llm-benchmark/
 ├── requirements.txt               ← Python deps
 │
 ├── dataset/                       ← the ground-truth corpus
-│   ├── dataset_50.jsonl           ← 50 validated (prompt, nextflow_code) pairs
-│   ├── blueprints.py              ← programmatic definition of the 50 pairs
+│   ├── dataset_50.jsonl           ← 50 single-turn (prompt, nextflow_code) pairs
+│   ├── dataset_modifications.jsonl ← 17 multi-turn modification conversations
+│   ├── blueprints.py              ← programmatic definition of the 50 single-turn pairs
+│   ├── modifications.py           ← programmatic definition of the 17 conversations
 │   ├── emit_jsonl.py              ← regenerate dataset_50.jsonl from blueprints
+│   ├── emit_modifications.py     ← regenerate dataset_modifications.jsonl
+│   ├── validate_modifications.py ← per-turn nextflow stub-run validation
 │   └── README.md                  ← schema and conventions
 │
 ├── harness/                       ← Nextflow validation engine
@@ -91,6 +95,35 @@ The 7 failures cluster into 2 root causes (see
 - **2 / 7** — `silent_no_op`. The LLM picked a `genus_species` or
   `seq_type` filtered by a step's `when:` clause; the pipeline runs but
   schedules zero tasks.
+
+---
+
+## Multi-turn modifications
+
+The single-turn corpus tests a model's ability to produce a correct
+pipeline from scratch. Real users iterate: they ask for a pipeline, then
+ask to add a step, swap a tool, drop a step, or re-target the same chain
+at a different species. `dataset/dataset_modifications.jsonl` captures
+**17 two-turn conversations** covering four transformations:
+
+| Kind | Count | Example |
+|---|---|---|
+| `add`            | 5 | "Now also run classic MLST in parallel on the same assembly." |
+| `replace`        | 5 | "Use Shovill instead of SPAdes for the assembly." |
+| `drop`           | 3 | "Drop the cgMLST step, only keep MLST." |
+| `switch_species` | 4 | "Same pipeline, but for *Salmonella enterica* instead of *Listeria*." |
+
+Every turn of every conversation is validated independently via
+`nextflow -stub-run` (34 / 34 turns pass in ~13 min).
+
+Run them yourself with:
+
+```bash
+python dataset/validate_modifications.py
+```
+
+See `docs/dataset_schema.md` for the JSONL shape and `dataset/README.md`
+for how to add new conversations.
 
 ---
 

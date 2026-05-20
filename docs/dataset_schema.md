@@ -36,6 +36,59 @@ validation end-to-end against the framework at the commit pinned in
 
 ---
 
+## `dataset/dataset_modifications.jsonl` — multi-turn modification corpus
+
+Each line is a *conversation*: a sequence of (`prompt`, `nextflow_code`)
+turns simulating a user who iteratively refines a pipeline.
+
+| Field | Type | Description |
+|---|---|---|
+| `id`                  | string | Conversation id, e.g. `MOD_M01_E02_add_mlst`. |
+| `category`            | string | Always `"modification"` for now. |
+| `base_id`             | string | The id of the single-turn example this conversation is derived from. |
+| `modification_kind`   | string | One of `add`, `replace`, `drop`, `switch_species`. |
+| `turns`               | list   | Ordered list of turn objects (see below). |
+| `notes`               | string | Human-readable note describing the transformation. |
+| `validation`          | object | `{method: "nextflow -stub-run (per turn)", n_turns: <int>}`. |
+
+Each entry in `turns` has:
+
+| Field | Type | Description |
+|---|---|---|
+| `prompt`              | string | User message for this turn. |
+| `nextflow_code`       | string | The reference `.nf` after this turn. |
+| `params`              | object | Params needed to validate this turn's `.nf`. |
+| `expected_processes`  | int    | Process count required to pass stub-run validation for this turn. |
+
+### Example
+
+```json
+{
+  "id": "MOD_M06_D01_replace_spades_with_shovill",
+  "category": "modification",
+  "base_id": "D01_fastp_spades_lis",
+  "modification_kind": "replace",
+  "turns": [
+    {
+      "prompt": "From Illumina paired-end FASTQ of Listeria monocytogenes: trim with fastp and assemble with SPAdes.",
+      "nextflow_code": "nextflow.enable.dsl=2\n...",
+      "params": {"cmp": "2026.LIS.4.1.1", "riscd": "260224-99999-0SQ_rawreads-import", "seq_type": "illumina_paired"},
+      "expected_processes": 6
+    },
+    {
+      "prompt": "Use Shovill instead of SPAdes for the assembly.",
+      "nextflow_code": "nextflow.enable.dsl=2\n...",
+      "params": {"cmp": "2026.LIS.4.1.1", "riscd": "260224-99999-0SQ_rawreads-import", "seq_type": "illumina_paired"},
+      "expected_processes": 6
+    }
+  ],
+  "notes": "swap one de-novo assembler for another (emit name changes)",
+  "validation": {"method": "nextflow -stub-run (per turn)", "n_turns": 2}
+}
+```
+
+---
+
 ## `results/<run>/runs.jsonl` — raw LLM output per prompt
 
 | Field | Type | Description |
