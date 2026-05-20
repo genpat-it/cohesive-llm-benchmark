@@ -20,6 +20,8 @@ venv/
 results/*/
 !results/example_run_mistral/
 !results/example_run_mistral_multi_turn/
+!results/llm_full_200/
+!results/llm_full_multi_turn/
 
 # Harness scratch (work dirs, dummy inputs)
 _scratch/
