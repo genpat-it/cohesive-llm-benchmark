@@ -158,7 +158,11 @@ class Verdict:
 
 class Harness:
     def __init__(self, scratch_root: Path | None = None):
-        self.scratch = Path(scratch_root or "/tmp/dataset_scratch").resolve()
+        # Default scratch root: <system tempdir>/cohesive_llm_bench
+        # Override by passing scratch_root explicitly or by setting BENCH_SCRATCH_DIR.
+        default_root = Path(tempfile.gettempdir()) / "cohesive_llm_bench"
+        env_root = os.environ.get("BENCH_SCRATCH_DIR")
+        self.scratch = Path(scratch_root or env_root or default_root).resolve()
         self.scratch.mkdir(parents=True, exist_ok=True)
         self.pipelines = FW / "pipelines"
         # internal cache: avoid re-creating identical input layouts

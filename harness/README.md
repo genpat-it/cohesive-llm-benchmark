@@ -31,10 +31,12 @@ python harness/harness.py --first=10
 1. The `.nf` is written to `<framework>/pipelines/_dataset_<id>.nf` so
    that its `include {...} from '../functions/parameters.nf'` resolves.
 2. Dummy inputs are materialised under
-   `/tmp/dataset_scratch/_shared_inputdir/<anno>/<cmp>/<acc>/<DS>-<DT>_<met>/result/`
-   based on `Example.inputs` — entries are spec strings like
-   `fastq_paired:2026.LIS.1.1.1`, `assembly:2026.CAMP.1.1.1`,
-   `trimmed:2026.LIS.1.1.1`.
+   `<scratch>/_shared_inputdir/<anno>/<cmp>/<acc>/<DS>-<DT>_<met>/result/`
+   where `<scratch>` defaults to
+   `<system-tempdir>/cohesive_llm_bench/` (override with the
+   `BENCH_SCRATCH_DIR` env var or `Harness(scratch_root=...)`). Entries
+   are spec strings like `fastq_paired:2026.LIS.1.1.1`,
+   `assembly:2026.CAMP.1.1.1`, `trimmed:2026.LIS.1.1.1`.
 3. A `params.json` is written with `cmp`/`riscd` from the example plus
    our `inputdir`, `outdir`, `assets_dir` overrides.
 4. `nextflow run pipelines/_dataset_<id>.nf -stub-run -params-file …

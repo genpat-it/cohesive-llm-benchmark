@@ -26,6 +26,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -94,16 +95,20 @@ def categorize(log: str, scheduled: int, expected: int) -> tuple[str, str]:
 # ---------------------------------------------------------------------------
 # syntax-only check via -preview
 # ---------------------------------------------------------------------------
+_SYNTAX_TMP = Path(tempfile.gettempdir()) / "cohesive_llm_bench_syntax"
+_SYNTAX_TMP.mkdir(parents=True, exist_ok=True)
+
+
 def syntax_check(nf_code: str, eid: str, params: dict) -> tuple[bool, str]:
     """Drop the .nf into the framework pipelines/ and run `nextflow ... -preview`.
     Return (passed, log)."""
     pipe = FW / "pipelines" / f"_llmval_{eid}.nf"
     pipe.write_text(nf_code)
-    # write a minimal params file from the example's params
-    params_file = Path(f"/tmp/_llmval_{eid}_params.json")
+    # write a minimal params file using a portable temp dir
+    params_file = _SYNTAX_TMP / f"{eid}_params.json"
     params_file.write_text(json.dumps({**params,
-                                       "inputdir": "/tmp/_llmval_inputdir",
-                                       "outdir":   "/tmp/_llmval_out",
+                                       "inputdir": str(_SYNTAX_TMP / "inputdir"),
+                                       "outdir":   str(_SYNTAX_TMP / "out"),
                                        "assets_dir": str(FW / "assets")}))
     try:
         r = subprocess.run(
@@ -274,8 +279,9 @@ def main() -> None:
                      notes="LLM-generated under validation")
         v = H.run(ex)
 
-        # The log path is harness's scratch/<eid>/nextflow.log
-        scratch_log = Path(f"/tmp/dataset_scratch/llm_{eid}/nextflow.log")
+        # The log path is harness's scratch/<eid>/nextflow.log; use the same
+        # default the Harness uses so we read whatever it just wrote.
+        scratch_log = H.scratch / f"llm_{eid}" / "nextflow.log"
         log_text = scratch_log.read_text() if scratch_log.exists() else syntax_log
 
         # Count distinct process names actually scheduled

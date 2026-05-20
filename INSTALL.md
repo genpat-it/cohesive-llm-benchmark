@@ -120,13 +120,21 @@ $BENCH_RUNS_DIR/
 
 ## Disk-space note
 
-The harness writes a per-example work dir under `/tmp/dataset_scratch/`.
-For 50 examples and most pipelines this stays under 200 MB. If your `/tmp`
-is small (some shared servers cap it at 1–2 GB) and you re-run the bench
-multiple times without cleaning, expect `ENOSPC`. Clean with:
+The harness writes per-example work dirs under
+`<system-tempdir>/cohesive_llm_bench/` (i.e.\ `$TMPDIR/cohesive_llm_bench/`
+on Linux/macOS, `%TEMP%\cohesive_llm_bench\` on Windows). For 50 examples
+this stays under 200 MB. If your tempdir is small (some shared servers
+cap `/tmp` at 1–2 GB) and you re-run the bench multiple times without
+cleaning, expect `ENOSPC`. Clean with:
 
 ```bash
-rm -rf /tmp/dataset_scratch
+rm -rf "$(python -c 'import tempfile,os; print(os.path.join(tempfile.gettempdir(),"cohesive_llm_bench"))')"
+```
+
+Or override the location entirely by setting `BENCH_SCRATCH_DIR`:
+
+```bash
+export BENCH_SCRATCH_DIR=/data/scratch/llm-bench
 ```
 
 ## What if my Python is older than 3.11?

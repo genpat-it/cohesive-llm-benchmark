@@ -88,8 +88,9 @@ python harness/harness.py --first=10                       # first ten
 ```
 
 Output PASS/FAIL per example plus a final summary. Logs land in
-`/tmp/dataset_scratch/<eid>/nextflow.log` (preserved across runs for
-postmortem).
+`<scratch>/<eid>/nextflow.log` where `<scratch>` defaults to
+`<system-tempdir>/cohesive_llm_bench/` (override with
+`BENCH_SCRATCH_DIR`). They are preserved across runs for postmortem.
 
 ## Files in this directory
 
