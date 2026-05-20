@@ -1,0 +1,1224 @@
+"conv_id","turn_index","modification_kind","base_id","id","category","prompt","syntax_valid","semantic_valid","error_category","error_detail","n_processes","expected_processes","matches_gt_steps","extra_steps","missing_steps","hallucinated_steps","included_steps","called_steps","ground_truth_steps","code_chars","code_lines","n_workflow_calls","turns","elapsed_s","llm_reply_excerpt","nextflow_code","ground_truth_code"
+"MOD_M01_E02_add_mlst","1","add","E02_cgmlst_lis_fastp_spades","MOD_M01_E02_add_mlst_t1","modification","cgMLST allelic profile for Listeria monocytogenes from paired Illumina FASTQ (fastp + SPAdes + chewbbaca).","Y","Y","none","","9","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","730","28","3","2","17.1","Pipeline approved! I will now prepare the detailed plan for the Architect Agent to build the cgMLST allelic profile pipeline for Listeria monocytogenes using the specified steps.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+def genus_species = 'Listeria monocytogenes'
+
+def schema = 'l_mono_chewie_1748_220623'
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, genus_species, schema)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M01_E02_add_mlst","2","add","E02_cgmlst_lis_fastp_spades","MOD_M01_E02_add_mlst_t2","modification","Now also run classic MLST in parallel on the same assembly.","Y","Y","none","","10","10","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","837","34","4","2","15.5","Pipeline approved! I will now prepare the detailed plan for the Architect Agent to build the cgMLST and classic MLST allelic profile pipeline for Listeria monocytogenes using the specified steps.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+def genus_species = 'listeria_monocytogenes'
+
+def schema = 'l_mono_chewie_1748_220623'
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+
+    step_4TY_cgMLST__chewbbaca(assembled, genus_species, schema)
+
+    step_4TY_MLST__mlst(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+    step_4TY_MLST__mlst(assembled)
+}
+"
+"MOD_M02_D01_add_chewbbaca","1","add","D01_fastp_spades_lis","MOD_M02_D01_add_chewbbaca_t1","modification","From Illumina paired-end FASTQ of Listeria monocytogenes: trim with fastp and assemble with SPAdes.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","472","21","2","2","14.6","Approved. I will design a pipeline using fastp for trimming and SPAdes for assembly.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    step_2AS_denovo__spades(trimmed)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M02_D01_add_chewbbaca","2","add","D01_fastp_spades_lis","MOD_M02_D01_add_chewbbaca_t2","modification","Now also compute cgMLST allelic profiles on the resulting assembly.","Y","Y","none","","9","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","702","24","3","2","16.3","Approved. I will design a pipeline that trims the raw Illumina paired-end FASTQ files with fastp, assembles the trimmed reads with SPAdes, and computes cgMLST allelic profiles using ChewBBACA.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M03_B01_add_trimming","1","add","B01_spades_listeria","MOD_M03_B01_add_trimming_t1","modification","De novo genome assembly with SPAdes from Illumina paired-end reads of Listeria monocytogenes.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1191","58","2","2","14.3","Approved. I will proceed with the de novo genome assembly of Listeria monocytogenes using Illumina paired-end reads with SPAdes. The pipeline will include host depletion with Bowtie2 followed by SPAdes assembly.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getHost; getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { extractKey } from '../functions/common.nf'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+workflow module_denovo {
+    
+    take:
+        
+        trimmedReads
+        
+        host
+        
+    
+    main:
+        trimmedReads.cross(host) { extractKey(it) }
+            .map { [ it[0][0], it[0][1], it[1][1] ] }
+            .branch {
+                with_host: it[1][1]
+                without_host: true
+            }
+            .set { branchedTrimmed }
+
+        depleted = step_1PP_hostdepl__bowtie(branchedTrimmed.with_host)
+
+        branchedTrimmed.without_host
+            .mix(depleted)
+            .map { it[0,1] }
+            .set { denovoInput }
+
+        assembled = step_2AS_denovo__spades(denovoInput)
+    
+    emit:
+        
+        assembled
+        
+        depleted
+        
+    
+}
+
+// --- ENTRYPOINT ---
+workflow {
+    module_denovo(getSingleInput(), getHost())
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    step_2AS_denovo__spades(getSingleInput())
+}
+"
+"MOD_M03_B01_add_trimming","2","add","B01_spades_listeria","MOD_M03_B01_add_trimming_t2","modification","Add a fastp trimming step before the assembly.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","6","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","818","29","3","1","8.2","I will update the pipeline to include a Fastp trimming step before the assembly. The new pipeline will consist of: 1) Fastp trimming, 2) Host depletion with Bowtie2, and 3) De novo assembly with SPAdes. I will now proceed with this updated plan.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { extractKey } from '../functions/common.nf'
+
+include { getHostUnkeyed; getSingleInput } from '../functions/parameters.nf'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+
+    trimmedAndHost = trimmed.cross(getHostUnkeyed()) { extractKey(it) }.map { [ it[0][0], it[0][1], it[1][1] ] }
+    depleted = step_1PP_hostdepl__bowtie(trimmedAndHost)
+
+    assembled = step_2AS_denovo__spades(depleted).assembled
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M04_A04_add_mlst_parallel","1","add","A04_cgmlst_listeria","MOD_M04_A04_add_mlst_parallel_t1","modification","cgMLST allelic profile for Listeria monocytogenes from a pre-existing assembly.","Y","Y","none","","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","449","22","1","2","11.0","I will proceed with the cgMLST allelic profile generation for Listeria monocytogenes using the pre-existing assembly and the specified schema.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getAssembly } from '../functions/parameters.nf'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+// --- GLOBALS ---
+
+def genusSpecies = 'listeria_monocytogenes'
+
+def schema = 'l_mono_chewie_1748_220623'
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    step_4TY_cgMLST__chewbbaca(getAssembly(), genusSpecies, schema)
+}","nextflow.enable.dsl=2
+
+include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M04_A04_add_mlst_parallel","2","add","A04_cgmlst_listeria","MOD_M04_A04_add_mlst_parallel_t2","modification","Also run classic MLST on the same assembly.","Y","Y","none","","4","4","Y","","","","step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca, step_4TY_MLST__mlst","step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","503","21","2","1","7.8","I will add the classic MLST step to the pipeline. I will use the `step_4TY_MLST__mlst` component to perform MLST on the same assembly. This will complement the cgMLST analysis for Listeria monocytogenes.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getAssembly } from '../functions/parameters.nf'
+
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    step_4TY_cgMLST__chewbbaca(getAssembly(), 'listeria_monocytogenes', 'l_mono_chewie_1748_220623')
+    step_4TY_MLST__mlst(getAssembly())
+}","nextflow.enable.dsl=2
+
+include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+workflow {
+    asm = getInput()
+    step_4TY_cgMLST__chewbbaca(asm, param('genus_species'), optionalOrDefault('schema', ''))
+    step_4TY_MLST__mlst(asm)
+}
+"
+"MOD_M05_E07_add_prokka","1","add","E07_abricate_eco","MOD_M05_E07_add_prokka_t1","modification","Resistance gene detection with ABRicate on Escherichia coli from Illumina paired FASTQ.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","2","14.3","Thank you for approving the pipeline. I will now proceed with the design based on the steps we discussed.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}
+"
+"MOD_M05_E07_add_prokka","2","add","E07_abricate_eco","MOD_M05_E07_add_prokka_t2","modification","Also annotate the assembly with Prokka.","Y","Y","none","","8","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka","831","29","4","2","20.8","The pipeline has been approved and will be designed as follows:
+
+1. Preprocessing: Trim the raw Illumina paired FASTQ reads using `step_1PP_trimming__fastp`.
+2. Assembly: Assemble the trimmed reads into a genome assembly using `step_2AS_denovo__spades`.
+3. Genome Annotation: Annotate the assembled g","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+
+include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
+
+include { getEmpty } from '../functions/common.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_genes__prokka(assembled.map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
+    step_4AN_AMR__abricate(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+    step_4AN_genes__prokka(assembled)
+}
+"
+"MOD_M06_D01_replace_spades_with_shovill","1","replace","D01_fastp_spades_lis","MOD_M06_D01_replace_spades_with_shovill_t1","modification","From Illumina paired-end FASTQ of Listeria monocytogenes: trim with fastp and assemble with SPAdes.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","472","21","2","2","12.9","Approved! I will design a pipeline for trimming Illumina paired-end FASTQ reads with fastp and assembling with SPAdes.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    step_2AS_denovo__spades(trimmed)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M06_D01_replace_spades_with_shovill","2","replace","D01_fastp_spades_lis","MOD_M06_D01_replace_spades_with_shovill_t2","modification","Use Shovill instead of SPAdes for the assembly.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill","495","21","2","1","5.6","I will update the pipeline to use Shovill instead of SPAdes for the assembly step. The new plan will include:
+1. Trimming with `step_1PP_trimming__fastp`.
+2. Assembly with `step_2AS_denovo__shovill`.
+
+Proceeding with this updated plan.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembly = step_2AS_denovo__shovill(trimmed).assembly
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__shovill(trimmed).assembly
+}
+"
+"MOD_M07_D03_replace_trimmomatic_with_fastp","1","replace","D03_trimmomatic_spades","MOD_M07_D03_replace_trimmomatic_with_fastp_t1","modification","Pipeline: trim with Trimmomatic, assemble with SPAdes. Illumina paired-end.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades","512","21","2","2","11.8","Pipeline approved. I will now prepare the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_1PP_trimming__trimmomatic } from '../steps/step_1PP_trimming__trimmomatic'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__trimmomatic(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__trimmomatic } from '../steps/step_1PP_trimming__trimmomatic'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__trimmomatic(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M07_D03_replace_trimmomatic_with_fastp","2","replace","D03_trimmomatic_spades","MOD_M07_D03_replace_trimmomatic_with_fastp_t2","modification","Replace Trimmomatic with fastp.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","494","21","2","2","9.0","Pipeline approved. I will now prepare the detailed plan for the Architect Agent using fastp for trimming and SPAdes for assembly.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M08_E01_replace_spades_with_unicycler","1","replace","E01_mlst_lis","MOD_M08_E01_replace_spades_with_unicycler_t1","modification","Classic MLST on Listeria monocytogenes from paired-end Illumina FASTQ (trim + assembly + MLST).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","598","24","3","2","17.5","Thank you for approving the plan. I will now proceed with designing the pipeline for Listeria monocytogenes MLST from paired-end Illumina FASTQ, including trimming, assembly, and MLST typing.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_MLST__mlst(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_MLST__mlst(assembled)
+}
+"
+"MOD_M08_E01_replace_spades_with_unicycler","2","replace","E01_mlst_lis","MOD_M08_E01_replace_spades_with_unicycler_t2","modification","Use Unicycler instead of SPAdes.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","607","24","3","1","6.1","I will update the pipeline to use Unicycler instead of SPAdes for the assembly step. The revised plan will include: 1. Trimming with `step_1PP_trimming__fastp`, 2. Assembly with `step_2AS_denovo__unicycler`, and 3. MLST typing with `step_4TY_MLST__mlst`.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__unicycler } from '../steps/step_2AS_denovo__unicycler'
+
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__unicycler(trimmed).assembled
+    step_4TY_MLST__mlst(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__unicycler } from '../steps/step_2AS_denovo__unicycler'
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__unicycler(trimmed).assembled
+    step_4TY_MLST__mlst(assembled)
+}
+"
+"MOD_M09_E07_replace_abricate_with_prokka","1","replace","E07_abricate_eco","MOD_M09_E07_replace_abricate_with_prokka_t1","modification","Resistance gene detection with ABRicate on Escherichia coli from Illumina paired FASTQ.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","2","11.0","Pipeline approved! I will now provide the detailed plan for the Architect to build the pipeline for resistance gene detection in Escherichia coli using Illumina paired FASTQ data.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}
+"
+"MOD_M09_E07_replace_abricate_with_prokka","2","replace","E07_abricate_eco","MOD_M09_E07_replace_abricate_with_prokka_t2","modification","Switch from ABRicate to Prokka annotation.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","718","26","3","2","10.4","Pipeline approved! I will now provide the detailed plan for the Architect to build the pipeline for Prokka annotation in Escherichia coli using Illumina paired FASTQ data.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
+
+include { getEmpty } from '../functions/common.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_genes__prokka(assembled.map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_genes__prokka(assembled)
+}
+"
+"MOD_M10_A05_replace_cgmlst_with_mlst","1","replace","A05_cgmlst_ecoli","MOD_M10_A05_replace_cgmlst_with_mlst_t1","modification","cgMLST allelic profile on an Escherichia coli assembly.","Y","Y","none","","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","423","18","1","2","8.6","Understood. I will proceed with generating a cgMLST allelic profile for your Escherichia coli assembly using the `step_4TY_cgMLST__chewbbaca` component. I will ensure the pipeline is designed to handle the assembly and genus_species inputs as required.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getAssembly; optionalOrDefault; param } from '../functions/parameters.nf'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    step_4TY_cgMLST__chewbbaca(getAssembly(), param('genus_species'), optionalOrDefault('schema', ''))
+}","nextflow.enable.dsl=2
+
+include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M10_A05_replace_cgmlst_with_mlst","2","replace","A05_cgmlst_ecoli","MOD_M10_A05_replace_cgmlst_with_mlst_t2","modification","Switch from cgMLST to classic 7-gene MLST.","Y","Y","none","","1","1","Y","","","","step_4TY_MLST__mlst","step_4TY_MLST__mlst","step_4TY_MLST__mlst","319","18","1","2","9.4","I will proceed with generating a classic 7-gene MLST profile for your Escherichia coli assembly using the `step_4TY_MLST__mlst` component. The pipeline will be designed to handle the assembly input as required.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getAssembly } from '../functions/parameters.nf'
+
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    step_4TY_MLST__mlst(getAssembly())
+}","nextflow.enable.dsl=2
+
+include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+workflow {
+    step_4TY_MLST__mlst(getInput())
+}
+"
+"MOD_M11_H01_drop_cgmlst","1","drop","H01_mlst_plus_cgmlst_lis","MOD_M11_H01_drop_cgmlst_t1","modification","Run both MLST and cgMLST typing on Listeria monocytogenes from paired Illumina FASTQ.","Y","N","missing_param","ERROR ~ missing required param: step_3TX_species__kmerfinder__db","0","10","N","step_2AS_mapping__bowtie, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__spades","","step_2AS_mapping__bowtie, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4TY_flaA__flaA","step_3TX_species__kmerfinder, step_2AS_mapping__bowtie, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4AN_AMR__staramr, step_4TY_MLST__mlst, step_4TY_flaA__flaA, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","2240","76","8","2","16.8","Approved. I will design a pipeline using the `module_typing_bacteria` template, which includes MLST and cgMLST typing for Listeria monocytogenes from paired Illumina FASTQ data.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getAssembly; getTrimmedReads } from '../functions/parameters.nf'
+
+include { step_4TY_flaA__flaA } from '../steps/step_4TY_flaA__flaA'
+
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+
+include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
+
+include { extractKey; getEmpty } from '../functions/common.nf'
+
+include { step_2AS_mapping__bowtie } from '../steps/step_2AS_mapping__bowtie'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+include { step_4AN_AMR__staramr } from '../steps/step_4AN_AMR__staramr'
+
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+
+include { step_3TX_species__kmerfinder } from '../steps/step_3TX_species__kmerfinder'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+workflow module_typing_bacteria {
+    
+    take:
+        
+        trimmed
+        
+        assembly
+        
+    
+    main:
+        assigned_species = step_3TX_species__kmerfinder(assembly).assigned_species
+
+        if (!params.skip_bestref_mapping) {
+          trimmed.cross(assigned_species) { extractKey(it) }.multiMap {
+            trimmed: it[0]
+            species: it[1][1]
+            referencePath: it[1][2]
+          }.set { trimAndAndSpecies }
+          step_2AS_mapping__bowtie(trimAndAndSpecies.trimmed, trimAndAndSpecies.referencePath)
+        }
+
+        step_4AN_AMR__abricate(assembly)
+
+        step_4AN_genes__prokka(assembly.map{ [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
+
+        assembly.cross(assigned_species) { extractKey(it) }.multiMap {
+          assembly: it[0]
+          species: it[1][1]
+        }.set { assemblyAndSpecies }
+
+        step_4AN_AMR__staramr(assemblyAndSpecies.assembly, assemblyAndSpecies.species)
+        step_4TY_MLST__mlst(assemblyAndSpecies.assembly)
+        step_4TY_flaA__flaA(assemblyAndSpecies.assembly, assemblyAndSpecies.species)
+        step_4TY_cgMLST__chewbbaca(assemblyAndSpecies.assembly, assemblyAndSpecies.species, '')
+    
+    emit:
+        
+        genus_species = assigned_species
+        
+    
+}
+
+// --- ENTRYPOINT ---
+workflow {
+    module_typing_bacteria(getTrimmedReads(true), getAssembly())
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_MLST__mlst(assembled)
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M11_H01_drop_cgmlst","2","drop","H01_mlst_plus_cgmlst_lis","MOD_M11_H01_drop_cgmlst_t2","modification","Drop the cgMLST step, only keep MLST.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","N","","step_1PP_trimming__fastp, step_2AS_denovo__spades","","","step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","547","31","1","1","16.6","⚠️ **Generation Warning**: I reached the maximum number of attempts trying to generate a perfectly valid pipeline. I have output the current draft as a **best effort**, but please note that the generated code **might have errors or missing components** based on the strict DSL2 rules.","// ⚠️ WARNING: Pipeline generation failed strict DSL2 validation.
+// The code above is potentially broken or incomplete and was output as a best-effort draft.
+
+nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+workflow module_typing_bacteria {
+    
+    take:
+        
+        trimmed
+        
+        assembly
+        
+    
+    main:
+        step_4TY_MLST__mlst(assembly)
+    
+}
+
+// --- ENTRYPOINT ---
+workflow {
+    module_typing_bacteria(getTrimmedReads(true), getAssembly())
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_MLST__mlst(assembled)
+}
+"
+"MOD_M12_D01_drop_assembly","1","drop","D01_fastp_spades_lis","MOD_M12_D01_drop_assembly_t1","modification","From Illumina paired-end FASTQ of Listeria monocytogenes: trim with fastp and assemble with SPAdes.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","494","21","2","2","12.7","Approved! I will design a pipeline for trimming Illumina paired-end FASTQ files with fastp and assembling with SPAdes using the specified components.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M12_D01_drop_assembly","2","drop","D01_fastp_spades_lis","MOD_M12_D01_drop_assembly_t2","modification","Actually, drop the assembly and just trim the reads.","Y","Y","none","","3","3","Y","","","","step_1PP_trimming__fastp","step_1PP_trimming__fastp","step_1PP_trimming__fastp","358","18","1","2","8.5","Approved! I will design a pipeline to trim the raw Illumina paired-end FASTQ files using `step_1PP_trimming__fastp`.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+workflow {
+    step_1PP_trimming__fastp(getSingleInput())
+}
+"
+"MOD_M13_I01_drop_kmerfinder","1","drop","I01_kmerfinder_fastp_spades","MOD_M13_I01_drop_kmerfinder_t1","modification","Identify the species with KmerFinder, in parallel trim with fastp and assemble with SPAdes (Illumina paired).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_3TX_species__kmerfinder, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","668","28","3","2","11.6","Thank you for approving the plan. I will now draft the pipeline for the Architect Agent.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_3TX_species__kmerfinder } from '../steps/step_3TX_species__kmerfinder'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    kmerfinder_out = step_3TX_species__kmerfinder(getSingleInput())
+
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+
+    spades_out = step_2AS_denovo__spades(trimmed)
+
+    spades_out.assembled
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_3TX_species__kmerfinder } from '../steps/step_3TX_species__kmerfinder'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    raw = getSingleInput()
+    step_3TX_species__kmerfinder(raw)
+    trimmed   = step_1PP_trimming__fastp(raw).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M13_I01_drop_kmerfinder","2","drop","I01_kmerfinder_fastp_spades","MOD_M13_I01_drop_kmerfinder_t2","modification","Drop the KmerFinder species ID. Keep only trim + assembly.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","494","21","2","1","7.3","Understood. I will update the pipeline to exclude the KmerFinder species identification step and focus only on trimming with fastp and assembly with SPAdes. Proceeding with this revised plan.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M14_E02_switch_species_to_salmonella","1","switch_species","E02_cgmlst_lis_fastp_spades","MOD_M14_E02_switch_species_to_salmonella_t1","modification","cgMLST allelic profile for Listeria monocytogenes from paired Illumina FASTQ (fastp + SPAdes + chewbbaca).","Y","N","file_not_found","WARN: file not found: '/tmp/cohesive_llm_bench/_shared_inputdir/2026/2026.LIS.6.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","656","24","3","2","14.2","Approved! I will now draft the pipeline for generating a cgMLST allelic profile for Listeria monocytogenes using the specified steps.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, params.genus_species, params.schema)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M14_E02_switch_species_to_salmonella","2","switch_species","E02_cgmlst_lis_fastp_spades","MOD_M14_E02_switch_species_to_salmonella_t2","modification","Run the same pipeline for Salmonella enterica instead of Listeria monocytogenes.","Y","Y","none","","9","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","702","24","3","2","10.9","Approved! I will now draft the pipeline for generating a cgMLST allelic profile for Salmonella enterica using the specified steps.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M15_A04_switch_species_to_ecoli","1","switch_species","A04_cgmlst_listeria","MOD_M15_A04_switch_species_to_ecoli_t1","modification","cgMLST allelic profile for Listeria monocytogenes from a pre-existing assembly.","Y","Y","none","","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","432","20","1","2","30.6","I will proceed with the cgMLST allelic profile for Listeria monocytogenes using the pre-existing assembly and the specified schema.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getAssembly } from '../functions/parameters.nf'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+// --- GLOBALS ---
+
+def listeriaSchema = 'l_mono_chewie_1748_220623'
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    step_4TY_cgMLST__chewbbaca(getAssembly(), 'listeria_monocytogenes', listeriaSchema)
+}","nextflow.enable.dsl=2
+
+include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M15_A04_switch_species_to_ecoli","2","switch_species","A04_cgmlst_listeria","MOD_M15_A04_switch_species_to_ecoli_t2","modification","Same thing but for Escherichia coli.","Y","Y","none","","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","443","22","1","2","7.3","I will proceed with the cgMLST allelic profile for Escherichia coli using the pre-existing assembly and the specified schema.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getAssembly } from '../functions/parameters.nf'
+
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+
+// --- GLOBALS ---
+
+def genusSpecies = 'escherichia_coli'
+
+def schema = 'e_coli_chewie_2360_210531'
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    step_4TY_cgMLST__chewbbaca(getAssembly(), genusSpecies, schema)
+}","nextflow.enable.dsl=2
+
+include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
+workflow {
+    step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))
+}
+"
+"MOD_M16_E07_switch_species_to_salmonella","1","switch_species","E07_abricate_eco","MOD_M16_E07_switch_species_to_salmonella_t1","modification","Resistance gene detection with ABRicate on Escherichia coli from Illumina paired FASTQ.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","2","11.3","Pipeline approved! I will now prepare the detailed plan for the Architect Agent to build the pipeline for resistance gene detection in Escherichia coli using Illumina paired FASTQ data.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}
+"
+"MOD_M16_E07_switch_species_to_salmonella","2","switch_species","E07_abricate_eco","MOD_M16_E07_switch_species_to_salmonella_t2","modification","Switch to Salmonella enterica.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","1","5.4","Pipeline updated for Salmonella enterica. The steps remain the same: preprocessing with fastp, assembly with SPAdes, and resistance gene detection with ABRicate. Proceeding with the updated plan.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+    step_4AN_AMR__abricate(assembled)
+}
+"
+"MOD_M17_D05_switch_species_to_ecoli","1","switch_species","D05_fastp_spades_cam","MOD_M17_D05_switch_species_to_ecoli_t1","modification","Trim and de novo assembly (fastp + SPAdes) for a paired-end Illumina Campylobacter sample.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","472","21","2","2","11.6","Pipeline approved! I will now prepare the detailed plan for the Architect Agent to build the pipeline using fastp for trimming and SPAdes for de novo assembly.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    step_2AS_denovo__spades(trimmed)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"
+"MOD_M17_D05_switch_species_to_ecoli","2","switch_species","D05_fastp_spades_cam","MOD_M17_D05_switch_species_to_ecoli_t2","modification","Apply the same pipeline to an Escherichia coli sample.","Y","Y","none","","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","472","21","2","1","5.5","The pipeline for trimming with fastp and de novo assembly with SPAdes is already approved and ready to be applied to your Escherichia coli sample. The same steps will be used as for the Campylobacter sample, ensuring consistency and efficiency.","nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    step_2AS_denovo__spades(trimmed)
+}","nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+"

@@ -14,11 +14,21 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 RUNS_DIR = Path(os.environ.get("BENCH_RUNS_DIR", HERE / "_out")).resolve()
-SRC = RUNS_DIR / "verdicts.jsonl"
-TSV = RUNS_DIR / "report.tsv"
-CSV = RUNS_DIR / "report.csv"
 
-COLUMNS = [
+# Emit a TSV/CSV pair for whichever sources are present:
+#   single-turn → verdicts.jsonl                → report.{tsv,csv}
+#   multi-turn  → verdicts_modifications.jsonl  → report_modifications.{tsv,csv}
+SOURCES = [
+    (RUNS_DIR / "verdicts.jsonl",
+     RUNS_DIR / "report.tsv", RUNS_DIR / "report.csv",
+     ("id",)),
+    (RUNS_DIR / "verdicts_modifications.jsonl",
+     RUNS_DIR / "report_modifications.tsv",
+     RUNS_DIR / "report_modifications.csv",
+     ("conv_id", "turn_index", "modification_kind", "base_id")),
+]
+
+BASE_COLUMNS = [
     "id",
     "category",
     "prompt",
@@ -61,25 +71,27 @@ def tsv_safe(v) -> str:
     return s.replace("\t", "    ").replace("\r\n", "\\n").replace("\n", "\\n")
 
 
-rows = [json.loads(l) for l in SRC.read_text().splitlines() if l.strip()]
-
-# also flatten category (auto-derived)
-for r in rows:
-    r.setdefault("category", r["id"].split("_", 1)[0])
-
-# --- TSV (one line per example, newlines literalised) ---
-with TSV.open("w", encoding="utf-8") as f:
-    f.write("\t".join(COLUMNS) + "\n")
+def emit(src: Path, tsv: Path, csv_path: Path, extra: tuple[str, ...]) -> None:
+    if not src.exists():
+        print(f"(skip) {src.name} not present")
+        return
+    columns = list(extra) + BASE_COLUMNS
+    rows = [json.loads(l) for l in src.read_text().splitlines() if l.strip()]
     for r in rows:
-        f.write("\t".join(tsv_safe(r.get(c, "")) for c in COLUMNS) + "\n")
-print(f"Wrote {TSV}")
+        r.setdefault("category", r["id"].split("_", 1)[0])
+    with tsv.open("w", encoding="utf-8") as f:
+        f.write("\t".join(columns) + "\n")
+        for r in rows:
+            f.write("\t".join(tsv_safe(r.get(c, "")) for c in columns) + "\n")
+    print(f"Wrote {tsv}")
+    with csv_path.open("w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f, quoting=csv.QUOTE_ALL)
+        w.writerow(columns)
+        for r in rows:
+            w.writerow([jsonish(r.get(c, "")) for c in columns])
+    print(f"Wrote {csv_path}")
+    print(f"  {len(rows)} rows × {len(columns)} columns\n")
 
-# --- CSV (RFC-4180, multi-line fields preserved) ---
-with CSV.open("w", encoding="utf-8", newline="") as f:
-    w = csv.writer(f, quoting=csv.QUOTE_ALL)
-    w.writerow(COLUMNS)
-    for r in rows:
-        w.writerow([jsonish(r.get(c, "")) for c in COLUMNS])
-print(f"Wrote {CSV}")
 
-print(f"\n{len(rows)} rows × {len(COLUMNS)} columns")
+for src, tsv, csv_path, extra in SOURCES:
+    emit(src, tsv, csv_path, extra)

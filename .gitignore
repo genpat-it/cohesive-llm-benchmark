@@ -16,9 +16,10 @@ venv/
 .env.*
 !.env.example
 
-# Eval runs land here -- commit only the reference example
+# Eval runs land here -- commit only the reference examples
 results/*/
 !results/example_run_mistral/
+!results/example_run_mistral_multi_turn/
 
 # Harness scratch (work dirs, dummy inputs)
 _scratch/

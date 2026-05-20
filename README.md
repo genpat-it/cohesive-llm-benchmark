@@ -122,6 +122,34 @@ Run them yourself with:
 python dataset/validate_modifications.py
 ```
 
+### LLM evaluation on the multi-turn corpus
+
+The same izs-llm run captured in `results/example_run_mistral_multi_turn/`
+scores **29 / 34 turns (85 %)** and **14 / 17 fully-passing conversations
+(82 %)**. Pass rate per transformation:
+
+| Kind | Turns | Pass |
+|----|-----:|-----:|
+| `add`            | 10 | 8  |
+| `replace`        | 10 | 10 |
+| `drop`           | 6  | 4  |
+| `switch_species` | 8  | 7  |
+
+The 5 failing turns are concentrated in two conversations:
+
+- `MOD_M03_B01_add_trimming` (both turns) — the LLM adds an upstream
+  species-ID step (kmerfinder) and a database param the user did not
+  provide → `missing_param`.
+- `MOD_M11_H01_drop_cgmlst` (both turns) — same `missing_param` on t1,
+  `silent_no_op` on t2 (the requested drop leaves an unsupported species
+  filtered by `when:`).
+- `MOD_M14_E02_switch_species_to_salmonella` (turn 1 only) — the LLM
+  emits step names that look up files outside the test fixture's
+  layout → `file_not_found`. Turn 2 (the actual switch) passes.
+
+See `results/example_run_mistral_multi_turn/report_modifications.md` for
+per-turn detail.
+
 See `docs/dataset_schema.md` for the JSONL shape and `dataset/README.md`
 for how to add new conversations.
 

@@ -1,12 +1,24 @@
 # eval/
 
-The three-stage LLM evaluation pipeline.
+The LLM evaluation pipeline. Supports both single-turn
+(`dataset_50.jsonl`) and multi-turn (`dataset_modifications.jsonl`)
+corpora.
+
+## Single-turn pipeline
 
 | Script | Reads | Writes | What it does |
 |---|---|---|---|
 | `run_llm.py`      | `dataset/dataset_50.jsonl` | `$BENCH_RUNS_DIR/runs.jsonl`     | Sends every prompt to `LLM_API_URL/chat`, captures the returned `nextflow_code` |
 | `validate_llm.py` | `runs.jsonl` (+ framework via `NGSMANAGER_DIR`) | `$BENCH_RUNS_DIR/verdicts.jsonl` + `report.md` | Runs each generated `.nf` through `nextflow -stub-run`, judges, categorises errors |
-| `emit_report.py`  | `verdicts.jsonl` | `$BENCH_RUNS_DIR/report.tsv` + `.csv` | Converts the verdicts to spreadsheet-friendly formats |
+| `emit_report.py`  | `verdicts.jsonl` (and/or `verdicts_modifications.jsonl`) | `report.tsv`/`.csv` (and/or `report_modifications.tsv`/`.csv`) | Converts verdicts to spreadsheet-friendly formats |
+
+## Multi-turn pipeline
+
+| Script | Reads | Writes | What it does |
+|---|---|---|---|
+| `run_llm_multi_turn.py`      | `dataset/dataset_modifications.jsonl` | `$BENCH_RUNS_DIR/runs_modifications.jsonl` | Walks each conversation reusing the same `session_id` across turns; captures one `nextflow_code` per turn |
+| `validate_llm_multi_turn.py` | `runs_modifications.jsonl` | `verdicts_modifications.jsonl` + `report_modifications.md` | Validates each turn independently with `nextflow -stub-run`; tags turns with their `conv_id`, `turn_index`, `modification_kind`, `base_id` |
+| `emit_report.py`             | `verdicts_modifications.jsonl` | `report_modifications.tsv` + `.csv` | Same emitter, handles both shapes |
 
 ## Environment variables
 
