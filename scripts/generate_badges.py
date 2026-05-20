@@ -61,9 +61,15 @@ def main() -> None:
     write_badge("dataset_single",     "single-turn", f"{n_single}",            "informational")
     write_badge("dataset_multi",      "multi-turn",  f"{n_convs} convos · {n_turns} turns", "informational")
 
-    # --- LLM eval scores (optional) ---------------------------------------
-    sf = REPO / "results" / "example_run_mistral" / "verdicts.jsonl"
-    mf = REPO / "results" / "example_run_mistral_multi_turn" / "verdicts_modifications.jsonl"
+    # --- LLM eval scores ----------------------------------------------------
+    # Prefer the full-corpus run (llm_full_200) over the curated 50 subset.
+    sf = REPO / "results" / "llm_full_200" / "verdicts.jsonl"
+    if not sf.exists():
+        sf = REPO / "results" / "example_run_mistral" / "verdicts.jsonl"
+
+    mf = REPO / "results" / "llm_full_200" / "verdicts_modifications.jsonl"
+    if not mf.exists():
+        mf = REPO / "results" / "example_run_mistral_multi_turn" / "verdicts_modifications.jsonl"
 
     if sf.exists():
         rows = [json.loads(l) for l in sf.read_text().splitlines() if l.strip()]
