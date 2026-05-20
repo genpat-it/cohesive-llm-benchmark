@@ -21,6 +21,9 @@ from dataset.modifications import build_modifications, Turn   # noqa: E402
 
 if __name__ == "__main__":
     convs = build_modifications()
+    if "--extended" in sys.argv:
+        from dataset.modifications_extended import build_extended_modifications  # noqa: E402
+        convs = convs + build_extended_modifications()
 
     only = None
     first = None

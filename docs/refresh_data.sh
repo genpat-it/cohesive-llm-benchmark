@@ -12,7 +12,9 @@ DEST="$HERE/data"
 mkdir -p "$DEST"
 
 cp "$REPO/dataset/dataset_50.jsonl"                                                       "$DEST/dataset_50.jsonl"
+cp "$REPO/dataset/dataset_200.jsonl"                                                      "$DEST/dataset_200.jsonl"
 cp "$REPO/dataset/dataset_modifications.jsonl"                                            "$DEST/dataset_modifications.jsonl"
+cp "$REPO/dataset/dataset_modifications_full.jsonl"                                       "$DEST/dataset_modifications_full.jsonl"
 cp "$REPO/results/example_run_mistral/verdicts.jsonl"                                     "$DEST/example_run_verdicts.jsonl"
 cp "$REPO/results/example_run_mistral_multi_turn/verdicts_modifications.jsonl"            "$DEST/example_run_verdicts_modifications.jsonl"
 

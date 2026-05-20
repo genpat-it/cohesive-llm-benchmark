@@ -316,6 +316,9 @@ if __name__ == "__main__":
     from dataset.blueprints import build_all   # noqa: E402
 
     examples = build_all()
+    if "--extended" in sys.argv:
+        from dataset.blueprints_extended import build_extended  # noqa: E402
+        examples = examples + build_extended()
     # filter: --only=eid1,eid2,...   or   --first=N
     only = None
     for arg in sys.argv[1:]:

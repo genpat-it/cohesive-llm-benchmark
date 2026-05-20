@@ -46,10 +46,15 @@ def main() -> None:
     print("Writing badges…")
 
     # --- dataset size ------------------------------------------------------
-    n_single  = sum(1 for _ in (REPO / "dataset" / "dataset_50.jsonl").open())
-    n_convs   = sum(1 for _ in (REPO / "dataset" / "dataset_modifications.jsonl").open())
+    # We surface the "full" corpora as the headline numbers if they exist,
+    # otherwise the curated 50/17 base set.
+    single_path = (REPO / "dataset" / "dataset_200.jsonl") if (REPO / "dataset" / "dataset_200.jsonl").exists() else (REPO / "dataset" / "dataset_50.jsonl")
+    multi_path  = (REPO / "dataset" / "dataset_modifications_full.jsonl") if (REPO / "dataset" / "dataset_modifications_full.jsonl").exists() else (REPO / "dataset" / "dataset_modifications.jsonl")
+
+    n_single  = sum(1 for _ in single_path.open())
+    n_convs   = sum(1 for _ in multi_path.open())
     n_turns   = 0
-    for line in (REPO / "dataset" / "dataset_modifications.jsonl").open():
+    for line in multi_path.open():
         d = json.loads(line)
         n_turns += len(d.get("turns", []))
 
