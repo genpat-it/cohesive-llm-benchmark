@@ -68,13 +68,6 @@
     <tbody></tbody>
   </table>
 
-  <div class="detail" id="detail">
-    <div class="header">
-      <span class="title" id="detail-title"></span>
-      <button onclick="document.getElementById('detail').classList.remove('visible')">close ×</button>
-    </div>
-    <div class="body" id="detail-body"></div>
-  </div>
 </main>
 
 <footer>
@@ -207,9 +200,8 @@ function render() {
   const tbody = document.querySelector("#tbl tbody");
   tbody.innerHTML = rows.map((d, i) => {
     if (d.is_dataset_only) {
-      // Ground-truth-only row: no LLM verdict to display.
       return `
-        <tr data-idx="${i}">
+        <tr data-idx="${i}" data-id="${esc(d.id)}">
           <td><code>${esc(d.id)}</code></td>
           <td>${esc(d.category)}</td>
           <td><span class="pill muted">GT only</span></td>
@@ -219,7 +211,7 @@ function render() {
         </tr>`;
     }
     return `
-      <tr data-idx="${i}">
+      <tr data-idx="${i}" data-id="${esc(d.id)}">
         <td><code>${esc(d.id)}</code></td>
         <td>${esc(d.category)}</td>
         <td>${passPill(d.semantic_valid)}</td>
@@ -236,9 +228,9 @@ function render() {
     stat.textContent = `${rows.length} / ${data.length} rows  ·  ${rows.filter(r => r.semantic_valid).length} pass  ·  ${rows.filter(r => !r.semantic_valid).length} fail`;
   }
 
-  // attach click handlers
-  tbody.querySelectorAll("tr").forEach(tr => {
-    tr.addEventListener("click", () => showDetail(rows[parseInt(tr.dataset.idx, 10)]));
+  // attach click handlers (skip the inserted detail rows)
+  tbody.querySelectorAll("tr:not(.detail-row)").forEach(tr => {
+    tr.addEventListener("click", () => showDetail(rows[parseInt(tr.dataset.idx, 10)], tr));
   });
 }
 
@@ -298,14 +290,25 @@ function turnBlock(d, isCurrent) {
 }
 
 
-function showDetail(d) {
-  document.getElementById("detail").classList.add("visible");
+function showDetail(d, clickedTr) {
+  // Accordion behaviour: insert a detail row right after the clicked row.
+  // If the same row is clicked again, collapse. If another row's detail is
+  // open elsewhere, close it first.
+  const colCount = clickedTr.children.length;
+  const next = clickedTr.nextElementSibling;
+  const alreadyMine = next && next.classList.contains("detail-row") && next.dataset.forId === clickedTr.dataset.id;
+
+  // Close any previously open detail row anywhere in the table
+  clickedTr.parentElement.querySelectorAll("tr.detail-row").forEach(r => r.remove());
+  // Remove the "active" highlight from any other row
+  clickedTr.parentElement.querySelectorAll("tr.active-row").forEach(r => r.classList.remove("active-row"));
+
+  if (alreadyMine) return;  // user clicked the same row → collapse
 
   let title = d.id;
   let header = "";
   let turns = [d];
 
-  // If multi-turn: gather ALL turns of the same conversation and show them in order
   if (d.conv_id) {
     const allTurnsOfConv = ALL[CUR]
       .filter(r => r.conv_id === d.conv_id)
@@ -325,10 +328,28 @@ function showDetail(d) {
     }
   }
 
-  document.getElementById("detail-title").textContent = title;
-  const body = header + turns.map(t => turnBlock(t, t === d)).join('<div class="turn-arrow">↓</div>');
-  document.getElementById("detail-body").innerHTML = body;
-  document.getElementById("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  const body = header + turns.map(t => turnBlock(t, t === d))
+    .join('<div class="turn-arrow">↓</div>');
+
+  const detailRow = document.createElement("tr");
+  detailRow.className = "detail-row";
+  detailRow.dataset.forId = clickedTr.dataset.id;
+  detailRow.innerHTML = `
+    <td colspan="${colCount}">
+      <div class="detail-inline">
+        <div class="detail-header">
+          <span class="detail-title">${esc(title)}</span>
+          <button class="detail-close" type="button">close ×</button>
+        </div>
+        <div class="detail-body">${body}</div>
+      </div>
+    </td>`;
+  clickedTr.classList.add("active-row");
+  clickedTr.parentElement.insertBefore(detailRow, clickedTr.nextElementSibling);
+  detailRow.querySelector(".detail-close").addEventListener("click", () => {
+    detailRow.remove();
+    clickedTr.classList.remove("active-row");
+  });
 }
 
 ["filter-category","filter-error","filter-outcome","filter-text"].forEach(id => {
