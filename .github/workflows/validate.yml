@@ -1,0 +1,76 @@
+name: validate ground truth
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * 1"   # every Monday 04:17 UTC
+  push:
+    branches: [ main ]
+    paths:
+      - "dataset/**"
+      - "harness/**"
+      - "scripts/generate_badges.py"
+      - ".github/workflows/validate.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit refreshed badges
+    timeout-minutes: 60
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v4
+
+      - name: Checkout cohesive-ngsmanager
+        uses: actions/checkout@v4
+        with:
+          repository: genpat-it/cohesive-ngsmanager
+          path: cohesive-ngsmanager
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Nextflow
+        run: |
+          curl -fsSL https://get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+          nextflow -version
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Validate single-turn dataset (50 examples)
+        env:
+          NGSMANAGER_DIR: ${{ github.workspace }}/cohesive-ngsmanager
+        run: |
+          python harness/harness.py 2>&1 | tee /tmp/single.log
+          tail -3 /tmp/single.log
+
+      - name: Validate multi-turn dataset (34 turns)
+        env:
+          NGSMANAGER_DIR: ${{ github.workspace }}/cohesive-ngsmanager
+        run: |
+          python dataset/validate_modifications.py 2>&1 | tee /tmp/multi.log
+          tail -3 /tmp/multi.log
+
+      - name: Refresh badges from current LLM-eval verdicts
+        run: python scripts/generate_badges.py
+
+      - name: Refresh docs/data snapshot of JSONLs
+        run: bash docs/refresh_data.sh
+
+      - name: Commit refreshed badges + data snapshot (if changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/badges docs/data
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "ci: refresh badges + docs/data snapshot"
+            git push
+          fi

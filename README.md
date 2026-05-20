@@ -1,5 +1,13 @@
 # cohesive-llm-benchmark
 
+[![validate ground truth](https://github.com/genpat-it/cohesive-llm-benchmark/actions/workflows/validate.yml/badge.svg)](https://github.com/genpat-it/cohesive-llm-benchmark/actions/workflows/validate.yml)
+[![single-turn](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/docs/badges/dataset_single.json)](dataset/dataset_50.jsonl)
+[![multi-turn](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/docs/badges/dataset_multi.json)](dataset/dataset_modifications.jsonl)
+[![izs-llm single-turn](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/docs/badges/llm_single_turn.json)](results/example_run_mistral/report.md)
+[![izs-llm multi-turn](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/docs/badges/llm_multi_turn.json)](results/example_run_mistral_multi_turn/report_modifications.md)
+
+**Live site & interactive explorer:** https://genpat-it.github.io/cohesive-llm-benchmark/
+
 A benchmark for natural-language → Nextflow pipeline generators targeting the
 [cohesive-ngsmanager](https://github.com/genpat-it/cohesive-ngsmanager)
 framework.
