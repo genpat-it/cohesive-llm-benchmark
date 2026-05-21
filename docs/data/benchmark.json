@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "name": "cohesive-llm-benchmark",
   "description": "End-to-end Nextflow-aware benchmark for natural-language to bioinformatics pipeline generators. Validates that each generated .nf parses (DSL2) and schedules the expected number of step processes under nextflow -stub-run.",
-  "generated_at": "2026-05-21T08:24:45Z",
+  "generated_at": "2026-05-21T08:31:10Z",
   "homepage": "https://genpat-it.github.io/cohesive-llm-benchmark",
   "repository": "https://github.com/genpat-it/cohesive-llm-benchmark",
   "framework": "https://github.com/genpat-it/cohesive-ngsmanager",
@@ -172,13 +172,13 @@
       "run_id": "llm_full_200",
       "kind": "single-turn",
       "metadata": {
-        "run_started_at": "2026-05-21T08:09:51Z",
+        "run_started_at": "2026-05-20T15:22:35Z",
         "bench": {
-          "commit": "571e9d751968f6791908dc64b5c6b1b987b51a66",
-          "short_commit": "571e9d7",
+          "commit": "bec83c6e6e06923a5be46721ba5ea15b6fbbc039",
+          "short_commit": "bec83c6",
           "branch": "main",
           "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
-          "dirty": true,
+          "dirty": false,
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
         },
         "framework": {
@@ -190,10 +190,15 @@
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
         },
         "llm": {
-          "name": "?",
-          "model": "?",
+          "name": "izs-llm",
+          "model": "mistral-medium-latest",
           "api_url": "http://127.0.0.1:8765",
-          "repo_path": null
+          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
+          "short_commit": "73ace31",
+          "branch": "feat/validation-and-anti-hallucination",
+          "remote": "https://github.com/mgradyn/izs-llm",
+          "dirty": true,
+          "repo_path": "/home/IZSNT/a.deruvo/izs-llm"
         },
         "dataset": "dataset_50.jsonl"
       },
@@ -229,13 +234,13 @@
       "run_id": "llm_full_multi_turn",
       "kind": "multi-turn",
       "metadata": {
-        "run_started_at": "2026-05-21T08:09:55Z",
+        "run_started_at": "2026-05-20T19:57:22Z",
         "bench": {
-          "commit": "571e9d751968f6791908dc64b5c6b1b987b51a66",
-          "short_commit": "571e9d7",
+          "commit": "aef436766a87c1c98724ff345bf8ce96da59546f",
+          "short_commit": "aef4367",
           "branch": "main",
           "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
-          "dirty": true,
+          "dirty": false,
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
         },
         "framework": {
@@ -247,10 +252,15 @@
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
         },
         "llm": {
-          "name": "?",
-          "model": "?",
+          "name": "izs-llm",
+          "model": "mistral-medium-latest",
           "api_url": "http://127.0.0.1:8765",
-          "repo_path": null
+          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
+          "short_commit": "73ace31",
+          "branch": "feat/validation-and-anti-hallucination",
+          "remote": "https://github.com/mgradyn/izs-llm",
+          "dirty": true,
+          "repo_path": "/home/IZSNT/a.deruvo/izs-llm"
         },
         "dataset": "dataset_modifications.jsonl"
       },
