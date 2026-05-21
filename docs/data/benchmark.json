@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "name": "cohesive-llm-benchmark",
   "description": "End-to-end Nextflow-aware benchmark for natural-language to bioinformatics pipeline generators. Validates that each generated .nf parses (DSL2) and schedules the expected number of step processes under nextflow -stub-run.",
-  "generated_at": "2026-05-21T08:44:35Z",
+  "generated_at": "2026-05-21T09:31:47Z",
   "homepage": "https://genpat-it.github.io/cohesive-llm-benchmark",
   "repository": "https://github.com/genpat-it/cohesive-llm-benchmark",
   "framework": "https://github.com/genpat-it/cohesive-ngsmanager",
@@ -81,7 +81,10 @@
           "branch": "feat/validation-and-anti-hallucination",
           "remote": "https://github.com/mgradyn/izs-llm",
           "dirty": false,
-          "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
+          "model_source": "corrected post-hoc; izs-llm calls labs-devstral-small-2512 which resolves to public devstral-2512 (see https://api.mistral.ai/v1/models)",
+          "api_alias": "labs-devstral-small-2512",
+          "resolved_model": "devstral-2512",
+          "model_family": "Devstral (Mistral, code-tuned, medium-class ~25-30B params)"
         },
         "dataset": "dataset_50.jsonl",
         "notes": "reference run captured during initial dataset publication"
@@ -173,13 +176,13 @@
       "run_id": "llm_full_200",
       "kind": "single-turn",
       "metadata": {
-        "run_started_at": "2026-05-20T15:22:35Z",
+        "run_started_at": "2026-05-21T09:04:42Z",
         "bench": {
-          "commit": "bec83c6e6e06923a5be46721ba5ea15b6fbbc039",
-          "short_commit": "bec83c6",
+          "commit": "e25ce4715ffce1845aaf7291fdd89276dcc6decf",
+          "short_commit": "e25ce47",
           "branch": "main",
           "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
-          "dirty": false,
+          "dirty": true,
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
         },
         "framework": {
@@ -191,16 +194,14 @@
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
         },
         "llm": {
-          "name": "izs-llm",
+          "name": "?",
           "model": "labs-devstral-small-2512",
           "api_url": "http://127.0.0.1:8765",
-          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
-          "short_commit": "73ace31",
-          "branch": "feat/validation-and-anti-hallucination",
-          "remote": "https://github.com/mgradyn/izs-llm",
-          "dirty": true,
-          "repo_path": "/home/IZSNT/a.deruvo/izs-llm",
-          "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
+          "repo_path": null,
+          "api_alias": "labs-devstral-small-2512",
+          "resolved_model": "devstral-2512",
+          "model_family": "Devstral (Mistral, code-tuned, medium-class ~25-30B params)",
+          "model_source": "corrected post-hoc; izs-llm calls labs-devstral-small-2512 which resolves to public devstral-2512 (see https://api.mistral.ai/v1/models)"
         },
         "dataset": "dataset_50.jsonl"
       },
@@ -234,15 +235,15 @@
     },
     {
       "run_id": "llm_full_multi_turn",
-      "kind": "multi-turn",
+      "kind": "single-turn",
       "metadata": {
-        "run_started_at": "2026-05-20T19:57:22Z",
+        "run_started_at": "2026-05-21T09:04:47Z",
         "bench": {
-          "commit": "aef436766a87c1c98724ff345bf8ce96da59546f",
-          "short_commit": "aef4367",
+          "commit": "e25ce4715ffce1845aaf7291fdd89276dcc6decf",
+          "short_commit": "e25ce47",
           "branch": "main",
           "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
-          "dirty": false,
+          "dirty": true,
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
         },
         "framework": {
@@ -254,47 +255,22 @@
           "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
         },
         "llm": {
-          "name": "izs-llm",
+          "name": "?",
           "model": "labs-devstral-small-2512",
           "api_url": "http://127.0.0.1:8765",
-          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
-          "short_commit": "73ace31",
-          "branch": "feat/validation-and-anti-hallucination",
-          "remote": "https://github.com/mgradyn/izs-llm",
-          "dirty": true,
-          "repo_path": "/home/IZSNT/a.deruvo/izs-llm",
-          "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
+          "repo_path": null,
+          "api_alias": "labs-devstral-small-2512",
+          "resolved_model": "devstral-2512",
+          "model_family": "Devstral (Mistral, code-tuned, medium-class ~25-30B params)",
+          "model_source": "corrected post-hoc; izs-llm calls labs-devstral-small-2512 which resolves to public devstral-2512 (see https://api.mistral.ai/v1/models)"
         },
         "dataset": "dataset_modifications.jsonl"
       },
       "summary": {
-        "total": 330,
-        "passed": 287,
-        "passed_pct": 87.0,
-        "syntax_ok": 329,
-        "no_code_returned": 0,
-        "by_category": {
-          "modification": 330
-        },
-        "by_error_category": {
-          "missing_param": 16,
-          "partial_dag": 14,
-          "silent_no_op": 9,
-          "file_not_found": 3,
-          "arity_error": 1
-        },
-        "by_tag": {
-          "literal-match": 281,
-          "missing-steps": 32,
-          "extras-irrelevant": 30,
-          "extras-best-practice": 2
-        },
-        "conversations_total": 159,
-        "conversations_fully_passed": 136,
-        "conversations_fully_passed_pct": 85.5
+        "total": 0
       },
       "files": {
-        "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn/verdicts_modifications_augmented.jsonl",
+        "verdicts_jsonl": null,
         "metadata_json": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn/metadata.json"
       }
     },

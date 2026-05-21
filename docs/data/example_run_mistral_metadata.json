@@ -23,7 +23,10 @@
     "branch": "feat/validation-and-anti-hallucination",
     "remote": "https://github.com/mgradyn/izs-llm",
     "dirty": false,
-    "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
+    "model_source": "corrected post-hoc; izs-llm calls labs-devstral-small-2512 which resolves to public devstral-2512 (see https://api.mistral.ai/v1/models)",
+    "api_alias": "labs-devstral-small-2512",
+    "resolved_model": "devstral-2512",
+    "model_family": "Devstral (Mistral, code-tuned, medium-class ~25-30B params)"
   },
   "dataset": "dataset_50.jsonl",
   "notes": "reference run captured during initial dataset publication"

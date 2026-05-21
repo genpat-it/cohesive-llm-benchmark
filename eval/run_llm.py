@@ -142,6 +142,13 @@ def main() -> None:
 
     n_pass_call = 0
     t_start = time.time()
+    # Optional inter-prompt sleep to stay under the Mistral TPM ceiling on
+    # free/labs tiers. Each /chat call consumes ~5-10k tokens; sleeping 6 s
+    # between prompts caps the burst at ~10 calls/min (well under the
+    # ~50-100k TPM allowance for labs-class models). Set to 0 on Tier 1+.
+    prompt_sleep = float(os.environ.get("BENCH_PROMPT_SLEEP_S", "0"))
+    if prompt_sleep > 0:
+        print(f"  [pacing: sleeping {prompt_sleep:.1f}s between prompts]")
     with OUT_JSONL.open("a", encoding="utf-8") as out:
         for i, ex in enumerate(examples, start=1):
             eid = ex["id"]
@@ -168,6 +175,8 @@ def main() -> None:
             }
             out.write(json.dumps(record, ensure_ascii=False) + "\n")
             out.flush()
+            if prompt_sleep > 0 and i < len(examples):
+                time.sleep(prompt_sleep)
 
     total = time.time() - t_start
     print(f"\nDone. {n_pass_call}/{len(examples)} prompts returned code "

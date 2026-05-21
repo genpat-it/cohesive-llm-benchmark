@@ -74,6 +74,11 @@ def main() -> None:
 
     n_full_pass = 0   # conversations where every turn returned code
     t_start = time.time()
+    # Pacing: see run_llm.py for rationale. Applied between turns AND between
+    # conversations.
+    prompt_sleep = float(os.environ.get("BENCH_PROMPT_SLEEP_S", "0"))
+    if prompt_sleep > 0:
+        print(f"  [pacing: sleeping {prompt_sleep:.1f}s between turns/convs]", flush=True)
     with OUT_JSONL.open("a", encoding="utf-8") as out:
         for i, conv in enumerate(convs, start=1):
             cid = conv["id"]
@@ -104,6 +109,9 @@ def main() -> None:
                       f"({dt:.1f}s)", flush=True)
                 if not has_code:
                     break   # no point pretending to refine an empty answer
+                # pacing between turns of the same conversation
+                if prompt_sleep > 0 and j < len(conv["turns"]):
+                    time.sleep(prompt_sleep)
             dt_conv = time.time() - t_conv
             if all_have_code and len(turn_responses) == len(conv["turns"]):
                 n_full_pass += 1
@@ -121,6 +129,9 @@ def main() -> None:
             }
             out.write(json.dumps(record, ensure_ascii=False) + "\n")
             out.flush()
+            # pacing between conversations
+            if prompt_sleep > 0 and i < len(convs):
+                time.sleep(prompt_sleep)
 
     total = time.time() - t_start
     print(f"\nDone. {n_full_pass}/{len(convs)} conversations had code on every turn "
