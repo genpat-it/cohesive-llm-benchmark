@@ -34,7 +34,8 @@ export BENCH_RUNS_DIR=$(pwd)/results/my_run     # any directory; will be created
 python eval/run_llm.py && python eval/validate_llm.py && python eval/emit_report.py
 ```
 
-Roughly 30 minutes for 50 prompts on a typical machine.
+Roughly 30 minutes for the curated 50 prompts on a typical machine, ~3 hours
+for the full 200 single-turn + 159 multi-turn corpus.
 
 ## Command-line flags
 

@@ -102,8 +102,8 @@ it is a ~50-line function.
 export LLM_API_URL=http://127.0.0.1:8765
 export BENCH_RUNS_DIR=$(pwd)/results/my_run
 
-python eval/run_llm.py            # ~10 min for 50 prompts
-python eval/validate_llm.py       # ~20 min for 50 prompts
+python eval/run_llm.py            # ~10 min for 50 prompts (~60 min for the full 200)
+python eval/validate_llm.py       # ~20 min for 50 prompts (~90 min for the full 200)
 python eval/emit_report.py        # <5 s
 ```
 

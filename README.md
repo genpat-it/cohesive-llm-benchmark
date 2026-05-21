@@ -102,33 +102,36 @@ cohesive-llm-benchmark/
 
 ---
 
-## Headline result on the included example run
+## Headline result — izs-llm against the full corpus
 
-A single 50-prompt evaluation of the
-[`izs-llm`](https://github.com/mgradyn/izs-llm) agent (Mistral-backed,
-RAG over the framework catalog), recorded in
-`results/example_run_mistral/`:
+The [`izs-llm`](https://github.com/mgradyn/izs-llm) agent
+(Mistral-backed, RAG over the framework catalog) evaluated against the
+**full 200 single-turn** corpus
+(`results/llm_full_200/`):
 
 | Metric | Value |
 |---|---|
-| Prompts answered with code | 50 / 50 |
-| Syntactically valid (`nextflow -preview`) | 50 / 50 |
-| **Semantically valid (`nextflow -stub-run`)** | **43 / 50  (86 %)** |
-| Exact step-set match vs ground truth | 37 / 50 |
-| Hallucinated (non-existent) steps | 0 / 50 |
-| Median per-prompt LLM latency | 11 s |
-| Median per-prompt validation latency | 20 s |
+| Prompts answered with code | 200 / 200 |
+| Syntactically valid (`nextflow -preview`) | 200 / 200 |
+| **Semantically valid (`nextflow -stub-run`)** | **185 / 200  (92.5 %)** |
+| Hallucinated (non-existent) steps | 0 / 200 |
+| LLM round-trip total | 62 min |
+| Validation total | 88 min |
 
-The 7 failures cluster into 2 root causes (see
-`results/example_run_mistral/report.md` for the full per-example detail):
+Failures concentrate on:
 
-- **5 / 7** — `missing_param: step_3TX_species__kmerfinder__db`.
+- **8 / 15** — `missing_param: step_3TX_species__kmerfinder__db`.
   The LLM over-engineers simple mono-step prompts by injecting an
   upstream species-ID step that needs a database path the user did not
   provide.
-- **2 / 7** — `silent_no_op`. The LLM picked a `genus_species` or
+- **3 / 15** — `silent_no_op`. The LLM picked a `genus_species` or
   `seq_type` filtered by a step's `when:` clause; the pipeline runs but
   schedules zero tasks.
+- **2 / 15** — `partial_dag`. Only a subset of expected processes fired.
+- **2 / 15** — naming / file-not-found edge cases.
+
+For the original 50-prompt curated subset run (`results/example_run_mistral/`),
+the score was **43 / 50 (86 %)** — see that folder for the historical baseline.
 
 ---
 
@@ -137,39 +140,43 @@ The 7 failures cluster into 2 root causes (see
 The single-turn corpus tests a model's ability to produce a correct
 pipeline from scratch. Real users iterate: they ask for a pipeline, then
 ask to add a step, swap a tool, drop a step, or re-target the same chain
-at a different species. `dataset/dataset_modifications.jsonl` captures
-**17 two-turn conversations** covering four transformations:
+at a different species. `dataset/dataset_modifications_full.jsonl`
+captures **159 conversations (330 turns)** — 17 base + 142 combinatorial
+— covering four transformations:
 
 | Kind | Count | Example |
 |---|---|---|
-| `add`            | 5 | "Now also run classic MLST in parallel on the same assembly." |
-| `replace`        | 5 | "Use Shovill instead of SPAdes for the assembly." |
-| `drop`           | 3 | "Drop the cgMLST step, only keep MLST." |
-| `switch_species` | 4 | "Same pipeline, but for *Salmonella enterica* instead of *Listeria*." |
+| `add`            | ~50 | "Now also run classic MLST in parallel on the same assembly." |
+| `replace`        | ~50 | "Use Shovill instead of SPAdes for the assembly." |
+| `drop`           | ~30 | "Drop the cgMLST step, only keep MLST." |
+| `switch_species` | ~28 | "Same pipeline, but for *Salmonella enterica* instead of *Listeria*." |
 
 Every turn of every conversation is validated independently via
-`nextflow -stub-run` (34 / 34 turns pass in ~13 min).
+`nextflow -stub-run` (330 / 330 turns pass in ~120 min).
 
 Run them yourself with:
 
 ```bash
-python dataset/validate_modifications.py
+python dataset/validate_modifications.py --extended
 ```
 
-### LLM evaluation on the multi-turn corpus
+### LLM evaluation on the full multi-turn corpus
 
-The same izs-llm run captured in `results/example_run_mistral_multi_turn/`
-scores **29 / 34 turns (85 %)** and **14 / 17 fully-passing conversations
-(82 %)**. Pass rate per transformation:
+The izs-llm run captured in `results/llm_full_multi_turn/` scores
+**287 / 330 turns (87 %)** and **136 / 159 fully-passing conversations
+(86 %)**. Pass rate per transformation:
 
-| Kind | Turns | Pass |
-|----|-----:|-----:|
-| `add`            | 10 | 8  |
-| `replace`        | 10 | 10 |
-| `drop`           | 6  | 4  |
-| `switch_species` | 8  | 7  |
+| Kind | Turns | Pass | % |
+|----|-----:|-----:|---:|
+| `replace`        | 99  | 96 | 97 |
+| `add`            | 104 | 95 | 91 |
+| `switch_species` | 61  | 48 | 79 |
+| `drop`           | 66  | 48 | 73 |
 
-The 5 failing turns are concentrated in two conversations:
+The historical curated-subset run (`results/example_run_mistral_multi_turn/`)
+scored 29 / 34 turns (85 %) and 14 / 17 conversations (82 %).
+
+Top failure categories on the full corpus:
 
 - `MOD_M03_B01_add_trimming` (both turns) — the LLM adds an upstream
   species-ID step (kmerfinder) and a database param the user did not
@@ -205,19 +212,22 @@ export NGSMANAGER_DIR=/path/to/cohesive-ngsmanager
 # 2. (Optional) regenerate the ground-truth dataset from blueprints
 python dataset/emit_jsonl.py
 
-# 3. (Optional) validate the ground truth itself (sanity check; ~20 min)
-python harness/harness.py
+# 3. (Optional) validate the ground truth itself
+python harness/harness.py             # 50 examples,  ~25 min
+python harness/harness.py --extended  # 200 examples, ~90 min
 
-# 4. Run your LLM against the 50 prompts
+# 4. Run your LLM against the prompts
 #    The LLM is expected to expose POST <URL>/chat with JSON
 #    {session_id, message, generate_diagrams}
 #    and return JSON {status, reply, nextflow_code, ...}.
 export LLM_API_URL=http://localhost:8765
 export BENCH_RUNS_DIR=./results/my_run
-python eval/run_llm.py
+python eval/run_llm.py                # 50 prompts,  ~10 min LLM
+# or for the full 200:
+BENCH_DATASET=dataset/dataset_200.jsonl python eval/run_llm.py     # ~60 min
 
 # 5. Validate each generated .nf with nextflow -stub-run
-python eval/validate_llm.py
+python eval/validate_llm.py           # ~20 min for 50, ~90 min for 200
 
 # 6. Emit human-friendly TSV / CSV / Markdown reports
 python eval/emit_report.py
