@@ -15,6 +15,12 @@ cp "$REPO/dataset/dataset_50.jsonl"                                             
 cp "$REPO/dataset/dataset_200.jsonl"                                                      "$DEST/dataset_200.jsonl"
 cp "$REPO/dataset/dataset_modifications.jsonl"                                            "$DEST/dataset_modifications.jsonl"
 cp "$REPO/dataset/dataset_modifications_full.jsonl"                                       "$DEST/dataset_modifications_full.jsonl"
+
+# Full-corpus LLM verdicts (200 single + 330 turn multi)
+cp -f "$REPO/results/llm_full_200/verdicts.jsonl"                                          "$DEST/llm_full_200_verdicts.jsonl"                  2>/dev/null || true
+cp -f "$REPO/results/llm_full_200/metadata.json"                                           "$DEST/llm_full_200_metadata.json"                   2>/dev/null || true
+cp -f "$REPO/results/llm_full_multi_turn/verdicts_modifications.jsonl"                     "$DEST/llm_full_multi_turn_verdicts.jsonl"           2>/dev/null || true
+cp -f "$REPO/results/llm_full_multi_turn/metadata.json"                                    "$DEST/llm_full_multi_turn_metadata.json"            2>/dev/null || true
 cp "$REPO/results/example_run_mistral/verdicts.jsonl"                                     "$DEST/example_run_verdicts.jsonl"
 cp "$REPO/results/example_run_mistral_multi_turn/verdicts_modifications.jsonl"            "$DEST/example_run_verdicts_modifications.jsonl"
 
