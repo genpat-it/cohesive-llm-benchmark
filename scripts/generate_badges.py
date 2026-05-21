@@ -67,7 +67,9 @@ def main() -> None:
     if not sf.exists():
         sf = REPO / "results" / "example_run_mistral" / "verdicts.jsonl"
 
-    mf = REPO / "results" / "llm_full_200" / "verdicts_modifications.jsonl"
+    mf = REPO / "results" / "llm_full_multi_turn" / "verdicts_modifications.jsonl"
+    if not mf.exists():
+        mf = REPO / "results" / "llm_full_200" / "verdicts_modifications.jsonl"
     if not mf.exists():
         mf = REPO / "results" / "example_run_mistral_multi_turn" / "verdicts_modifications.jsonl"
 
