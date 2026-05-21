@@ -45,11 +45,11 @@
   <div id="version-banners"></div>
 
   <div class="metrics" id="metrics-single"></div>
-  <h3>Single-turn — LLM eval (50 prompts)</h3>
+  <h3>Single-turn — LLM eval (full 200)</h3>
   <p id="single-summary" class="muted">loading…</p>
 
   <div class="metrics" id="metrics-multi"></div>
-  <h3>Multi-turn — LLM eval (17 conversations · 34 turns)</h3>
+  <h3>Multi-turn — LLM eval (159 conversations · 330 turns)</h3>
   <p id="multi-summary" class="muted">loading…</p>
 
   <h3>Error category breakdown</h3>
@@ -97,10 +97,11 @@ python eval/emit_report.py               # picks up multi-turn too</pre>
   try {
     const [vSingle, vMulti, mSingle, mMulti,
            dsSingleFull, dsMultiFull] = await Promise.all([
-      loadJsonl(DATA.SINGLE_TURN_VERDICTS),
-      loadJsonl(DATA.MULTI_TURN_VERDICTS),
-      loadMeta(DATA.SINGLE_TURN_METADATA),
-      loadMeta(DATA.MULTI_TURN_METADATA),
+      // Headline KPIs come from the FULL LLM eval (200 + 330 turns)
+      loadJsonl("data/llm_full_200_verdicts.jsonl"),
+      loadJsonl("data/llm_full_multi_turn_verdicts.jsonl"),
+      loadMeta("data/llm_full_200_metadata.json"),
+      loadMeta("data/llm_full_multi_turn_metadata.json"),
       loadJsonl("data/dataset_200.jsonl").catch(() => []),
       loadJsonl("data/dataset_modifications_full.jsonl").catch(() => []),
     ]);
