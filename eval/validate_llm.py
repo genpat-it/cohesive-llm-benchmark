@@ -246,11 +246,22 @@ def main() -> None:
         }
 
         if not nf_code:
-            row["error_category"] = "no_code"
-            row["error_detail"] = rec["llm_response"].get("error", "no nextflow_code returned")
+            llm_err = rec["llm_response"].get("error") or ""
+            llm_err_lc = llm_err.lower()
+            # Distinguish upstream-API rate-limit from a genuine LLM failure to
+            # produce code.  The former is a Mistral/quota issue (not a model
+            # quality problem) and shouldn't be counted in error-category stats
+            # as if the model failed.
+            if "rate_limit" in llm_err_lc or "429" in llm_err_lc or "ratelimit" in llm_err_lc:
+                row["error_category"] = "rate_limited"
+                row["error_detail"] = llm_err or "upstream LLM API hit a 429 rate limit"
+            else:
+                row["error_category"] = "no_code"
+                row["error_detail"] = llm_err or "no nextflow_code returned"
             row["syntax_valid"] = False
             row["semantic_valid"] = False
-            print(f"[{i:3d}/{len(records)}] {eid:35s}  NOCODE", flush=True)
+            tag = "RATELIM" if row["error_category"] == "rate_limited" else "NOCODE"
+            print(f"[{i:3d}/{len(records)}] {eid:35s}  {tag}", flush=True)
             rows.append(row)
             continue
 

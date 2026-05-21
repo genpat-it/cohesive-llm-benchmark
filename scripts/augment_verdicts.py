@@ -58,6 +58,12 @@ def classify_tags(v: dict[str, Any]) -> list[str]:
     halluc = v.get("hallucinated_steps") or []
     matches_gt = v.get("matches_gt_steps")
 
+    # Upstream rate-limit failures are not the model's fault; surface them as
+    # an explicit tag so they can be filtered out of model-quality stats.
+    if v.get("error_category") == "rate_limited":
+        tags.append("upstream-rate-limited")
+        return tags
+
     if matches_gt and not extras and not missing:
         tags.append("literal-match")
 

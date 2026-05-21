@@ -40,11 +40,12 @@ function fmtSteps(arr) {
 
 /* --- verdict tags chips ------------------------------------------------- */
 const TAG_TITLE = {
-  "literal-match":         "LLM steps match the ground truth exactly",
-  "extras-best-practice":  "LLM added upstream best-practice steps (trimming, species-id, host-depletion, ...)",
-  "extras-irrelevant":     "LLM added steps that are not a common best-practice add-on",
-  "missing-steps":         "LLM left out required ground-truth steps",
-  "hallucinated":          "LLM used step/include names that don't exist in the framework",
+  "literal-match":          "LLM steps match the ground truth exactly",
+  "extras-best-practice":   "LLM added upstream best-practice steps (trimming, species-id, host-depletion, ...)",
+  "extras-irrelevant":      "LLM added steps that are not a common best-practice add-on",
+  "missing-steps":          "LLM left out required ground-truth steps",
+  "hallucinated":           "LLM used step/include names that don't exist in the framework",
+  "upstream-rate-limited":  "Upstream API (Mistral) returned a 429 rate-limit error -- not a model quality failure",
 };
 function tagChips(tags) {
   if (!tags || !tags.length) return "";

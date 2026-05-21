@@ -92,6 +92,7 @@ table.bench code { font-family: ui-monospace, "Consolas", monospace; font-size: 
 .tag.extras-irrelevant   { background: #fff1c2; color: #856106; }
 .tag.missing-steps       { background: #f9dbd6; color: #8b2520; }
 .tag.hallucinated        { background: #f3d6f9; color: #6b228b; }
+.tag.upstream-rate-limited { background: #ffe2c2; color: #884d06; }
 
 /* LLM reply collapsible */
 details.llm-reply {
