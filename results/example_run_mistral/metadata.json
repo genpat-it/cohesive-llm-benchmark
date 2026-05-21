@@ -16,13 +16,14 @@
   },
   "llm": {
     "name": "izs-llm",
-    "model": "mistral-medium-latest",
+    "model": "labs-devstral-small-2512",
     "api_url": "http://127.0.0.1:8765",
     "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
     "short_commit": "73ace31",
     "branch": "feat/validation-and-anti-hallucination",
     "remote": "https://github.com/mgradyn/izs-llm",
-    "dirty": false
+    "dirty": false,
+    "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
   },
   "dataset": "dataset_50.jsonl",
   "notes": "reference run captured during initial dataset publication"

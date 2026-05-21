@@ -16,7 +16,7 @@ name: LLM eval (single + multi turn)
 # Inputs (workflow_dispatch / repository_dispatch payload):
 #   izs_llm_ref         -- git ref of izs-llm to test (default: main)
 #   ngsmanager_ref      -- git ref of cohesive-ngsmanager (default: main)
-#   llm_model           -- LLM_MODEL env var (default: mistral-medium-latest)
+#   llm_model           -- LLM_MODEL env var (default: labs-devstral-small-2512)
 #   run_label           -- folder name for the results (default: ci_<sha>)
 
 on:
@@ -31,9 +31,9 @@ on:
         required: false
         default: "main"
       llm_model:
-        description: "LLM_MODEL (mistral-medium-latest, mistral-large-latest, ...)"
+        description: "LLM_MODEL (labs-devstral-small-2512, mistral-large-latest, ...)"
         required: false
-        default: "mistral-medium-latest"
+        default: "labs-devstral-small-2512"
       run_label:
         description: "Subfolder under results/ for the output of this run"
         required: false
@@ -49,7 +49,7 @@ permissions:
 env:
   IZS_LLM_REF:     ${{ github.event.inputs.izs_llm_ref     || github.event.client_payload.izs_llm_ref     || 'main' }}
   NGSMANAGER_REF:  ${{ github.event.inputs.ngsmanager_ref  || github.event.client_payload.ngsmanager_ref  || 'main' }}
-  LLM_MODEL:       ${{ github.event.inputs.llm_model       || github.event.client_payload.llm_model       || 'mistral-medium-latest' }}
+  LLM_MODEL:       ${{ github.event.inputs.llm_model       || github.event.client_payload.llm_model       || 'labs-devstral-small-2512' }}
   RUN_LABEL:       ${{ github.event.inputs.run_label       || github.event.client_payload.run_label       || '' }}
 
 jobs:

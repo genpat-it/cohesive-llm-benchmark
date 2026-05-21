@@ -69,7 +69,14 @@ def write_metadata(out_dir: Path,
         },
         "llm": {
             "name":     llm_name or os.environ.get("LLM_NAME", "?"),
-            "model":    llm_model or os.environ.get("LLM_MODEL", "?"),
+            # NOTE: this is the model NAME the LLM service is configured to
+            # use, NOT necessarily what runs internally. izs-llm hard-codes
+            # its model in app/core/config.py and does not expose it over
+            # the wire today, so the bench cannot read it autoritatively
+            # at runtime -- when LLM_MODEL is unset we record
+            # "unknown_no_info_endpoint" to flag the unverified case
+            # (see docs/IZS_LLM_INFO_ENDPOINT_PROPOSAL.md for the fix).
+            "model":    llm_model or os.environ.get("LLM_MODEL", "unknown_no_info_endpoint"),
             "api_url":  llm_api_url,
             **_git_info(llm_repo_path or os.environ.get("LLM_REPO_PATH")),
             "repo_path": llm_repo_path or os.environ.get("LLM_REPO_PATH"),

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "name": "cohesive-llm-benchmark",
   "description": "End-to-end Nextflow-aware benchmark for natural-language to bioinformatics pipeline generators. Validates that each generated .nf parses (DSL2) and schedules the expected number of step processes under nextflow -stub-run.",
-  "generated_at": "2026-05-21T08:31:10Z",
+  "generated_at": "2026-05-21T08:44:35Z",
   "homepage": "https://genpat-it.github.io/cohesive-llm-benchmark",
   "repository": "https://github.com/genpat-it/cohesive-llm-benchmark",
   "framework": "https://github.com/genpat-it/cohesive-ngsmanager",
@@ -74,13 +74,14 @@
         },
         "llm": {
           "name": "izs-llm",
-          "model": "mistral-medium-latest",
+          "model": "labs-devstral-small-2512",
           "api_url": "http://127.0.0.1:8765",
           "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
           "short_commit": "73ace31",
           "branch": "feat/validation-and-anti-hallucination",
           "remote": "https://github.com/mgradyn/izs-llm",
-          "dirty": false
+          "dirty": false,
+          "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
         },
         "dataset": "dataset_50.jsonl",
         "notes": "reference run captured during initial dataset publication"
@@ -191,14 +192,15 @@
         },
         "llm": {
           "name": "izs-llm",
-          "model": "mistral-medium-latest",
+          "model": "labs-devstral-small-2512",
           "api_url": "http://127.0.0.1:8765",
           "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
           "short_commit": "73ace31",
           "branch": "feat/validation-and-anti-hallucination",
           "remote": "https://github.com/mgradyn/izs-llm",
           "dirty": true,
-          "repo_path": "/home/IZSNT/a.deruvo/izs-llm"
+          "repo_path": "/home/IZSNT/a.deruvo/izs-llm",
+          "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
         },
         "dataset": "dataset_50.jsonl"
       },
@@ -253,14 +255,15 @@
         },
         "llm": {
           "name": "izs-llm",
-          "model": "mistral-medium-latest",
+          "model": "labs-devstral-small-2512",
           "api_url": "http://127.0.0.1:8765",
           "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
           "short_commit": "73ace31",
           "branch": "feat/validation-and-anti-hallucination",
           "remote": "https://github.com/mgradyn/izs-llm",
           "dirty": true,
-          "repo_path": "/home/IZSNT/a.deruvo/izs-llm"
+          "repo_path": "/home/IZSNT/a.deruvo/izs-llm",
+          "model_source": "corrected post-hoc; original metadata mis-captured (see scripts/run_metadata.py note)"
         },
         "dataset": "dataset_modifications.jsonl"
       },

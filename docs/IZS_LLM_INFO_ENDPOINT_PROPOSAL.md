@@ -29,7 +29,7 @@ GET /info
   "service":           "izs-llm",
   "version":           "0.3.1",
   "git_commit":        "73ace31",
-  "model":             "mistral-medium-latest",
+  "model":             "labs-devstral-small-2512",
   "provider":          "mistral.ai",
   "max_turns":         4,
   "vector_store":      "loaded",
