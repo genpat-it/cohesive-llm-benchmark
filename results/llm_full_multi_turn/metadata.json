@@ -1,8 +1,8 @@
 {
-  "run_started_at": "2026-05-21T09:04:47Z",
+  "run_started_at": "2026-05-21T12:21:40Z",
   "bench": {
-    "commit": "e25ce4715ffce1845aaf7291fdd89276dcc6decf",
-    "short_commit": "e25ce47",
+    "commit": "1dd5441f348dbf0d304ef059a512409bfec880b1",
+    "short_commit": "1dd5441",
     "branch": "main",
     "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
     "dirty": true,
@@ -18,13 +18,13 @@
   },
   "llm": {
     "name": "?",
-    "model": "labs-devstral-small-2512",
+    "model": "codestral-latest",
     "api_url": "http://127.0.0.1:8765",
     "repo_path": null,
-    "api_alias": "labs-devstral-small-2512",
-    "resolved_model": "devstral-2512",
-    "model_family": "Devstral (Mistral, code-tuned, medium-class ~25-30B params)",
-    "model_source": "corrected post-hoc; izs-llm calls labs-devstral-small-2512 which resolves to public devstral-2512 (see https://api.mistral.ai/v1/models)"
+    "api_alias": "codestral-latest",
+    "resolved_model": "codestral-2508 (or whatever -latest pins to today; mid-2025)",
+    "model_family": "Codestral (Mistral production, code-tuned, ~22B params)",
+    "model_source": "set by hand in izs-llm/app/core/config.py during 2026-05-21 re-run with chat logs"
   },
   "dataset": "dataset_modifications.jsonl"
 }

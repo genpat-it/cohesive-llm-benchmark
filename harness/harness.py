@@ -299,7 +299,6 @@ class Harness:
             # purge the per-example work dir to save space; the log is
             # written below and is enough for postmortem.
             if workdir.exists():
-                import shutil
                 shutil.rmtree(workdir, ignore_errors=True)
             # also drop framework-side work/ that nextflow creates by default
             fw_work = FW / "work"
