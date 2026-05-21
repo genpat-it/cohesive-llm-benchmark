@@ -1,12 +1,20 @@
-# dataset_50.jsonl
+# dataset/
 
-50 validated (prompt, nextflow_code) pairs for training an offline LLM that
+Ground-truth corpora for training and evaluating an offline LLM that
 generates Nextflow pipelines compatible with the `cohesive-ngsmanager`
 framework.
 
-Every example was end-to-end validated with `nextflow -stub-run` against the
-real framework. For each: the DAG must build and the expected number of
-distinct step processes must appear as placeholders.
+| File | Size | What it is |
+|---|---:|---|
+| `dataset_50.jsonl`                  | 50   | curated single-turn subset, kept for stable historical reference |
+| `dataset_200.jsonl`                 | 200  | full single-turn corpus (50 curated + 150 combinatorial extension) |
+| `dataset_modifications.jsonl`       | 17 conversations (34 turns) | curated multi-turn subset |
+| `dataset_modifications_full.jsonl`  | 159 conversations (330 turns) | full multi-turn corpus (17 curated + 142 combinatorial extension) |
+
+Every example in every corpus was end-to-end validated with
+`nextflow -stub-run` against the real framework. For each: the DAG must
+build and the expected number of distinct step processes must appear
+as placeholders.
 
 ## Schema (one JSON object per line)
 
@@ -28,6 +36,8 @@ distinct step processes must appear as placeholders.
 
 ## Categories
 
+### Curated 50 (single-turn)
+
 | Prefix | Pattern | Count |
 |----|----|---|
 | `A` | mono-step typing/AMR/annotation starting from an assembly | 8 |
@@ -41,6 +51,32 @@ distinct step processes must appear as placeholders.
 | `I` | parallel branches: species ID alongside trim + assembly | 2 |
 | `J` | misc (plasmid analysis, read normalisation) | 2 |
 | **Total** | | **50** |
+
+### Extended 150 (single-turn additional)
+
+| Prefix | Pattern | Count |
+|----|----|---|
+| `K` | combinatorial 3-step chains (trim × asm × typing × species) | 60 |
+| `L` | 4-step parallel downstream (two typing/AMR) | 20 |
+| `M` | 5-step parallel downstream (three typing/AMR/annotation) | 10 |
+| `N` / `NA` | cross-species canonical chains | 23 |
+| `O` | mono-step assembly variants | 10 |
+| `P` | long-read (chopper + flye + typing) | 10 |
+| `Q` | parallel branches with species ID | 10 |
+| `R` | mono species-id + db params | 8 |
+| `S` | mono trimming (Illumina / Ion / Nanopore) | 7 |
+| **Total** | | **150** |  ⇒ 50 + 150 = **200** in `dataset_200.jsonl` |
+
+### Multi-turn modifications (159 conversations, 330 turns)
+
+| Kind | 17 curated | 142 extended | Total |
+|---|---:|---:|---:|
+| `add`             | 5 | ~38 | ~43 |
+| `replace`         | 5 | ~40 | ~45 |
+| `drop`            | 3 | ~30 | ~33 |
+| `switch_species`  | 4 | ~28 | ~32 |
+| 3-turn conversations | — | 6 | 6 |
+| **Total**         | **17** | **142** | **159** |
 
 ## Conventions enforced in every example
 
