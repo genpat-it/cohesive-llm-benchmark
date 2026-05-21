@@ -1,11 +1,11 @@
 {
-  "run_started_at": "2026-05-20T19:57:22Z",
+  "run_started_at": "2026-05-21T12:21:40Z",
   "bench": {
-    "commit": "aef436766a87c1c98724ff345bf8ce96da59546f",
-    "short_commit": "aef4367",
+    "commit": "1dd5441f348dbf0d304ef059a512409bfec880b1",
+    "short_commit": "1dd5441",
     "branch": "main",
     "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
-    "dirty": false,
+    "dirty": true,
     "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
   },
   "framework": {
@@ -17,19 +17,14 @@
     "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
   },
   "llm": {
-    "name": "izs-llm",
-    "model": "labs-devstral-small-2512",
+    "name": "?",
+    "model": "codestral-latest",
     "api_url": "http://127.0.0.1:8765",
-    "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
-    "short_commit": "73ace31",
-    "branch": "feat/validation-and-anti-hallucination",
-    "remote": "https://github.com/mgradyn/izs-llm",
-    "dirty": true,
-    "repo_path": "/home/IZSNT/a.deruvo/izs-llm",
-    "model_source": "corrected post-hoc; izs-llm calls labs-devstral-small-2512 which resolves to public devstral-2512 (see https://api.mistral.ai/v1/models)",
-    "api_alias": "labs-devstral-small-2512",
-    "resolved_model": "devstral-2512",
-    "model_family": "Devstral (Mistral, code-tuned, medium-class ~25-30B params)"
+    "repo_path": null,
+    "api_alias": "codestral-latest",
+    "resolved_model": "codestral-2508 (or whatever -latest pins to today; mid-2025)",
+    "model_family": "Codestral (Mistral production, code-tuned, ~22B params)",
+    "model_source": "set by hand in izs-llm/app/core/config.py during 2026-05-21 re-run with chat logs"
   },
   "dataset": "dataset_modifications.jsonl"
 }
