@@ -136,10 +136,43 @@ async function init() {
   ALL.full200 = vFull200; ALL.fullMT  = vFullMT;
   META.single = mSingle;  META.multi  = mMulti;
   META.full200 = mFull200; META.fullMT = mFullMT;
-  rebuildSelectors();
-  updateBanner();
-  render();
+
+  // honour deep link in URL hash:  #corpus/row-id
+  const m = (location.hash || "").match(/^#([^/]+)\/(.+)$/);
+  if (m) {
+    const [, c, rid] = m;
+    if (c in ALL) {
+      CUR = c;
+      document.getElementById("corpus").value = c;
+    }
+    rebuildSelectors();
+    updateBanner();
+    render();
+    // expand the requested row, if it's currently visible in the table
+    const tr = document.querySelector(`#tbl tbody tr[data-id="${CSS.escape(rid)}"]`);
+    if (tr) tr.click();
+  } else {
+    rebuildSelectors();
+    updateBanner();
+    render();
+  }
 }
+
+window.addEventListener("hashchange", () => {
+  // Re-process the hash on browser back/forward
+  const m = (location.hash || "").match(/^#([^/]+)\/(.+)$/);
+  if (!m) return;
+  const [, c, rid] = m;
+  if (c in ALL && c !== CUR) {
+    CUR = c;
+    document.getElementById("corpus").value = c;
+    rebuildSelectors();
+    updateBanner();
+    render();
+  }
+  const tr = document.querySelector(`#tbl tbody tr[data-id="${CSS.escape(rid)}"]`);
+  if (tr && !tr.classList.contains("active-row")) tr.click();
+});
 
 function updateBanner() {
   const dsName = {
@@ -280,6 +313,15 @@ function turnBlock(d, isCurrent) {
 }
 
 
+function setHash(corpus, rowId) {
+  // Update the URL hash without polluting history so the user can share
+  // a deep link to this exact row of this exact corpus.
+  const target = (corpus && rowId) ? `#${corpus}/${rowId}` : '';
+  if (location.hash !== target) {
+    history.replaceState(null, '', location.pathname + location.search + target);
+  }
+}
+
 function showDetail(d, clickedTr) {
   // Accordion behaviour: insert a detail row right after the clicked row.
   // If the same row is clicked again, collapse. If another row's detail is
@@ -293,7 +335,10 @@ function showDetail(d, clickedTr) {
   // Remove the "active" highlight from any other row
   clickedTr.parentElement.querySelectorAll("tr.active-row").forEach(r => r.classList.remove("active-row"));
 
-  if (alreadyMine) return;  // user clicked the same row → collapse
+  if (alreadyMine) {
+    setHash(null, null);
+    return;  // user clicked the same row → collapse
+  }
 
   let title = d.id;
   let header = "";
@@ -339,7 +384,12 @@ function showDetail(d, clickedTr) {
   detailRow.querySelector(".detail-close").addEventListener("click", () => {
     detailRow.remove();
     clickedTr.classList.remove("active-row");
+    setHash(null, null);
   });
+  // remember in URL
+  setHash(CUR, clickedTr.dataset.id);
+  // scroll the now-expanded row into view (top of viewport)
+  clickedTr.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 ["filter-category","filter-error","filter-outcome","filter-text"].forEach(id => {
