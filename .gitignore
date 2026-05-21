@@ -22,6 +22,7 @@ results/*/
 !results/example_run_mistral_multi_turn/
 !results/llm_full_200/
 !results/llm_full_multi_turn/
+!results/llm_multi_workflows/
 
 # Harness scratch (work dirs, dummy inputs)
 _scratch/

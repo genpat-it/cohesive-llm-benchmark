@@ -28,6 +28,7 @@
         <optgroup label="LLM eval against the FULL corpus">
           <option value="full200">single-turn LLM eval (200)</option>
           <option value="fullMT">multi-turn LLM eval (159 convs · 330 turns)</option>
+          <option value="multiWF">multi-sample workflows LLM eval (5)</option>
         </optgroup>
         <optgroup label="LLM eval against the curated subset">
           <option value="single">single-turn LLM eval (50)</option>
@@ -87,8 +88,8 @@
 
 <script src="assets/app.js"></script>
 <script>
-let ALL = { single: [], multi: [], full200: [], fullMT: [] };
-let META = { single: null, multi: null, full200: null, fullMT: null };
+let ALL = { single: [], multi: [], full200: [], fullMT: [], multiWF: [] };
+let META = { single: null, multi: null, full200: null, fullMT: null, multiWF: null };
 let CUR = "full200";
 
 function flattenDatasetForExplorer(raw) {
@@ -133,7 +134,8 @@ function flattenDatasetForExplorer(raw) {
 
 async function init() {
   const [vSingle, vMulti, mSingle, mMulti,
-         vFull200, vFullMT, mFull200, mFullMT] = await Promise.all([
+         vFull200, vFullMT, mFull200, mFullMT,
+         vMultiWF, mMultiWF] = await Promise.all([
     loadJsonl(DATA.SINGLE_TURN_VERDICTS),
     loadJsonl(DATA.MULTI_TURN_VERDICTS),
     loadMeta(DATA.SINGLE_TURN_METADATA),
@@ -142,11 +144,15 @@ async function init() {
     loadJsonl(DATA.FULL_MULTI_VERDICTS).catch(() => []),
     loadMeta("data/llm_full_200_metadata.json"),
     loadMeta("data/llm_full_multi_turn_metadata.json"),
+    loadJsonl("data/llm_multi_workflows_verdicts_augmented.jsonl").catch(() => []),
+    loadMeta("data/llm_multi_workflows_metadata.json").catch(() => null),
   ]);
   ALL.single  = vSingle;  ALL.multi   = vMulti;
   ALL.full200 = vFull200; ALL.fullMT  = vFullMT;
+  ALL.multiWF = vMultiWF;
   META.single = mSingle;  META.multi  = mMulti;
   META.full200 = mFull200; META.fullMT = mFullMT;
+  META.multiWF = mMultiWF;
 
   // honour deep link in URL hash:  #corpus/row-id
   const m = (location.hash || "").match(/^#([^/]+)\/(.+)$/);
@@ -191,6 +197,7 @@ function updateBanner() {
     "multi":   "dataset_modifications.jsonl",
     "full200": "dataset_200.jsonl",
     "fullMT":  "dataset_modifications_full.jsonl",
+    "multiWF": "dataset_205.jsonl (X* subset)",
   }[CUR] || "?";
   const banner = document.getElementById("version-banner");
   banner.innerHTML = metaBanner(META[CUR], dsName);

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "name": "cohesive-llm-benchmark",
   "description": "End-to-end Nextflow-aware benchmark for natural-language to bioinformatics pipeline generators. Validates that each generated .nf parses (DSL2) and schedules the expected number of step processes under nextflow -stub-run.",
-  "generated_at": "2026-05-21T06:56:57Z",
+  "generated_at": "2026-05-21T07:07:54Z",
   "homepage": "https://genpat-it.github.io/cohesive-llm-benchmark",
   "repository": "https://github.com/genpat-it/cohesive-llm-benchmark",
   "framework": "https://github.com/genpat-it/cohesive-ngsmanager",
@@ -296,6 +296,58 @@
       "files": {
         "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn/verdicts_modifications_augmented.jsonl",
         "metadata_json": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn/metadata.json"
+      }
+    },
+    {
+      "run_id": "llm_multi_workflows",
+      "kind": "single-turn",
+      "metadata": {
+        "run_started_at": "2026-05-21T07:02:52Z",
+        "bench": {
+          "commit": "5fd5070a3be8508d39137824def80ac49c26dff6",
+          "short_commit": "5fd5070",
+          "branch": "main",
+          "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
+          "dirty": false,
+          "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
+        },
+        "framework": {
+          "commit": "5c2d0192e116f50d7905f289b81d61fd9d61d2cf",
+          "short_commit": "5c2d019",
+          "branch": "HEAD",
+          "remote": "https://github.com/genpat-it/cohesive-ngsmanager.git",
+          "dirty": true,
+          "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
+        },
+        "llm": {
+          "name": "?",
+          "model": "?",
+          "api_url": "http://127.0.0.1:8765",
+          "repo_path": null
+        },
+        "dataset": "dataset_50.jsonl"
+      },
+      "summary": {
+        "total": 5,
+        "passed": 2,
+        "passed_pct": 40.0,
+        "syntax_ok": 5,
+        "no_code_returned": 0,
+        "by_category": {
+          "?": 5
+        },
+        "by_error_category": {
+          "silent_no_op": 2,
+          "file_not_found": 1
+        },
+        "by_tag": {
+          "literal-match": 3,
+          "extras-irrelevant": 2
+        }
+      },
+      "files": {
+        "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_multi_workflows/verdicts_augmented.jsonl",
+        "metadata_json": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_multi_workflows/metadata.json"
       }
     }
   ]
