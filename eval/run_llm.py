@@ -57,9 +57,15 @@ def ask_llm(prompt: str, session_id: str) -> dict[str, Any]:
                     "turns": turn + 1, "turn_logs": turn_logs}
 
         data = r.json()
+        # Preserve the LLM's free-text reply for each turn (truncated at 4k so
+        # huge code dumps don't blow up the JSONL). Without this the chat
+        # history is lost and we can't audit whether the LLM, e.g., asked a
+        # clarifying question we auto-approved away.
         turn_logs.append({"turn": turn + 1, "status": data.get("status"),
                           "elapsed_s": round(elapsed, 1),
-                          "has_code": bool(data.get("nextflow_code"))})
+                          "has_code": bool(data.get("nextflow_code")),
+                          "user_message": current[:4000],
+                          "llm_reply": (data.get("reply") or "")[:4000]})
         last = data
         status = data.get("status", "")
 

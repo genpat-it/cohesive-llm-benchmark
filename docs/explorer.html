@@ -48,6 +48,16 @@
         <option value="fail">FAIL only</option>
       </select>
     </label>
+    <label>tag
+      <select id="filter-tag">
+        <option value="">all</option>
+        <option value="literal-match">literal-match</option>
+        <option value="extras-best-practice">extras-best-practice</option>
+        <option value="extras-irrelevant">extras-irrelevant</option>
+        <option value="missing-steps">missing-steps</option>
+        <option value="hallucinated">hallucinated</option>
+      </select>
+    </label>
     <label>search
       <input id="filter-text" type="text" placeholder="id / prompt / step…">
     </label>
@@ -60,6 +70,7 @@
         <th>id</th>
         <th>category</th>
         <th>outcome</th>
+        <th>tags</th>
         <th>n_proc</th>
         <th>error</th>
         <th>steps used</th>
@@ -127,8 +138,8 @@ async function init() {
     loadJsonl(DATA.MULTI_TURN_VERDICTS),
     loadMeta(DATA.SINGLE_TURN_METADATA),
     loadMeta(DATA.MULTI_TURN_METADATA),
-    loadJsonl("data/llm_full_200_verdicts.jsonl").catch(() => []),
-    loadJsonl("data/llm_full_multi_turn_verdicts.jsonl").catch(() => []),
+    loadJsonl(DATA.FULL_SINGLE_VERDICTS).catch(() => []),
+    loadJsonl(DATA.FULL_MULTI_VERDICTS).catch(() => []),
     loadMeta("data/llm_full_200_metadata.json"),
     loadMeta("data/llm_full_multi_turn_metadata.json"),
   ]);
@@ -202,6 +213,7 @@ function render() {
   const fc = document.getElementById("filter-category").value;
   const fe = document.getElementById("filter-error").value;
   const fo = document.getElementById("filter-outcome").value;
+  const ftag = document.getElementById("filter-tag").value;
   const ft = document.getElementById("filter-text").value.toLowerCase();
 
   const rows = data.filter(d => {
@@ -209,6 +221,7 @@ function render() {
     if (fe && d.error_category !== fe) return false;
     if (fo === "pass" && !d.semantic_valid) return false;
     if (fo === "fail" && d.semantic_valid) return false;
+    if (ftag && !(d.verdict_tags || []).includes(ftag)) return false;
     if (ft) {
       const hay = (
         d.id + " " + (d.prompt || "") + " " +
@@ -228,6 +241,7 @@ function render() {
           <td><code>${esc(d.id)}</code></td>
           <td>${esc(d.category)}</td>
           <td><span class="pill muted">GT only</span></td>
+          <td></td>
           <td>—/${d.expected_processes ?? "?"}</td>
           <td><span class="muted">— not LLM-evaluated —</span></td>
           <td><span class="muted">click to view prompt + ground truth</span></td>
@@ -238,6 +252,7 @@ function render() {
         <td><code>${esc(d.id)}</code></td>
         <td>${esc(d.category)}</td>
         <td>${passPill(d.semantic_valid)}</td>
+        <td>${tagChips(d.verdict_tags)}</td>
         <td>${d.n_processes ?? "?"}/${d.expected_processes ?? "?"}</td>
         <td><code>${esc(d.error_category || "—")}</code></td>
         <td>${(d.called_steps || d.included_steps || []).slice(0, 4).map(s => "<code>" + esc(s) + "</code>").join(", ")}</td>
@@ -280,12 +295,22 @@ function turnBlock(d, isCurrent) {
       </div>`;
   }
   const errCat = d.error_category || "—";
+  const llmReply = (d.llm_full_reply || "").trim();
+  const turnTrail = (d.llm_turn_logs || [])
+    .map(t => `turn ${t.turn} · status=<code>${esc(t.status || "?")}</code> · code=${t.has_code ? "yes" : "no"} · ${(t.elapsed_s ?? "?")}s`)
+    .join("<br>");
+  const replyBlock = (llmReply || turnTrail) ? `
+    <details class="llm-reply">
+      <summary>What the LLM said (final reply + ${(d.llm_turn_logs || []).length} turn(s))</summary>
+      ${llmReply ? `<div class="reply-text">${esc(llmReply)}</div>` : ""}
+      ${turnTrail ? `<div class="turn-trail">${turnTrail}</div>` : ""}
+    </details>` : "";
   return `
     <div class="turn-card ${isCurrent ? 'turn-current' : ''}">
       <div class="turn-header">
         ${d.turn_index ? `<span class="turn-tag">turn ${esc(d.turn_index)}</span>` : ''}
         <span class="turn-prompt">${esc(d.prompt)}</span>
-        <span class="turn-status">${passPill(d.semantic_valid)}</span>
+        <span class="turn-status">${passPill(d.semantic_valid)} ${tagChips(d.verdict_tags)}</span>
       </div>
       <div class="turn-meta">
         syntax ${passPill(d.syntax_valid)} · ${d.n_processes ?? "?"}/${d.expected_processes ?? "?"} processes ·
@@ -298,6 +323,7 @@ function turnBlock(d, isCurrent) {
         ${(d.missing_steps && d.missing_steps.length) ? ` · <span class="key">missing:</span> ${fmtSteps(d.missing_steps)}` : ""}
         ${(d.hallucinated_steps && d.hallucinated_steps.length) ? ` · <span class="key">hallucinated:</span> ${fmtSteps(d.hallucinated_steps)}` : ""}
       </div>
+      ${replyBlock}
       <div class="codes">
         <div>
           <div class="label">Ground truth (passes validation)</div>
@@ -392,7 +418,7 @@ function showDetail(d, clickedTr) {
   clickedTr.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-["filter-category","filter-error","filter-outcome","filter-text"].forEach(id => {
+["filter-category","filter-error","filter-outcome","filter-tag","filter-text"].forEach(id => {
   document.getElementById(id).addEventListener("input", render);
 });
 document.getElementById("corpus").addEventListener("change", e => {

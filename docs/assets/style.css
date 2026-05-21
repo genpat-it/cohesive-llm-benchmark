@@ -75,6 +75,55 @@ table.bench code { font-family: ui-monospace, "Consolas", monospace; font-size: 
 .pill.warn { background: #fff1c2; color: #856106; }
 .pill.muted { background: #e6e6e6; color: #555; }
 
+/* Verdict tags (chips) -- richer signal than PASS/FAIL alone */
+.tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-right: 4px;
+  line-height: 1.5;
+  vertical-align: middle;
+  cursor: help;
+}
+.tag.literal-match       { background: #d4f1de; color: #1e6c3a; }
+.tag.extras-best-practice{ background: #d1e5f8; color: #1f4f8b; }
+.tag.extras-irrelevant   { background: #fff1c2; color: #856106; }
+.tag.missing-steps       { background: #f9dbd6; color: #8b2520; }
+.tag.hallucinated        { background: #f3d6f9; color: #6b228b; }
+
+/* LLM reply collapsible */
+details.llm-reply {
+  margin-top: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fbfbfb;
+}
+details.llm-reply summary {
+  cursor: pointer;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  color: var(--grey);
+  user-select: none;
+}
+details.llm-reply summary:hover { background: #f3f4f5; }
+details.llm-reply[open] summary { border-bottom: 1px solid var(--border); }
+details.llm-reply .reply-text {
+  padding: 0.6rem 0.8rem;
+  font-family: ui-monospace, "Consolas", monospace;
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #fff;
+}
+details.llm-reply .turn-trail {
+  padding: 0.4rem 0.8rem 0.6rem;
+  font-size: 0.78rem;
+  color: #666;
+  border-top: 1px dashed var(--border);
+}
+
 /* Filter bar */
 .filters {
   background: #fff;

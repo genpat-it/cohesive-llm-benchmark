@@ -52,6 +52,36 @@ help you decide. The guide we use ourselves:
   framework itself (e.g. a buggy step) will surface here, but they are
   out of scope.
 
+## Single-shot prompting (no clarification loop)
+
+The harness sends each prompt **once** and auto-approves any `CHATTING`
+status the LLM returns with the synthetic message "Yes, approve it.
+Proceed with exactly what you suggested." Up to four turns are used
+to coax the model out of a chat-only loop, but the *content* of those
+intermediate exchanges is treated as housekeeping — the user (i.e. the
+harness) never refines the prompt.
+
+This has a non-trivial methodological implication: if the LLM would have
+asked *"do you also want a trimming step before assembly?"* in a real
+interactive session, we would never know. The harness simply auto-approves,
+the LLM commits to whatever it had in mind, and the verdict reflects
+*that* committed pipeline.
+
+To make this observable rather than hidden, every verdict carries:
+
+- a `verdict_tags` list classifying the deviation from ground truth
+  (`literal-match`, `extras-best-practice`, `extras-irrelevant`,
+  `missing-steps`, `hallucinated`),
+- the LLM's free-text final `reply`, and
+- a `turn_logs` trail listing each turn's status / reply / has_code.
+
+The `extras-best-practice` tag exists precisely to surface "the LLM
+added a sensible upstream step (e.g. fastp before unicycler) that the
+prompt did not literally ask for." Those pipelines still PASS validation
+— they are biologically sound — but the tag flags them as "the LLM
+went beyond the literal prompt", which a real user might or might not
+have wanted.
+
 ## Why we use `-stub-run` and not `-preview` alone
 
 `-preview` only parses the DSL2 and resolves includes. It does *not*

@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.0",
+  "name": "cohesive-llm-benchmark",
+  "description": "End-to-end Nextflow-aware benchmark for natural-language to bioinformatics pipeline generators. Validates that each generated .nf parses (DSL2) and schedules the expected number of step processes under nextflow -stub-run.",
+  "generated_at": "2026-05-21T06:56:57Z",
+  "homepage": "https://genpat-it.github.io/cohesive-llm-benchmark",
+  "repository": "https://github.com/genpat-it/cohesive-llm-benchmark",
+  "framework": "https://github.com/genpat-it/cohesive-ngsmanager",
+  "llm_under_test": "https://github.com/mgradyn/izs-llm",
+  "docs": {
+    "methodology": "https://genpat-it.github.io/cohesive-llm-benchmark/../blob/main/METHODOLOGY.md",
+    "error_taxonomy": "https://genpat-it.github.io/cohesive-llm-benchmark/../blob/main/docs/error_taxonomy.md",
+    "dataset_schema": "https://genpat-it.github.io/cohesive-llm-benchmark/../blob/main/docs/dataset_schema.md",
+    "explorer": "https://genpat-it.github.io/cohesive-llm-benchmark/explorer.html"
+  },
+  "datasets": {
+    "single_turn_curated": {
+      "path": "dataset/dataset_50.jsonl",
+      "url": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/dataset/dataset_50.jsonl",
+      "size": 50,
+      "description": "Curated single-turn subset (stable historical baseline)."
+    },
+    "single_turn_full": {
+      "path": "dataset/dataset_200.jsonl",
+      "url": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/dataset/dataset_200.jsonl",
+      "size": 200,
+      "description": "200 single-turn prompts (curated 50 + 150 combinatorial extension)."
+    },
+    "single_turn_full_with_multi": {
+      "path": "dataset/dataset_205.jsonl",
+      "url": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/dataset/dataset_205.jsonl",
+      "size": 205,
+      "description": "200 + 5 multi-sample workflow blueprints (category X*: panaroo, vcf2mst, grapetree, reportree-alleles, reportree-vcf)."
+    },
+    "multi_turn_curated": {
+      "path": "dataset/dataset_modifications.jsonl",
+      "url": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/dataset/dataset_modifications.jsonl",
+      "size": 17,
+      "description": "17 curated multi-turn conversations (34 turns)."
+    },
+    "multi_turn_full": {
+      "path": "dataset/dataset_modifications_full.jsonl",
+      "url": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/dataset/dataset_modifications_full.jsonl",
+      "size": 159,
+      "description": "159 multi-turn conversations (330 turns)."
+    }
+  },
+  "verdict_tags": {
+    "literal-match": "LLM steps match the ground truth exactly.",
+    "extras-best-practice": "LLM added upstream best-practice steps (trimming, species-id, host-depletion, ...) -- biologically sound but beyond the literal prompt.",
+    "extras-irrelevant": "LLM added steps that are not a common best-practice add-on.",
+    "missing-steps": "LLM left out required ground-truth steps.",
+    "hallucinated": "LLM used step/include names that don't exist in the framework."
+  },
+  "runs": [
+    {
+      "run_id": "example_run_mistral",
+      "kind": "single-turn",
+      "metadata": {
+        "run_started_at": "2026-05-19T16:32:00Z",
+        "bench": {
+          "commit": "6736ab62c9813d6b764529e6fa858ce52d722fb8",
+          "short_commit": "6736ab6",
+          "branch": "main",
+          "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
+          "dirty": false
+        },
+        "framework": {
+          "commit": "5c2d0192e116f50d7905f289b81d61fd9d61d2cf",
+          "short_commit": "5c2d019",
+          "branch": "HEAD",
+          "remote": "https://github.com/genpat-it/cohesive-ngsmanager.git",
+          "dirty": false
+        },
+        "llm": {
+          "name": "izs-llm",
+          "model": "mistral-medium-latest",
+          "api_url": "http://127.0.0.1:8765",
+          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
+          "short_commit": "73ace31",
+          "branch": "feat/validation-and-anti-hallucination",
+          "remote": "https://github.com/mgradyn/izs-llm",
+          "dirty": false
+        },
+        "dataset": "dataset_50.jsonl",
+        "notes": "reference run captured during initial dataset publication"
+      },
+      "summary": {
+        "total": 50,
+        "passed": 43,
+        "passed_pct": 86.0,
+        "syntax_ok": 50,
+        "no_code_returned": 0,
+        "by_category": {
+          "?": 50
+        },
+        "by_error_category": {
+          "missing_param": 5,
+          "silent_no_op": 2
+        },
+        "by_tag": {
+          "literal-match": 37,
+          "extras-irrelevant": 8,
+          "missing-steps": 7,
+          "extras-best-practice": 3
+        }
+      },
+      "files": {
+        "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/example_run_mistral/verdicts_augmented.jsonl",
+        "metadata_json": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/example_run_mistral/metadata.json"
+      }
+    },
+    {
+      "run_id": "example_run_mistral_multi_turn",
+      "kind": "multi-turn",
+      "metadata": {
+        "run_started_at": "2026-05-20T10:12:00Z",
+        "bench": {
+          "commit": "6736ab62c9813d6b764529e6fa858ce52d722fb8",
+          "short_commit": "6736ab6",
+          "branch": "main",
+          "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
+          "dirty": false
+        },
+        "framework": {
+          "commit": "5c2d0192e116f50d7905f289b81d61fd9d61d2cf",
+          "short_commit": "5c2d019",
+          "branch": "HEAD",
+          "remote": "https://github.com/genpat-it/cohesive-ngsmanager.git",
+          "dirty": false
+        },
+        "llm": {
+          "name": "izs-llm",
+          "model": "mistral-medium-latest",
+          "api_url": "http://127.0.0.1:8765",
+          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
+          "short_commit": "73ace31",
+          "branch": "feat/validation-and-anti-hallucination",
+          "remote": "https://github.com/mgradyn/izs-llm",
+          "dirty": false
+        },
+        "dataset": "dataset_modifications.jsonl",
+        "notes": "reference multi-turn run added after Grady's feature request"
+      },
+      "summary": {
+        "total": 34,
+        "passed": 29,
+        "passed_pct": 85.3,
+        "syntax_ok": 34,
+        "no_code_returned": 0,
+        "by_category": {
+          "modification": 34
+        },
+        "by_error_category": {
+          "missing_param": 3,
+          "silent_no_op": 1,
+          "file_not_found": 1
+        },
+        "by_tag": {
+          "literal-match": 30,
+          "extras-best-practice": 2,
+          "missing-steps": 2,
+          "extras-irrelevant": 1
+        },
+        "conversations_total": 17,
+        "conversations_fully_passed": 14,
+        "conversations_fully_passed_pct": 82.4
+      },
+      "files": {
+        "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/example_run_mistral_multi_turn/verdicts_modifications_augmented.jsonl",
+        "metadata_json": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/example_run_mistral_multi_turn/metadata.json"
+      }
+    },
+    {
+      "run_id": "llm_full_200",
+      "kind": "single-turn",
+      "metadata": {
+        "run_started_at": "2026-05-20T15:22:35Z",
+        "bench": {
+          "commit": "bec83c6e6e06923a5be46721ba5ea15b6fbbc039",
+          "short_commit": "bec83c6",
+          "branch": "main",
+          "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
+          "dirty": false,
+          "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
+        },
+        "framework": {
+          "commit": "5c2d0192e116f50d7905f289b81d61fd9d61d2cf",
+          "short_commit": "5c2d019",
+          "branch": "HEAD",
+          "remote": "https://github.com/genpat-it/cohesive-ngsmanager.git",
+          "dirty": true,
+          "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
+        },
+        "llm": {
+          "name": "izs-llm",
+          "model": "mistral-medium-latest",
+          "api_url": "http://127.0.0.1:8765",
+          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
+          "short_commit": "73ace31",
+          "branch": "feat/validation-and-anti-hallucination",
+          "remote": "https://github.com/mgradyn/izs-llm",
+          "dirty": true,
+          "repo_path": "/home/IZSNT/a.deruvo/izs-llm"
+        },
+        "dataset": "dataset_50.jsonl"
+      },
+      "summary": {
+        "total": 200,
+        "passed": 185,
+        "passed_pct": 92.5,
+        "syntax_ok": 200,
+        "no_code_returned": 0,
+        "by_category": {
+          "?": 200
+        },
+        "by_error_category": {
+          "missing_param": 8,
+          "silent_no_op": 3,
+          "partial_dag": 2,
+          "ngsmanager_naming": 1,
+          "file_not_found": 1
+        },
+        "by_tag": {
+          "literal-match": 161,
+          "extras-irrelevant": 21,
+          "extras-best-practice": 20,
+          "missing-steps": 13
+        }
+      },
+      "files": {
+        "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_200/verdicts_augmented.jsonl",
+        "metadata_json": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_200/metadata.json"
+      }
+    },
+    {
+      "run_id": "llm_full_multi_turn",
+      "kind": "multi-turn",
+      "metadata": {
+        "run_started_at": "2026-05-20T19:57:22Z",
+        "bench": {
+          "commit": "aef436766a87c1c98724ff345bf8ce96da59546f",
+          "short_commit": "aef4367",
+          "branch": "main",
+          "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
+          "dirty": false,
+          "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
+        },
+        "framework": {
+          "commit": "5c2d0192e116f50d7905f289b81d61fd9d61d2cf",
+          "short_commit": "5c2d019",
+          "branch": "HEAD",
+          "remote": "https://github.com/genpat-it/cohesive-ngsmanager.git",
+          "dirty": true,
+          "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
+        },
+        "llm": {
+          "name": "izs-llm",
+          "model": "mistral-medium-latest",
+          "api_url": "http://127.0.0.1:8765",
+          "commit": "73ace31b427cad01a61edf1acdc3331943df015b",
+          "short_commit": "73ace31",
+          "branch": "feat/validation-and-anti-hallucination",
+          "remote": "https://github.com/mgradyn/izs-llm",
+          "dirty": true,
+          "repo_path": "/home/IZSNT/a.deruvo/izs-llm"
+        },
+        "dataset": "dataset_modifications.jsonl"
+      },
+      "summary": {
+        "total": 330,
+        "passed": 287,
+        "passed_pct": 87.0,
+        "syntax_ok": 329,
+        "no_code_returned": 0,
+        "by_category": {
+          "modification": 330
+        },
+        "by_error_category": {
+          "missing_param": 16,
+          "partial_dag": 14,
+          "silent_no_op": 9,
+          "file_not_found": 3,
+          "arity_error": 1
+        },
+        "by_tag": {
+          "literal-match": 281,
+          "missing-steps": 32,
+          "extras-irrelevant": 30,
+          "extras-best-practice": 2
+        },
+        "conversations_total": 159,
+        "conversations_fully_passed": 136,
+        "conversations_fully_passed_pct": 85.5
+      },
+      "files": {
+        "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn/verdicts_modifications_augmented.jsonl",
+        "metadata_json": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn/metadata.json"
+      }
+    }
+  ]
+}

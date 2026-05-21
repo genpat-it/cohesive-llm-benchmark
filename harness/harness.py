@@ -116,6 +116,64 @@ def trimmed_layout(inputdir: Path, anno: str, cmp: str,
     return r1, r2
 
 
+def gff_layout(inputdir: Path, anno: str, cmp: str,
+               ds: str = "DS99999", dt: str = "DT260224",
+               met: str = "prokka") -> Path:
+    """4AN_genes/<DS>-<DT>_prokka/result/<base>.gff — for panaroo etc."""
+    base_dir = inputdir / anno / cmp / "4AN_genes" / f"{ds}-{dt}_{met}" / "result"
+    gff = base_dir / f"{ds}-{dt}_{cmp}_{met}.gff"
+    base_dir.mkdir(parents=True, exist_ok=True)
+    gff.write_text("##gff-version 3\n##sequence-region contig1 1 1000\n")
+    return gff
+
+
+def alleles_chewbbaca_layout(inputdir: Path, anno: str, cmp: str,
+                              ds: str = "DS99999", dt: str = "DT260224",
+                              met: str = "chewbbaca") -> Path:
+    """4TY_cgMLST/<DS>-<DT>_chewbbaca/result/<base>_results_crc32.tsv — for grapetree."""
+    base_dir = inputdir / anno / cmp / "4TY_cgMLST" / f"{ds}-{dt}_{met}" / "result"
+    tsv = base_dir / f"{ds}-{dt}_{cmp}_{met}_results_crc32.tsv"
+    base_dir.mkdir(parents=True, exist_ok=True)
+    tsv.write_text("FILE\tlocus1\tlocus2\nsample1\t1\t2\n")
+    return tsv
+
+
+def vcf_layout(inputdir: Path, anno: str, cmp: str,
+               ds: str = "DS99999", dt: str = "DT260224",
+               met: str = "snippy") -> Path:
+    """2AS_mapping/<DS>-<DT>_snippy/result/<base>.vcf — for vcf2mst etc."""
+    base_dir = inputdir / anno / cmp / "2AS_mapping" / f"{ds}-{dt}_{met}" / "result"
+    vcf = base_dir / f"{ds}-{dt}_{cmp}_{met}_0.vcf"
+    base_dir.mkdir(parents=True, exist_ok=True)
+    vcf.write_text(
+        "##fileformat=VCFv4.2\n"
+        "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\n"
+        "chr1\t1\t.\tA\tT\t100\tPASS\t.\n"
+    )
+    return vcf
+
+
+def metadata_csv(path: Path) -> Path:
+    """A 2-row metadata CSV with strain/date/region — enough for prepare_metadata."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        "strain,date,region,country\n"
+        "sample1,2024-01-01,EU,IT\n"
+        "sample2,2024-01-02,EU,IT\n"
+    )
+    return path
+
+
+def geodata_tsv(path: Path) -> Path:
+    """A minimal geo coordinates TSV for augur etc."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        "country\tregion\tlatitude\tlongitude\n"
+        "IT\tEU\t42.0\t12.0\n"
+    )
+    return path
+
+
 # ---------------------------------------------------------------------------
 # datatypes
 # ---------------------------------------------------------------------------
@@ -185,6 +243,12 @@ class Harness:
             assembly_layout(inputdir, anno, cmp)
         elif kind == "trimmed":
             trimmed_layout(inputdir, anno, cmp)
+        elif kind == "gff":
+            gff_layout(inputdir, anno, cmp)
+        elif kind == "alleles":
+            alleles_chewbbaca_layout(inputdir, anno, cmp)
+        elif kind == "vcf":
+            vcf_layout(inputdir, anno, cmp)
         else:
             raise ValueError(f"unknown input kind: {kind}")
         self._materialised.add(spec)

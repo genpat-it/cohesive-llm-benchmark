@@ -8,6 +8,7 @@ framework.
 |---|---:|---|
 | `dataset_50.jsonl`                  | 50   | curated single-turn subset, kept for stable historical reference |
 | `dataset_200.jsonl`                 | 200  | full single-turn corpus (50 curated + 150 combinatorial extension) |
+| `dataset_205.jsonl`                 | 205  | 200 + 5 multi-sample workflow blueprints (X*: panaroo, vcf2mst, grapetree, reportree-alleles, reportree-vcf) |
 | `dataset_modifications.jsonl`       | 17 conversations (34 turns) | curated multi-turn subset |
 | `dataset_modifications_full.jsonl`  | 159 conversations (330 turns) | full multi-turn corpus (17 curated + 142 combinatorial extension) |
 
@@ -66,6 +67,22 @@ as placeholders.
 | `R` | mono species-id + db params | 8 |
 | `S` | mono trimming (Illumina / Ion / Nanopore) | 7 |
 | **Total** | | **150** |  ⇒ 50 + 150 = **200** in `dataset_200.jsonl` |
+
+### Multi-sample workflows (5 blueprints, category `X*`)
+
+These exercise the `multi/*` workflows of cohesive-ngsmanager, which take
+arrays of per-sample inputs (GFFs, VCFs, allele profiles).
+
+| ID | Multi-workflow | What it tests |
+|----|----|---|
+| `X01_multi_pangenome_panaroo_listeria` | `multi_pangenome__panaroo` | pangenome across 3 prokka-annotated Listeria assemblies |
+| `X02_multi_clustering_vcf2mst` | `multi_clustering__vcf2mst` | minimum spanning tree from 3 snippy VCFs |
+| `X03_multi_clustering_grapetree_listeria` | `multi_clustering__grapetree` | cgMLST clustering of 3 Listeria allele profiles |
+| `X04_multi_clustering_reportree_alleles_listeria` | `multi_clustering__reportree` (alleles variant) | ReporTree clustering across 3 Listeria allele profiles |
+| `X05_multi_clustering_reportree_vcf` | `multi_clustering__reportree` (vcf variant) | ReporTree clustering across 3 VCFs |
+
+These are only in `dataset_205.jsonl` (not in `dataset_50.jsonl` or
+`dataset_200.jsonl`).
 
 ### Multi-turn modifications (159 conversations, 330 turns)
 

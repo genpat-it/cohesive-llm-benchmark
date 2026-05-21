@@ -26,6 +26,19 @@
 
   <p>Failures are auto-categorised across 13 axes (arity, wrong emit, missing param, silent no-op, hallucinated step, …) so the bench surfaces <em>why</em> the model is wrong, not just <em>that</em> it is.</p>
 
+  <div class="callout" style="border-left: 4px solid #4a8bdf; background: #f0f6fd; padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 4px;">
+    <strong>Methodology note · single-shot, no clarification dialogue.</strong>
+    The harness sends each prompt once and auto-approves any <code>CHATTING</code>
+    reply, so the LLM has no opportunity to ask <em>"do you also want a trimming
+    step before assembly?"</em> in a real interactive session. Pipelines that the
+    model adds spontaneously (e.g. fastp upstream of an assembler) are flagged
+    with the <span class="tag extras-best-practice">extras-best-practice</span>
+    tag rather than counted as a failure — they're bioinformatically sound,
+    just beyond the literal prompt. See the
+    <a href="explorer.html">explorer</a> &gt; <em>What the LLM said</em> for the
+    full free-text replies behind each verdict.
+  </div>
+
   <h2>Dataset overview</h2>
   <div class="metrics" id="metrics-dataset"></div>
   <p class="muted">Every entry passes <code>nextflow -stub-run</code> validation against the framework. See
@@ -65,6 +78,15 @@
     <tbody><tr><td colspan="7"><em>loading…</em></td></tr></tbody>
   </table>
 
+  <h2>Programmatic access</h2>
+  <p>If you want to consume the bench from a script or paper, a single
+    well-typed JSON manifest aggregates everything (datasets, runs, summary
+    stats, tag distribution, methodology pointers):
+    <a href="data/benchmark.json"><code>docs/data/benchmark.json</code></a>.
+    Schema version <code>1.0</code>; the same file is also reachable raw at
+    <code>raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/docs/data/benchmark.json</code>.
+  </p>
+
   <h2>How to use it</h2>
   <pre style="background: var(--code-bg); color: var(--code-fg); padding: 1rem; border-radius: 6px; overflow-x: auto;">
 git clone https://github.com/genpat-it/cohesive-llm-benchmark
@@ -98,8 +120,8 @@ python eval/emit_report.py               # picks up multi-turn too</pre>
     const [vSingle, vMulti, mSingle, mMulti,
            dsSingleFull, dsMultiFull] = await Promise.all([
       // Headline KPIs come from the FULL LLM eval (200 + 330 turns)
-      loadJsonl("data/llm_full_200_verdicts.jsonl"),
-      loadJsonl("data/llm_full_multi_turn_verdicts.jsonl"),
+      loadJsonl("data/llm_full_200_verdicts_augmented.jsonl"),
+      loadJsonl("data/llm_full_multi_turn_verdicts_augmented.jsonl"),
       loadMeta("data/llm_full_200_metadata.json"),
       loadMeta("data/llm_full_multi_turn_metadata.json"),
       loadJsonl("data/dataset_200.jsonl").catch(() => []),

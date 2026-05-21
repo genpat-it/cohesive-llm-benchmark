@@ -11,7 +11,9 @@
 
 **Cross-repo trigger:** every push to [`mgradyn/izs-llm`](https://github.com/mgradyn/izs-llm) `main` can fire the full benchmark automatically — see [`docs/TRIGGER_FROM_IZS_LLM.md`](docs/TRIGGER_FROM_IZS_LLM.md).
 
-**Corpus size (May 2026):** 200 single-turn examples + 159 multi-turn conversations (330 turns). Every entry passes `nextflow -stub-run` validation against the framework. See [dataset/dataset_200.jsonl](dataset/dataset_200.jsonl) and [dataset/dataset_modifications_full.jsonl](dataset/dataset_modifications_full.jsonl).
+**Corpus size (May 2026):** 205 single-turn examples (200 single-sample + 5 multi-sample workflow blueprints) + 159 multi-turn conversations (330 turns). Every entry passes `nextflow -stub-run` validation against the framework. See [dataset/dataset_205.jsonl](dataset/dataset_205.jsonl) and [dataset/dataset_modifications_full.jsonl](dataset/dataset_modifications_full.jsonl).
+
+**Programmatic access:** a single well-typed manifest aggregates datasets, runs, summary stats and tag distribution at [`docs/data/benchmark.json`](docs/data/benchmark.json) (schema version `1.0`).
 
 A benchmark for natural-language → Nextflow pipeline generators targeting the
 [cohesive-ngsmanager](https://github.com/genpat-it/cohesive-ngsmanager)

@@ -3,10 +3,13 @@
 const DATA = {
   SINGLE_TURN_DATASET: "data/dataset_50.jsonl",
   MULTI_TURN_DATASET: "data/dataset_modifications.jsonl",
-  SINGLE_TURN_VERDICTS: "data/example_run_verdicts.jsonl",
-  MULTI_TURN_VERDICTS: "data/example_run_verdicts_modifications.jsonl",
+  // Augmented verdicts carry verdict_tags + llm_full_reply + llm_turn_logs.
+  SINGLE_TURN_VERDICTS: "data/example_run_mistral_verdicts_augmented.jsonl",
+  MULTI_TURN_VERDICTS: "data/example_run_mistral_multi_turn_verdicts_augmented.jsonl",
   SINGLE_TURN_METADATA: "data/example_run_metadata.json",
   MULTI_TURN_METADATA: "data/example_run_metadata_multi_turn.json",
+  FULL_SINGLE_VERDICTS: "data/llm_full_200_verdicts_augmented.jsonl",
+  FULL_MULTI_VERDICTS:  "data/llm_full_multi_turn_verdicts_augmented.jsonl",
 };
 
 /* --- jsonl loader -------------------------------------------------------- */
@@ -33,6 +36,21 @@ function passPill(b) {
 function fmtSteps(arr) {
   if (!arr || !arr.length) return "<em>none</em>";
   return arr.map(s => `<code>${esc(s)}</code>`).join(", ");
+}
+
+/* --- verdict tags chips ------------------------------------------------- */
+const TAG_TITLE = {
+  "literal-match":         "LLM steps match the ground truth exactly",
+  "extras-best-practice":  "LLM added upstream best-practice steps (trimming, species-id, host-depletion, ...)",
+  "extras-irrelevant":     "LLM added steps that are not a common best-practice add-on",
+  "missing-steps":         "LLM left out required ground-truth steps",
+  "hallucinated":          "LLM used step/include names that don't exist in the framework",
+};
+function tagChips(tags) {
+  if (!tags || !tags.length) return "";
+  return tags.map(t =>
+    `<span class="tag ${esc(t)}" title="${esc(TAG_TITLE[t] || t)}">${esc(t)}</span>`
+  ).join("");
 }
 
 /* --- summary numbers ---------------------------------------------------- */
