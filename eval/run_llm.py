@@ -32,6 +32,16 @@ MAX_TURNS = 4
 TIMEOUT_PER_CALL = 180
 
 
+RATE_LIMIT_BACKOFFS = (30, 60, 120, 240, 480)  # seconds; ~15 min total budget
+
+
+def _is_rate_limited(data: dict[str, Any]) -> bool:
+    """Detect Mistral's 429 leaking through izs-llm's 'Consultant Agent Failed' wrapper."""
+    err = (data.get("error") or "").lower()
+    return (data.get("status") == "failed"
+            and ("rate_limit" in err or "429" in err or "ratelimit" in err))
+
+
 def ask_llm(prompt: str, session_id: str) -> dict[str, Any]:
     """Loop a conversation: send prompt, auto-approve once, return final state."""
     current = prompt
@@ -40,23 +50,34 @@ def ask_llm(prompt: str, session_id: str) -> dict[str, Any]:
 
     for turn in range(MAX_TURNS):
         t0 = time.time()
-        try:
-            r = requests.post(
-                f"{API_URL}/chat",
-                json={"session_id": session_id,
-                      "message": current,
-                      "generate_diagrams": False},
-                timeout=TIMEOUT_PER_CALL,
-            )
-        except Exception as e:
-            return {"error": f"http exception: {e}", "turns": turn + 1,
-                    "turn_logs": turn_logs}
+        # If the backend is rate-limited by Mistral upstream, the /chat endpoint
+        # itself returns 200 with status=failed; sleep & retry transparently so
+        # one rate-limit blip doesn't corrupt 100+ prompts in a row.
+        for backoff in RATE_LIMIT_BACKOFFS:
+            try:
+                r = requests.post(
+                    f"{API_URL}/chat",
+                    json={"session_id": session_id,
+                          "message": current,
+                          "generate_diagrams": False},
+                    timeout=TIMEOUT_PER_CALL,
+                )
+            except Exception as e:
+                return {"error": f"http exception: {e}", "turns": turn + 1,
+                        "turn_logs": turn_logs}
+            if r.status_code != 200:
+                return {"error": f"http {r.status_code}: {r.text[:200]}",
+                        "turns": turn + 1, "turn_logs": turn_logs}
+            tentative = r.json()
+            if not _is_rate_limited(tentative):
+                break
+            print(f"      [rate-limited; sleeping {backoff}s...]", flush=True)
+            time.sleep(backoff)
+        else:
+            # Exhausted all backoffs; return as-is and let the run continue
+            print(f"      [rate-limit persisted after {sum(RATE_LIMIT_BACKOFFS)}s; giving up on this prompt]", flush=True)
         elapsed = time.time() - t0
-        if r.status_code != 200:
-            return {"error": f"http {r.status_code}: {r.text[:200]}",
-                    "turns": turn + 1, "turn_logs": turn_logs}
-
-        data = r.json()
+        data = tentative
         # Preserve the LLM's free-text reply for each turn (truncated at 4k so
         # huge code dumps don't blow up the JSONL). Without this the chat
         # history is lost and we can't audit whether the LLM, e.g., asked a
