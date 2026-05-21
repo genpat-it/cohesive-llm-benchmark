@@ -303,14 +303,25 @@ function turnBlock(d, isCurrent) {
   }
   const errCat = d.error_category || "—";
   const llmReply = (d.llm_full_reply || "").trim();
-  const turnTrail = (d.llm_turn_logs || [])
-    .map(t => `turn ${t.turn} · status=<code>${esc(t.status || "?")}</code> · code=${t.has_code ? "yes" : "no"} · ${(t.elapsed_s ?? "?")}s`)
-    .join("<br>");
-  const replyBlock = (llmReply || turnTrail) ? `
+  const trail = (d.llm_turn_logs || []);
+  const hasTurnText = trail.some(t => t.llm_reply || t.user_message);
+  const trailBlocks = trail.map(t => {
+    const head = `turn ${t.turn} · status=<code>${esc(t.status || "?")}</code> · code=${t.has_code ? "yes" : "no"} · ${(t.elapsed_s ?? "?")}s`;
+    if (t.llm_reply || t.user_message) {
+      return `<div class="trail-turn">
+        <div class="trail-head">${head}</div>
+        ${t.user_message ? `<div class="trail-user"><span class="trail-actor">user →</span> ${esc(t.user_message)}</div>` : ""}
+        ${t.llm_reply ? `<div class="trail-llm"><span class="trail-actor">LLM →</span> ${esc(t.llm_reply)}</div>` : ""}
+      </div>`;
+    }
+    return `<div class="trail-head">${head}</div>`;
+  }).join("");
+  const replyBlock = (llmReply || trail.length) ? `
     <details class="llm-reply">
-      <summary>What the LLM said (final reply + ${(d.llm_turn_logs || []).length} turn(s))</summary>
-      ${llmReply ? `<div class="reply-text">${esc(llmReply)}</div>` : ""}
-      ${turnTrail ? `<div class="turn-trail">${turnTrail}</div>` : ""}
+      <summary>What the LLM said${hasTurnText ? " (full chat: " + trail.length + " turn(s))" : " (final reply + " + trail.length + " turn(s) metadata)"}</summary>
+      ${llmReply && !hasTurnText ? `<div class="reply-text">${esc(llmReply)}</div>` : ""}
+      ${trailBlocks ? `<div class="turn-trail">${trailBlocks}</div>` : ""}
+      ${!hasTurnText ? `<div class="turn-trail muted" style="font-size:0.72rem; color:#999;">per-turn chat text was not captured before commit 5fd5070; only the final reply above is available.</div>` : ""}
     </details>` : "";
   return `
     <div class="turn-card ${isCurrent ? 'turn-current' : ''}">
