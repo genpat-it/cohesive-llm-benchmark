@@ -1,0 +1,104 @@
+diff --git a/app/services/agents.py b/app/services/agents.py
+index 2cce798..1cacc67 100644
+--- a/app/services/agents.py
++++ b/app/services/agents.py
+@@ -1,4 +1,6 @@
++import os
+ import re
++import time
+ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+ from langchain_core.messages import HumanMessage, AIMessage
+ from langchain_core.messages import RemoveMessage
+@@ -13,6 +15,12 @@ from app.core.loader import data_loader
+ from langgraph.store.base import BaseStore
+ from app.services.prompt_loader import load_consultant_prompt, load_architect_prompt
+ 
++# Burst-spacing: sleep this many seconds before each Mistral call so the
++# architect/repair loop's 5-10 calls don't cluster within the rolling 60s
++# TPM window on free/labs tiers. Configurable via env (default 8s on free;
++# set to 0 on paid where the burst is well within TPM headroom).
++LLM_CALL_SPACING_S = float(os.environ.get("LLM_CALL_SPACING_S", "8"))
++
+ # ==========================================
+ # 1. SYSTEM PROMPTS
+ # ==========================================
+@@ -65,9 +73,17 @@ def consultant_node(state: GraphState, store: BaseStore):
+     ])
+ 
+     consultant_agent = llm.with_structured_output(ConsultantOutput)
+-    chain = prompt | consultant_agent
++    # Retry on transient 429s -- Mistral free/labs tiers throttle the
++    # multi-call burst within a single /chat. Backoff with jitter gives
++    # the rolling TPM window time to drain.
++    chain = (prompt | consultant_agent).with_retry(
++        stop_after_attempt=6,
++        wait_exponential_jitter=True,
++    )
+ 
+     try:
++        if LLM_CALL_SPACING_S > 0:
++            time.sleep(LLM_CALL_SPACING_S)
+         result = chain.invoke({
+             "context": metadata_context,
+             "messages": current_messages
+@@ -133,7 +149,12 @@ def architect_node(state: GraphState):
+     if state.get("error"): return {"error": state['error']}
+     
+     llm = get_llm()
+-    architect_agent = llm.with_structured_output(NextflowPipelineAST, method="json_schema", include_raw=False)
++    # Same retry wrapping as the consultant -- the architect is the heaviest
++    # producer of bursty calls (re-invoked up to MAX_RETRIES=8 by repair loop).
++    architect_agent = llm.with_structured_output(NextflowPipelineAST, method="json_schema", include_raw=False).with_retry(
++        stop_after_attempt=6,
++        wait_exponential_jitter=True,
++    )
+ 
+     prompt = ChatPromptTemplate.from_messages([
+         ("system", ARCHITECT_SYSTEM_PROMPT),
+@@ -146,6 +167,8 @@ def architect_node(state: GraphState):
+     }).to_messages()
+ 
+     try:
++        if LLM_CALL_SPACING_S > 0:
++            time.sleep(LLM_CALL_SPACING_S)
+         result = architect_agent.invoke(messages)
+         print("[Architect] Successfully generated Hybrid AST.")
+         return {
+diff --git a/app/services/llm.py b/app/services/llm.py
+index 448f6e2..bd91dc4 100644
+--- a/app/services/llm.py
++++ b/app/services/llm.py
+@@ -6,17 +6,30 @@ from langchain_groq import ChatGroq
+ from app.core.config import settings
+ 
+ def get_llm():
+-    """Returns the configured Mistral LLM instance."""
++    """Returns the configured Mistral LLM instance (vanilla constructor).
++
++    NOTE on rate limiting: the architect/repair loop can fire 5-10 calls
++    in a few seconds (RAG context + AST validation retries up to
++    MAX_RETRIES=8). On free / labs Mistral tiers this saturates TPM and
++    trips a 429 mid-pipeline. Retry wrapping is applied per-chain in
++    app/services/agents.py via Runnable.with_retry() AFTER any
++    .with_structured_output() composition (RunnableRetry has no
++    .with_structured_output method, so it must be applied last).
++    """
+     api_key = os.getenv("MISTRAL_API_KEY")
+     if not api_key:
+         print("❌ CRITICAL ERROR: MISTRAL_API_KEY is missing from environment variables!")
+         raise ValueError("MISTRAL_API_KEY is not set.")
+-    
++
+     return ChatMistralAI(
+         model=settings.LLM_MODEL,
+         api_key=api_key,
+         temperature=0.2,
+-        max_tokens=128000, 
++        # Was 128000 -- unrealistic for any Mistral model and some tiers
++        # reserve max_tokens upfront against TPM, causing immediate 429
++        # on free/labs accounts. 8k is more than enough for any
++        # Consultant/Architect output (typical AST < 4k tokens).
++        max_tokens=8000,
+         top_p=0.9,
+     )
+ 
