@@ -40,3 +40,6 @@ work/
 # Local snapshots of the Claude Code session JSONL (manual backups outside ~/.claude/)
 .session-backup/
 .backup-pre-paramfix/
+
+# Ad-hoc backups dropped next to result files (pre-augment etc.) — never commit
+*.no_chat_prev*
