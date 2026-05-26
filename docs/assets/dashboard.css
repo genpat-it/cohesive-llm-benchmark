@@ -79,6 +79,49 @@
   font-size: 0.88rem;
   color: var(--grey);
 }
+.kpi-corrected {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--border);
+  font-size: 0.82rem;
+  color: var(--green);
+  font-weight: 600;
+  min-height: 1rem;
+}
+.kpi-corrected:empty { display: none; }
+.kpi-corrected .delta {
+  display: inline-block;
+  background: #dff5e2;
+  color: #1f7a3a;
+  padding: 0 6px;
+  border-radius: 9px;
+  font-size: 0.74rem;
+  margin-left: 4px;
+}
+.corrected-legend {
+  background: #f6faf7;
+  border: 1px solid #cee6d4;
+  border-left: 4px solid var(--green);
+  border-radius: 4px;
+  padding: 0.55rem 0.9rem;
+  margin: -0.4rem 0 1.4rem;
+  font-size: 0.85rem;
+  color: var(--grey);
+  line-height: 1.45;
+}
+.corrected-legend .legend-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.tag.tag-harness-param-gap {
+  background: #f6faf7;
+  color: #1f7a3a;
+  border-color: #cee6d4;
+}
 
 /* Charts */
 .chart-row {

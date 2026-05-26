@@ -136,6 +136,13 @@ async function onFilterChange() {
 }
 
 /* ----- KPIs ----- */
+function renderCorrected(elId, raw, corrected, gap, total) {
+  const node = $(elId);
+  if (!gap) { node.innerHTML = ""; return; }
+  const delta = corrected - raw;
+  node.innerHTML = `${corrected} / ${total} corrected `
+    + `<span class="delta">+${delta} harness-gap</span>`;
+}
 function renderKpis() {
   const m = currentModel();
   const st = m.single_turn?.headline;
@@ -143,10 +150,24 @@ function renderKpis() {
   const mtConvs = m.multi_turn?.headline?.convs;
   $("kpi-st-pct").textContent = st ? `${st.pct}%` : "—";
   $("kpi-st-frac").textContent = st ? `${st.passed} / ${st.total}` : "no single-turn data";
+  if (st) renderCorrected("kpi-st-corr", st.passed, st.corrected_passed, st.harness_gap, st.total);
+  else $("kpi-st-corr").innerHTML = "";
+
   $("kpi-mt-pct").textContent = mtTurns ? `${mtTurns.pct}%` : "—";
   $("kpi-mt-frac").textContent = mtTurns ? `${mtTurns.passed} / ${mtTurns.total}` : "no multi-turn data";
+  if (mtTurns) renderCorrected("kpi-mt-corr", mtTurns.passed, mtTurns.corrected_passed, mtTurns.harness_gap, mtTurns.total);
+  else $("kpi-mt-corr").innerHTML = "";
+
   $("kpi-conv-pct").textContent = mtConvs ? `${mtConvs.pct}%` : "—";
   $("kpi-conv-frac").textContent = mtConvs ? `${mtConvs.full_pass} / ${mtConvs.total} convs` : "";
+  if (mtConvs && mtConvs.corrected_full_pass != null && mtConvs.corrected_full_pass !== mtConvs.full_pass) {
+    const delta = mtConvs.corrected_full_pass - mtConvs.full_pass;
+    $("kpi-conv-corr").innerHTML =
+      `${mtConvs.corrected_full_pass} / ${mtConvs.total} corrected `
+      + `<span class="delta">+${delta} harness-gap</span>`;
+  } else {
+    $("kpi-conv-corr").innerHTML = "";
+  }
 
   // silent_no_op rate (multi-turn, since that is what we discuss most)
   const sno = m.multi_turn?.by_error?.silent_no_op || 0;
@@ -184,25 +205,44 @@ function destroyChart(key) {
 
 function renderPassRatesChart() {
   destroyChart("passRates");
-  const labels = STATE.dashboard.models.map(m => m.model_name);
-  const stPct = STATE.dashboard.models.map(m => m.single_turn?.headline?.pct || 0);
-  const mtPct = STATE.dashboard.models.map(m => m.multi_turn?.headline?.turns?.pct || 0);
-  const convPct = STATE.dashboard.models.map(m => m.multi_turn?.headline?.convs?.pct || 0);
-  const highlightIdx = STATE.dashboard.models.findIndex(m => m.key === STATE.modelKey);
-  const accent = (base, ix) => labels.map((_, i) => i === highlightIdx ? base : base + "80");
+  const models = STATE.dashboard.models;
+  const labels = models.map(m => m.model_name);
+  const stPct = models.map(m => m.single_turn?.headline?.pct || 0);
+  const stPctCorr = models.map(m => m.single_turn?.headline?.corrected_pct || 0);
+  const mtPct = models.map(m => m.multi_turn?.headline?.turns?.pct || 0);
+  const mtPctCorr = models.map(m => m.multi_turn?.headline?.turns?.corrected_pct || 0);
+  const convPct = models.map(m => m.multi_turn?.headline?.convs?.pct || 0);
+  const highlightIdx = models.findIndex(m => m.key === STATE.modelKey);
+  const accent = base => labels.map((_, i) => i === highlightIdx ? base : base + "80");
+  // Show raw + harness-corrected side by side so the delta is visible at a glance
   CHARTS.passRates = new Chart($("chart-pass-rates"), {
     type: "bar",
     data: {
       labels,
       datasets: [
-        { label: "single-turn",  data: stPct,   backgroundColor: accent("#0B3A5E") },
-        { label: "multi-turn turns", data: mtPct, backgroundColor: accent("#1d5887") },
-        { label: "conv full-pass", data: convPct, backgroundColor: accent("#27AE60") },
+        { label: "single-turn (raw)",       data: stPct,    backgroundColor: accent("#0B3A5E") },
+        { label: "single-turn (corrected)", data: stPctCorr, backgroundColor: accent("#27AE60"), stack: "single" },
+        { label: "multi-turn (raw)",        data: mtPct,    backgroundColor: accent("#1d5887") },
+        { label: "multi-turn (corrected)",  data: mtPctCorr, backgroundColor: accent("#27AE60"), stack: "multi" },
+        { label: "conv full-pass",          data: convPct,  backgroundColor: accent("#D3681B") },
       ],
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: "bottom" } },
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: {
+          callbacks: {
+            afterBody: (items) => {
+              const i = items[0].dataIndex;
+              const m = models[i];
+              const gap = (m.single_turn?.headline?.harness_gap || 0)
+                       + (m.multi_turn?.headline?.turns?.harness_gap || 0);
+              return gap ? `harness-param-gap: ${gap} failures attributable to the validator` : "";
+            }
+          }
+        }
+      },
       scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + "%" } } },
     },
   });

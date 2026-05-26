@@ -69,15 +69,31 @@ def pct(passed: int, total: int) -> int:
     return round(100 * passed / total) if total else 0
 
 
+def _is_harness_param_gap(v: dict) -> bool:
+    """Fail that should be attributed to the harness, not the model:
+    error_category == missing_param AND the model added extra steps that
+    the augment step flagged as biologically sensible (extras-best-practice)
+    AND no irrelevant extras alongside (otherwise the model is in fault for
+    those, and we should not let the harness gap excuse the whole turn).
+    This MUST stay in sync with the tagging rule in scripts/augment_verdicts.py
+    -- the dashboard tag filter and the corrected-pass KPI rely on it."""
+    if v.get("semantic_valid"): return False
+    if v.get("error_category") != "missing_param": return False
+    tags = v.get("verdict_tags") or []
+    return "extras-best-practice" in tags and "extras-irrelevant" not in tags
+
+
 def stats_single(verdicts: list[dict]) -> dict:
     by_error = Counter()
     by_category = {}
     by_species = {}
     by_tag = Counter()
     passed = 0
+    harness_gap = 0
     for v in verdicts:
         ok = bool(v.get("semantic_valid"))
         passed += int(ok)
+        if _is_harness_param_gap(v): harness_gap += 1
         by_error[v.get("error_category") or "unknown"] += 1
         add(by_category, category_of_single(v["id"]), ok)
         add(by_species, species_of(v["id"]), ok)
@@ -88,8 +104,13 @@ def stats_single(verdicts: list[dict]) -> dict:
         for t in v.get("verdict_tags") or []:
             by_tag[t] += 1
     total = len(verdicts)
+    corrected = passed + harness_gap
     return {
-        "headline": {"total": total, "passed": passed, "pct": pct(passed, total)},
+        "headline": {
+            "total": total, "passed": passed, "pct": pct(passed, total),
+            "corrected_passed": corrected, "corrected_pct": pct(corrected, total),
+            "harness_gap": harness_gap,
+        },
         "by_error":   dict(by_error.most_common()),
         "by_category": by_category,
         "by_species":  by_species,
@@ -103,11 +124,16 @@ def stats_multi(verdicts: list[dict]) -> dict:
     by_species = {}
     by_tag = Counter()
     by_turn = {}
-    convs: dict[str, list[bool]] = defaultdict(list)
+    # Per-conv we track (ok, corrected_ok); corrected_ok treats harness gaps as pass.
+    convs: dict[str, list[tuple[bool, bool]]] = defaultdict(list)
     passed = 0
+    harness_gap = 0
     for v in verdicts:
         ok = bool(v.get("semantic_valid"))
         passed += int(ok)
+        gap = _is_harness_param_gap(v)
+        if gap: harness_gap += 1
+        corrected_ok = ok or gap
         by_error[v.get("error_category") or "unknown"] += 1
         kind = v.get("modification_kind") or "?"
         add(by_kind, kind, ok)
@@ -123,14 +149,25 @@ def stats_multi(verdicts: list[dict]) -> dict:
             add(by_turn, f"t{ti}", ok)
         cid = v.get("conv_id")
         if cid:
-            convs[cid].append(ok)
+            convs[cid].append((ok, corrected_ok))
     total = len(verdicts)
-    full_pass = sum(1 for runs in convs.values() if runs and all(runs))
+    full_pass = sum(1 for runs in convs.values() if runs and all(r[0] for r in runs))
+    corrected_passed = passed + harness_gap
+    corrected_full_pass = sum(1 for runs in convs.values() if runs and all(r[1] for r in runs))
     return {
         "headline": {
-            "turns": {"total": total, "passed": passed, "pct": pct(passed, total)},
-            "convs": {"total": len(convs), "full_pass": full_pass,
-                      "pct": pct(full_pass, len(convs))},
+            "turns": {
+                "total": total, "passed": passed, "pct": pct(passed, total),
+                "corrected_passed": corrected_passed,
+                "corrected_pct": pct(corrected_passed, total),
+                "harness_gap": harness_gap,
+            },
+            "convs": {
+                "total": len(convs), "full_pass": full_pass,
+                "pct": pct(full_pass, len(convs)),
+                "corrected_full_pass": corrected_full_pass,
+                "corrected_pct": pct(corrected_full_pass, len(convs)),
+            },
         },
         "by_error":   dict(by_error.most_common()),
         "by_kind":    by_kind,
@@ -180,9 +217,16 @@ def collect_models() -> list[dict]:
             "multi_run_id":  runs.get("multi_run_id"),
         }
         if st_dir:
-            entry["single_turn"] = stats_single(load_jsonl(st_dir / "verdicts.jsonl"))
+            # Prefer augmented (has verdict_tags) so we can compute harness-gap KPIs.
+            st_src = st_dir / "verdicts_augmented.jsonl"
+            if not st_src.exists():
+                st_src = st_dir / "verdicts.jsonl"
+            entry["single_turn"] = stats_single(load_jsonl(st_src))
         if mt_dir:
-            entry["multi_turn"] = stats_multi(load_jsonl(mt_dir / "verdicts_modifications.jsonl"))
+            mt_src = mt_dir / "verdicts_modifications_augmented.jsonl"
+            if not mt_src.exists():
+                mt_src = mt_dir / "verdicts_modifications.jsonl"
+            entry["multi_turn"] = stats_multi(load_jsonl(mt_src))
         models.append(entry)
 
     # Order: default (codestral) first, then alphabetical by display name

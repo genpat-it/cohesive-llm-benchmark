@@ -83,6 +83,19 @@ def classify_tags(v: dict[str, Any]) -> list[str]:
         tags.append("missing-steps")
     if halluc:
         tags.append("hallucinated")
+
+    # Harness param gap: the run failed with "missing required param: ..." AND
+    # the model only added biologically sensible extras (extras-best-practice).
+    # That means the failure is the validator's fault — it didn't know which
+    # params to inject for the extra step — not the model's. Surface a tag so
+    # the dashboard can present a "harness-corrected" pass rate alongside the
+    # raw one. The run is still reported as FAIL in the verdict; only the tag
+    # tells the explorer how to interpret it.
+    if (not v.get("semantic_valid")
+            and v.get("error_category") == "missing_param"
+            and "extras-best-practice" in tags
+            and "extras-irrelevant" not in tags):
+        tags.append("harness-param-gap")
     return tags
 
 

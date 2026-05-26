@@ -37,16 +37,19 @@
       <div class="kpi-label">Single-turn pass</div>
       <div class="kpi-value" id="kpi-st-pct">—</div>
       <div class="kpi-sub" id="kpi-st-frac"></div>
+      <div class="kpi-corrected" id="kpi-st-corr"></div>
     </div>
     <div class="kpi" data-key="mt-pass">
       <div class="kpi-label">Multi-turn pass (turns)</div>
       <div class="kpi-value" id="kpi-mt-pct">—</div>
       <div class="kpi-sub" id="kpi-mt-frac"></div>
+      <div class="kpi-corrected" id="kpi-mt-corr"></div>
     </div>
     <div class="kpi" data-key="conv">
       <div class="kpi-label">Conv. full-pass</div>
       <div class="kpi-value" id="kpi-conv-pct">—</div>
       <div class="kpi-sub" id="kpi-conv-frac"></div>
+      <div class="kpi-corrected" id="kpi-conv-corr"></div>
     </div>
     <div class="kpi" data-key="sno">
       <div class="kpi-label">silent_no_op rate</div>
@@ -54,6 +57,14 @@
       <div class="kpi-sub" id="kpi-sno-frac"></div>
     </div>
   </section>
+  <div class="corrected-legend">
+    <span class="legend-dot"></span>
+    <strong>harness-corrected</strong> excludes failures where the model added a
+    biologically sensible extra step (host depletion, kmerfinder, …) that the
+    validator didn't know how to parametrise — those are
+    <span class="tag tag-harness-param-gap">harness-param-gap</span> in the
+    examples table, not model errors.
+  </div>
 
   <!-- Cross-model comparison -->
   <section class="chart-row">
@@ -132,6 +143,8 @@
           <option value="extras-irrelevant">extras-irrelevant</option>
           <option value="missing-steps">missing-steps</option>
           <option value="hallucinated">hallucinated</option>
+          <option value="harness-param-gap">harness-param-gap</option>
+          <option value="upstream-rate-limited">upstream-rate-limited</option>
         </select>
       </label>
       <label>Search

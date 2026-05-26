@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-26T14:15:47Z",
+  "generated_at": "2026-05-26T15:03:30Z",
   "models": [
     {
       "key": "default",
@@ -11,7 +11,10 @@
         "headline": {
           "total": 200,
           "passed": 137,
-          "pct": 68
+          "pct": 68,
+          "corrected_passed": 137,
+          "corrected_pct": 68,
+          "harness_gap": 0
         },
         "by_error": {
           "none": 131,
@@ -131,19 +134,29 @@
             "silent_no_op": 2
           }
         },
-        "by_tag": {}
+        "by_tag": {
+          "literal-match": 159,
+          "extras-best-practice": 27,
+          "extras-irrelevant": 16,
+          "missing-steps": 11
+        }
       },
       "multi_turn": {
         "headline": {
           "turns": {
             "total": 330,
             "passed": 193,
-            "pct": 58
+            "pct": 58,
+            "corrected_passed": 210,
+            "corrected_pct": 64,
+            "harness_gap": 17
           },
           "convs": {
             "total": 159,
             "full_pass": 74,
-            "pct": 47
+            "pct": 47,
+            "corrected_full_pass": 80,
+            "corrected_pct": 50
           }
         },
         "by_error": {
@@ -201,7 +214,13 @@
             "silent_no_op": 5
           }
         },
-        "by_tag": {},
+        "by_tag": {
+          "literal-match": 228,
+          "extras-irrelevant": 69,
+          "missing-steps": 64,
+          "extras-best-practice": 24,
+          "harness-param-gap": 17
+        },
         "by_turn": {
           "t1": {
             "total": 159,
@@ -227,7 +246,10 @@
         "headline": {
           "total": 200,
           "passed": 59,
-          "pct": 30
+          "pct": 30,
+          "corrected_passed": 60,
+          "corrected_pct": 30,
+          "harness_gap": 1
         },
         "by_error": {
           "silent_no_op": 107,
@@ -345,19 +367,30 @@
             "silent_no_op": 4
           }
         },
-        "by_tag": {}
+        "by_tag": {
+          "literal-match": 134,
+          "missing-steps": 49,
+          "extras-irrelevant": 29,
+          "extras-best-practice": 16,
+          "harness-param-gap": 1
+        }
       },
       "multi_turn": {
         "headline": {
           "turns": {
             "total": 319,
             "passed": 122,
-            "pct": 38
+            "pct": 38,
+            "corrected_passed": 131,
+            "corrected_pct": 41,
+            "harness_gap": 9
           },
           "convs": {
             "total": 159,
             "full_pass": 33,
-            "pct": 21
+            "pct": 21,
+            "corrected_full_pass": 36,
+            "corrected_pct": 23
           }
         },
         "by_error": {
@@ -414,7 +447,13 @@
             "silent_no_op": 1
           }
         },
-        "by_tag": {},
+        "by_tag": {
+          "literal-match": 233,
+          "missing-steps": 66,
+          "extras-irrelevant": 40,
+          "extras-best-practice": 10,
+          "harness-param-gap": 9
+        },
         "by_turn": {
           "t1": {
             "total": 159,
@@ -440,7 +479,10 @@
         "headline": {
           "total": 200,
           "passed": 132,
-          "pct": 66
+          "pct": 66,
+          "corrected_passed": 135,
+          "corrected_pct": 68,
+          "harness_gap": 3
         },
         "by_error": {
           "none": 129,
@@ -560,19 +602,30 @@
             "silent_no_op": 6
           }
         },
-        "by_tag": {}
+        "by_tag": {
+          "literal-match": 171,
+          "extras-best-practice": 16,
+          "extras-irrelevant": 11,
+          "missing-steps": 10,
+          "harness-param-gap": 3
+        }
       },
       "multi_turn": {
         "headline": {
           "turns": {
             "total": 328,
             "passed": 224,
-            "pct": 68
+            "pct": 68,
+            "corrected_passed": 224,
+            "corrected_pct": 68,
+            "harness_gap": 0
           },
           "convs": {
             "total": 159,
             "full_pass": 88,
-            "pct": 55
+            "pct": 55,
+            "corrected_full_pass": 88,
+            "corrected_pct": 55
           }
         },
         "by_error": {
@@ -629,7 +682,12 @@
             "silent_no_op": 16
           }
         },
-        "by_tag": {},
+        "by_tag": {
+          "literal-match": 283,
+          "missing-steps": 38,
+          "extras-irrelevant": 16,
+          "extras-best-practice": 3
+        },
         "by_turn": {
           "t1": {
             "total": 159,
@@ -655,7 +713,10 @@
         "headline": {
           "total": 200,
           "passed": 133,
-          "pct": 66
+          "pct": 66,
+          "corrected_passed": 138,
+          "corrected_pct": 69,
+          "harness_gap": 5
         },
         "by_error": {
           "none": 121,
@@ -774,19 +835,30 @@
             "passed": 11
           }
         },
-        "by_tag": {}
+        "by_tag": {
+          "literal-match": 130,
+          "extras-irrelevant": 47,
+          "missing-steps": 33,
+          "extras-best-practice": 27,
+          "harness-param-gap": 5
+        }
       },
       "multi_turn": {
         "headline": {
           "turns": {
             "total": 329,
             "passed": 160,
-            "pct": 49
+            "pct": 49,
+            "corrected_passed": 163,
+            "corrected_pct": 50,
+            "harness_gap": 3
           },
           "convs": {
             "total": 159,
             "full_pass": 54,
-            "pct": 34
+            "pct": 34,
+            "corrected_full_pass": 56,
+            "corrected_pct": 35
           }
         },
         "by_error": {
@@ -843,7 +915,13 @@
             "silent_no_op": 14
           }
         },
-        "by_tag": {},
+        "by_tag": {
+          "literal-match": 226,
+          "extras-irrelevant": 85,
+          "missing-steps": 75,
+          "extras-best-practice": 10,
+          "harness-param-gap": 3
+        },
         "by_turn": {
           "t1": {
             "total": 159,
