@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · cohesive-llm-benchmark</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<header>
+  <a class="github-link" href="https://github.com/genpat-it/cohesive-llm-benchmark" target="_blank">GitHub →</a>
+  <h1>cohesive-llm-benchmark · dashboard</h1>
+  <div class="tagline">Cross-model KPI dashboard with drill-down by species, modification kind, error category and verdict tag.</div>
+  <nav>
+    <a href="./">Overview</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="explorer.html">Explorer</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/METHODOLOGY.md">Methodology</a>
+    <a href="https://github.com/genpat-it/cohesive-llm-benchmark/blob/main/docs/error_taxonomy.md">Error taxonomy</a>
+  </nav>
+</header>
+
+<main class="dash-main">
+  <!-- Top: model picker + meta -->
+  <section class="picker-bar">
+    <label>Model
+      <select id="model-picker"></select>
+    </label>
+    <div class="picker-meta" id="picker-meta"></div>
+  </section>
+
+  <!-- KPI cards -->
+  <section class="kpi-grid">
+    <div class="kpi" data-key="st-pass">
+      <div class="kpi-label">Single-turn pass</div>
+      <div class="kpi-value" id="kpi-st-pct">—</div>
+      <div class="kpi-sub" id="kpi-st-frac"></div>
+    </div>
+    <div class="kpi" data-key="mt-pass">
+      <div class="kpi-label">Multi-turn pass (turns)</div>
+      <div class="kpi-value" id="kpi-mt-pct">—</div>
+      <div class="kpi-sub" id="kpi-mt-frac"></div>
+    </div>
+    <div class="kpi" data-key="conv">
+      <div class="kpi-label">Conv. full-pass</div>
+      <div class="kpi-value" id="kpi-conv-pct">—</div>
+      <div class="kpi-sub" id="kpi-conv-frac"></div>
+    </div>
+    <div class="kpi" data-key="sno">
+      <div class="kpi-label">silent_no_op rate</div>
+      <div class="kpi-value" id="kpi-sno-pct">—</div>
+      <div class="kpi-sub" id="kpi-sno-frac"></div>
+    </div>
+  </section>
+
+  <!-- Cross-model comparison -->
+  <section class="chart-row">
+    <div class="chart-card wide">
+      <h3>Pass rate — all models</h3>
+      <canvas id="chart-pass-rates" height="120"></canvas>
+    </div>
+  </section>
+
+  <!-- Error / kind / species breakdown -->
+  <section class="chart-row">
+    <div class="chart-card">
+      <h3>Error category — <span class="muted" id="err-model-label"></span></h3>
+      <canvas id="chart-errors" height="180"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Multi-turn by modification kind</h3>
+      <canvas id="chart-kinds" height="180"></canvas>
+    </div>
+  </section>
+
+  <!-- Heatmap species × model -->
+  <section class="chart-row">
+    <div class="chart-card wide">
+      <h3>silent_no_op rate · species × model
+        <span class="muted small">(multi-turn corpus — darker = worse)</span>
+      </h3>
+      <div id="heatmap" class="heatmap"></div>
+    </div>
+  </section>
+
+  <!-- Drilldown table -->
+  <section class="table-section">
+    <h3>Examples</h3>
+    <div class="filters">
+      <label>Corpus
+        <select id="f-corpus">
+          <option value="single">single-turn (200)</option>
+          <option value="multi" selected>multi-turn (~329)</option>
+        </select>
+      </label>
+      <label>Outcome
+        <select id="f-outcome">
+          <option value="">all</option>
+          <option value="pass">PASS only</option>
+          <option value="fail">FAIL only</option>
+        </select>
+      </label>
+      <label>Error
+        <select id="f-error"><option value="">all</option></select>
+      </label>
+      <label>Species
+        <select id="f-species">
+          <option value="">all</option>
+          <option value="listeria">listeria</option>
+          <option value="ecoli">ecoli</option>
+          <option value="salmonella">salmonella</option>
+          <option value="campylobacter">campylobacter</option>
+          <option value="other">other</option>
+        </select>
+      </label>
+      <label id="kind-wrap">Kind
+        <select id="f-kind">
+          <option value="">all</option>
+          <option value="add">add</option>
+          <option value="replace">replace</option>
+          <option value="drop">drop</option>
+          <option value="switch_species">switch_species</option>
+        </select>
+      </label>
+      <label>Tag
+        <select id="f-tag">
+          <option value="">all</option>
+          <option value="literal-match">literal-match</option>
+          <option value="extras-best-practice">extras-best-practice</option>
+          <option value="extras-irrelevant">extras-irrelevant</option>
+          <option value="missing-steps">missing-steps</option>
+          <option value="hallucinated">hallucinated</option>
+        </select>
+      </label>
+      <label>Search
+        <input id="f-text" type="text" placeholder="id / prompt / step…">
+      </label>
+      <span class="stat" id="row-stat"></span>
+    </div>
+
+    <table class="bench" id="tbl">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>kind/cat</th>
+          <th>species</th>
+          <th>outcome</th>
+          <th>error</th>
+          <th>tags</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</main>
+
+<!-- Side detail panel -->
+<aside id="detail-panel" class="detail-panel">
+  <button class="detail-close" id="detail-close" aria-label="Close">×</button>
+  <div id="detail-body"></div>
+</aside>
+<div id="detail-overlay" class="detail-overlay"></div>
+
+<footer>
+  cohesive-llm-benchmark · <a href="https://github.com/genpat-it/cohesive-llm-benchmark">source</a>
+  · data refreshed <span id="data-stamp"></span>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="assets/dashboard.js"></script>
+</body>
+</html>

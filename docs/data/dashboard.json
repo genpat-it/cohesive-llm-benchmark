@@ -1,0 +1,864 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-26T14:15:47Z",
+  "models": [
+    {
+      "key": "default",
+      "model_name": "codestral-latest",
+      "single_run_id": "llm_full_200",
+      "multi_run_id": "llm_full_multi_turn",
+      "single_turn": {
+        "headline": {
+          "total": 200,
+          "passed": 137,
+          "pct": 68
+        },
+        "by_error": {
+          "none": 131,
+          "silent_no_op": 37,
+          "missing_param": 13,
+          "file_not_found": 8,
+          "ngsmanager_naming": 6,
+          "no_code": 4,
+          "arity_error": 1
+        },
+        "by_category": {
+          "A": {
+            "total": 8,
+            "passed": 5
+          },
+          "B": {
+            "total": 5,
+            "passed": 3
+          },
+          "C": {
+            "total": 3,
+            "passed": 1
+          },
+          "D": {
+            "total": 5,
+            "passed": 4
+          },
+          "E": {
+            "total": 15,
+            "passed": 9
+          },
+          "F": {
+            "total": 4,
+            "passed": 3
+          },
+          "G": {
+            "total": 2,
+            "passed": 2
+          },
+          "H": {
+            "total": 4,
+            "passed": 3
+          },
+          "I": {
+            "total": 2,
+            "passed": 1
+          },
+          "J": {
+            "total": 2,
+            "passed": 2
+          },
+          "K": {
+            "total": 60,
+            "passed": 51
+          },
+          "L": {
+            "total": 20,
+            "passed": 15
+          },
+          "M": {
+            "total": 10,
+            "passed": 4
+          },
+          "N": {
+            "total": 7,
+            "passed": 6
+          },
+          "NA": {
+            "total": 8,
+            "passed": 4
+          },
+          "O": {
+            "total": 10,
+            "passed": 5
+          },
+          "P": {
+            "total": 10,
+            "passed": 7
+          },
+          "Q": {
+            "total": 10,
+            "passed": 5
+          },
+          "R": {
+            "total": 8,
+            "passed": 4
+          },
+          "S": {
+            "total": 7,
+            "passed": 3
+          }
+        },
+        "by_species": {
+          "listeria": {
+            "total": 53,
+            "passed": 37,
+            "silent_no_op": 9
+          },
+          "ecoli": {
+            "total": 43,
+            "passed": 33,
+            "silent_no_op": 6
+          },
+          "salmonella": {
+            "total": 45,
+            "passed": 27,
+            "silent_no_op": 10
+          },
+          "campylobacter": {
+            "total": 46,
+            "passed": 32,
+            "silent_no_op": 10
+          },
+          "other": {
+            "total": 13,
+            "passed": 8,
+            "silent_no_op": 2
+          }
+        },
+        "by_tag": {}
+      },
+      "multi_turn": {
+        "headline": {
+          "turns": {
+            "total": 330,
+            "passed": 193,
+            "pct": 58
+          },
+          "convs": {
+            "total": 159,
+            "full_pass": 74,
+            "pct": 47
+          }
+        },
+        "by_error": {
+          "none": 189,
+          "missing_param": 56,
+          "silent_no_op": 54,
+          "file_not_found": 14,
+          "partial_dag": 7,
+          "arity_error": 5,
+          "no_code": 3,
+          "ngsmanager_naming": 2
+        },
+        "by_kind": {
+          "add": {
+            "total": 104,
+            "passed": 78
+          },
+          "replace": {
+            "total": 99,
+            "passed": 59
+          },
+          "drop": {
+            "total": 66,
+            "passed": 31
+          },
+          "switch_species": {
+            "total": 61,
+            "passed": 25
+          }
+        },
+        "by_species": {
+          "other": {
+            "total": 26,
+            "passed": 17,
+            "silent_no_op": 5
+          },
+          "salmonella": {
+            "total": 79,
+            "passed": 38,
+            "silent_no_op": 16
+          },
+          "ecoli": {
+            "total": 70,
+            "passed": 32,
+            "silent_no_op": 14
+          },
+          "listeria": {
+            "total": 103,
+            "passed": 65,
+            "silent_no_op": 14
+          },
+          "campylobacter": {
+            "total": 52,
+            "passed": 41,
+            "silent_no_op": 5
+          }
+        },
+        "by_tag": {},
+        "by_turn": {
+          "t1": {
+            "total": 159,
+            "passed": 95
+          },
+          "t2": {
+            "total": 159,
+            "passed": 94
+          },
+          "t3": {
+            "total": 12,
+            "passed": 4
+          }
+        }
+      }
+    },
+    {
+      "key": "devstral_2507",
+      "model_name": "devstral-small-2507",
+      "single_run_id": "llm_full_200_devstral_2507",
+      "multi_run_id": "llm_full_multi_turn_devstral_2507",
+      "single_turn": {
+        "headline": {
+          "total": 200,
+          "passed": 59,
+          "pct": 30
+        },
+        "by_error": {
+          "silent_no_op": 107,
+          "none": 55,
+          "file_not_found": 21,
+          "no_code": 15,
+          "missing_param": 2
+        },
+        "by_category": {
+          "A": {
+            "total": 8,
+            "passed": 1
+          },
+          "B": {
+            "total": 5,
+            "passed": 0
+          },
+          "C": {
+            "total": 3,
+            "passed": 3
+          },
+          "D": {
+            "total": 5,
+            "passed": 0
+          },
+          "E": {
+            "total": 15,
+            "passed": 5
+          },
+          "F": {
+            "total": 4,
+            "passed": 0
+          },
+          "G": {
+            "total": 2,
+            "passed": 0
+          },
+          "H": {
+            "total": 4,
+            "passed": 0
+          },
+          "I": {
+            "total": 2,
+            "passed": 1
+          },
+          "J": {
+            "total": 2,
+            "passed": 0
+          },
+          "K": {
+            "total": 60,
+            "passed": 16
+          },
+          "L": {
+            "total": 20,
+            "passed": 4
+          },
+          "M": {
+            "total": 10,
+            "passed": 5
+          },
+          "N": {
+            "total": 7,
+            "passed": 1
+          },
+          "NA": {
+            "total": 8,
+            "passed": 2
+          },
+          "O": {
+            "total": 10,
+            "passed": 1
+          },
+          "P": {
+            "total": 10,
+            "passed": 6
+          },
+          "Q": {
+            "total": 10,
+            "passed": 7
+          },
+          "R": {
+            "total": 8,
+            "passed": 4
+          },
+          "S": {
+            "total": 7,
+            "passed": 3
+          }
+        },
+        "by_species": {
+          "listeria": {
+            "total": 53,
+            "passed": 16,
+            "silent_no_op": 28
+          },
+          "ecoli": {
+            "total": 43,
+            "passed": 13,
+            "silent_no_op": 27
+          },
+          "salmonella": {
+            "total": 45,
+            "passed": 11,
+            "silent_no_op": 24
+          },
+          "campylobacter": {
+            "total": 46,
+            "passed": 15,
+            "silent_no_op": 24
+          },
+          "other": {
+            "total": 13,
+            "passed": 4,
+            "silent_no_op": 4
+          }
+        },
+        "by_tag": {}
+      },
+      "multi_turn": {
+        "headline": {
+          "turns": {
+            "total": 319,
+            "passed": 122,
+            "pct": 38
+          },
+          "convs": {
+            "total": 159,
+            "full_pass": 33,
+            "pct": 21
+          }
+        },
+        "by_error": {
+          "file_not_found": 121,
+          "none": 118,
+          "missing_param": 32,
+          "no_code": 19,
+          "silent_no_op": 17,
+          "arity_error": 8,
+          "partial_dag": 4
+        },
+        "by_kind": {
+          "add": {
+            "total": 101,
+            "passed": 51
+          },
+          "replace": {
+            "total": 95,
+            "passed": 34
+          },
+          "drop": {
+            "total": 63,
+            "passed": 11
+          },
+          "switch_species": {
+            "total": 60,
+            "passed": 26
+          }
+        },
+        "by_species": {
+          "other": {
+            "total": 26,
+            "passed": 8,
+            "silent_no_op": 3
+          },
+          "salmonella": {
+            "total": 78,
+            "passed": 26,
+            "silent_no_op": 4
+          },
+          "ecoli": {
+            "total": 66,
+            "passed": 29,
+            "silent_no_op": 4
+          },
+          "listeria": {
+            "total": 100,
+            "passed": 39,
+            "silent_no_op": 5
+          },
+          "campylobacter": {
+            "total": 49,
+            "passed": 20,
+            "silent_no_op": 1
+          }
+        },
+        "by_tag": {},
+        "by_turn": {
+          "t1": {
+            "total": 159,
+            "passed": 64
+          },
+          "t2": {
+            "total": 149,
+            "passed": 53
+          },
+          "t3": {
+            "total": 11,
+            "passed": 5
+          }
+        }
+      }
+    },
+    {
+      "key": "devstral_labs",
+      "model_name": "labs-devstral-small-2512",
+      "single_run_id": "llm_full_200_devstral_labs",
+      "multi_run_id": "llm_full_multi_turn_devstral_labs",
+      "single_turn": {
+        "headline": {
+          "total": 200,
+          "passed": 132,
+          "pct": 66
+        },
+        "by_error": {
+          "none": 129,
+          "silent_no_op": 58,
+          "missing_param": 6,
+          "ngsmanager_naming": 3,
+          "no_code": 2,
+          "file_not_found": 1,
+          "arity_error": 1
+        },
+        "by_category": {
+          "A": {
+            "total": 8,
+            "passed": 6
+          },
+          "B": {
+            "total": 5,
+            "passed": 2
+          },
+          "C": {
+            "total": 3,
+            "passed": 2
+          },
+          "D": {
+            "total": 5,
+            "passed": 5
+          },
+          "E": {
+            "total": 15,
+            "passed": 4
+          },
+          "F": {
+            "total": 4,
+            "passed": 2
+          },
+          "G": {
+            "total": 2,
+            "passed": 2
+          },
+          "H": {
+            "total": 4,
+            "passed": 1
+          },
+          "I": {
+            "total": 2,
+            "passed": 1
+          },
+          "J": {
+            "total": 2,
+            "passed": 0
+          },
+          "K": {
+            "total": 60,
+            "passed": 44
+          },
+          "L": {
+            "total": 20,
+            "passed": 16
+          },
+          "M": {
+            "total": 10,
+            "passed": 7
+          },
+          "N": {
+            "total": 7,
+            "passed": 6
+          },
+          "NA": {
+            "total": 8,
+            "passed": 3
+          },
+          "O": {
+            "total": 10,
+            "passed": 7
+          },
+          "P": {
+            "total": 10,
+            "passed": 7
+          },
+          "Q": {
+            "total": 10,
+            "passed": 6
+          },
+          "R": {
+            "total": 8,
+            "passed": 5
+          },
+          "S": {
+            "total": 7,
+            "passed": 6
+          }
+        },
+        "by_species": {
+          "listeria": {
+            "total": 53,
+            "passed": 40,
+            "silent_no_op": 10
+          },
+          "ecoli": {
+            "total": 43,
+            "passed": 30,
+            "silent_no_op": 11
+          },
+          "salmonella": {
+            "total": 45,
+            "passed": 25,
+            "silent_no_op": 17
+          },
+          "campylobacter": {
+            "total": 46,
+            "passed": 30,
+            "silent_no_op": 14
+          },
+          "other": {
+            "total": 13,
+            "passed": 7,
+            "silent_no_op": 6
+          }
+        },
+        "by_tag": {}
+      },
+      "multi_turn": {
+        "headline": {
+          "turns": {
+            "total": 328,
+            "passed": 224,
+            "pct": 68
+          },
+          "convs": {
+            "total": 159,
+            "full_pass": 88,
+            "pct": 55
+          }
+        },
+        "by_error": {
+          "none": 224,
+          "silent_no_op": 68,
+          "missing_param": 22,
+          "partial_dag": 9,
+          "no_code": 3,
+          "ngsmanager_naming": 1,
+          "file_not_found": 1
+        },
+        "by_kind": {
+          "add": {
+            "total": 103,
+            "passed": 66
+          },
+          "replace": {
+            "total": 99,
+            "passed": 72
+          },
+          "drop": {
+            "total": 65,
+            "passed": 39
+          },
+          "switch_species": {
+            "total": 61,
+            "passed": 47
+          }
+        },
+        "by_species": {
+          "other": {
+            "total": 26,
+            "passed": 16,
+            "silent_no_op": 7
+          },
+          "salmonella": {
+            "total": 79,
+            "passed": 51,
+            "silent_no_op": 18
+          },
+          "ecoli": {
+            "total": 70,
+            "passed": 47,
+            "silent_no_op": 13
+          },
+          "listeria": {
+            "total": 102,
+            "passed": 81,
+            "silent_no_op": 14
+          },
+          "campylobacter": {
+            "total": 51,
+            "passed": 29,
+            "silent_no_op": 16
+          }
+        },
+        "by_tag": {},
+        "by_turn": {
+          "t1": {
+            "total": 159,
+            "passed": 105
+          },
+          "t2": {
+            "total": 158,
+            "passed": 112
+          },
+          "t3": {
+            "total": 11,
+            "passed": 7
+          }
+        }
+      }
+    },
+    {
+      "key": "mistral_small",
+      "model_name": "mistral-small-latest",
+      "single_run_id": "llm_full_200_mistral_small",
+      "multi_run_id": "llm_full_multi_turn_mistral_small",
+      "single_turn": {
+        "headline": {
+          "total": 200,
+          "passed": 133,
+          "pct": 66
+        },
+        "by_error": {
+          "none": 121,
+          "file_not_found": 31,
+          "missing_param": 25,
+          "silent_no_op": 11,
+          "arity_error": 9,
+          "ngsmanager_naming": 2,
+          "partial_dag": 1
+        },
+        "by_category": {
+          "A": {
+            "total": 8,
+            "passed": 7
+          },
+          "B": {
+            "total": 5,
+            "passed": 4
+          },
+          "C": {
+            "total": 3,
+            "passed": 1
+          },
+          "D": {
+            "total": 5,
+            "passed": 5
+          },
+          "E": {
+            "total": 15,
+            "passed": 9
+          },
+          "F": {
+            "total": 4,
+            "passed": 3
+          },
+          "G": {
+            "total": 2,
+            "passed": 2
+          },
+          "H": {
+            "total": 4,
+            "passed": 1
+          },
+          "I": {
+            "total": 2,
+            "passed": 2
+          },
+          "J": {
+            "total": 2,
+            "passed": 2
+          },
+          "K": {
+            "total": 60,
+            "passed": 45
+          },
+          "L": {
+            "total": 20,
+            "passed": 15
+          },
+          "M": {
+            "total": 10,
+            "passed": 5
+          },
+          "N": {
+            "total": 7,
+            "passed": 7
+          },
+          "NA": {
+            "total": 8,
+            "passed": 6
+          },
+          "O": {
+            "total": 10,
+            "passed": 3
+          },
+          "P": {
+            "total": 10,
+            "passed": 6
+          },
+          "Q": {
+            "total": 10,
+            "passed": 6
+          },
+          "R": {
+            "total": 8,
+            "passed": 3
+          },
+          "S": {
+            "total": 7,
+            "passed": 1
+          }
+        },
+        "by_species": {
+          "listeria": {
+            "total": 53,
+            "passed": 39,
+            "silent_no_op": 1
+          },
+          "ecoli": {
+            "total": 43,
+            "passed": 25,
+            "silent_no_op": 3
+          },
+          "salmonella": {
+            "total": 45,
+            "passed": 24,
+            "silent_no_op": 4
+          },
+          "campylobacter": {
+            "total": 46,
+            "passed": 34,
+            "silent_no_op": 3
+          },
+          "other": {
+            "total": 13,
+            "passed": 11
+          }
+        },
+        "by_tag": {}
+      },
+      "multi_turn": {
+        "headline": {
+          "turns": {
+            "total": 329,
+            "passed": 160,
+            "pct": 49
+          },
+          "convs": {
+            "total": 159,
+            "full_pass": 54,
+            "pct": 34
+          }
+        },
+        "by_error": {
+          "none": 145,
+          "silent_no_op": 112,
+          "file_not_found": 25,
+          "missing_param": 22,
+          "no_code": 13,
+          "arity_error": 11,
+          "channel_emit": 1
+        },
+        "by_kind": {
+          "add": {
+            "total": 104,
+            "passed": 67
+          },
+          "replace": {
+            "total": 98,
+            "passed": 61
+          },
+          "drop": {
+            "total": 66,
+            "passed": 17
+          },
+          "switch_species": {
+            "total": 61,
+            "passed": 15
+          }
+        },
+        "by_species": {
+          "other": {
+            "total": 26,
+            "passed": 11,
+            "silent_no_op": 9
+          },
+          "salmonella": {
+            "total": 79,
+            "passed": 33,
+            "silent_no_op": 22
+          },
+          "ecoli": {
+            "total": 69,
+            "passed": 32,
+            "silent_no_op": 27
+          },
+          "listeria": {
+            "total": 103,
+            "passed": 49,
+            "silent_no_op": 40
+          },
+          "campylobacter": {
+            "total": 52,
+            "passed": 35,
+            "silent_no_op": 14
+          }
+        },
+        "by_tag": {},
+        "by_turn": {
+          "t1": {
+            "total": 159,
+            "passed": 83
+          },
+          "t2": {
+            "total": 159,
+            "passed": 74
+          },
+          "t3": {
+            "total": 11,
+            "passed": 3
+          }
+        }
+      }
+    }
+  ]
+}

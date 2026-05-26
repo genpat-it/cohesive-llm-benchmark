@@ -31,10 +31,10 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-echo "[1/5] Augmenting verdicts in every results/ subdir..."
+echo "[1/6] Augmenting verdicts in every results/ subdir..."
 python3.11 scripts/augment_verdicts.py
 
-echo "[2/5] Copying augmented verdicts into docs/data/..."
+echo "[2/6] Copying augmented verdicts into docs/data/..."
 shopt -s nullglob
 for d in results/*/; do
   name="$(basename "$d")"
@@ -49,14 +49,17 @@ for d in results/*/; do
   fi
 done
 
-echo "[3/5] Rebuilding run history..."
+echo "[3/6] Rebuilding run history..."
 python3.11 scripts/build_history.py
 
-echo "[4/5] Regenerating badges..."
+echo "[4/6] Regenerating badges..."
 python3.11 scripts/generate_badges.py
 
-echo "[5/5] Rebuilding consolidated manifest..."
+echo "[5/6] Rebuilding consolidated manifest..."
 python3.11 scripts/build_manifest.py
+
+echo "[6/6] Rebuilding dashboard aggregates..."
+python3.11 scripts/build_dashboard.py
 
 if [[ "$DO_COMMIT" -eq 1 ]]; then
   echo
