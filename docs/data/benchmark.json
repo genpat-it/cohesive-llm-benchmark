@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "name": "cohesive-llm-benchmark",
   "description": "End-to-end Nextflow-aware benchmark for natural-language to bioinformatics pipeline generators. Validates that each generated .nf parses (DSL2) and schedules the expected number of step processes under nextflow -stub-run.",
-  "generated_at": "2026-05-26T14:04:17Z",
+  "generated_at": "2026-05-26T19:03:42Z",
   "homepage": "https://genpat-it.github.io/cohesive-llm-benchmark",
   "repository": "https://github.com/genpat-it/cohesive-llm-benchmark",
   "framework": "https://github.com/genpat-it/cohesive-ngsmanager",
@@ -157,6 +157,7 @@
         "by_tag": {
           "literal-match": 30,
           "extras-best-practice": 2,
+          "harness-param-gap": 2,
           "missing-steps": 2,
           "extras-irrelevant": 1
         },
@@ -201,19 +202,21 @@
       },
       "summary": {
         "total": 200,
-        "passed": 137,
-        "passed_pct": 68.5,
-        "syntax_ok": 190,
+        "passed": 163,
+        "passed_pct": 81.5,
+        "syntax_ok": 191,
         "no_code_returned": 4,
         "by_category": {
           "?": 200
         },
         "by_error_category": {
-          "silent_no_op": 37,
+          "file_not_found": 13,
           "missing_param": 13,
-          "file_not_found": 8,
           "no_code": 4,
-          "arity_error": 1
+          "arity_error": 3,
+          "none": 2,
+          "silent_no_op": 1,
+          "partial_dag": 1
         },
         "by_tag": {
           "literal-match": 159,
@@ -255,18 +258,21 @@
       },
       "summary": {
         "total": 200,
-        "passed": 59,
-        "passed_pct": 29.5,
-        "syntax_ok": 174,
+        "passed": 116,
+        "passed_pct": 58.0,
+        "syntax_ok": 182,
         "no_code_returned": 15,
         "by_category": {
           "?": 200
         },
         "by_error_category": {
-          "silent_no_op": 107,
-          "file_not_found": 17,
+          "file_not_found": 44,
           "no_code": 15,
-          "missing_param": 2
+          "silent_no_op": 12,
+          "none": 4,
+          "partial_dag": 4,
+          "missing_param": 3,
+          "arity_error": 2
         },
         "by_tag": {
           "literal-match": 134,
@@ -308,19 +314,19 @@
       },
       "summary": {
         "total": 200,
-        "passed": 132,
-        "passed_pct": 66.0,
-        "syntax_ok": 194,
+        "passed": 182,
+        "passed_pct": 91.0,
+        "syntax_ok": 197,
         "no_code_returned": 2,
         "by_category": {
           "?": 200
         },
         "by_error_category": {
-          "silent_no_op": 58,
+          "none": 8,
           "missing_param": 6,
           "no_code": 2,
-          "arity_error": 1,
-          "none": 1
+          "file_not_found": 1,
+          "arity_error": 1
         },
         "by_tag": {
           "literal-match": 171,
@@ -362,18 +368,19 @@
       },
       "summary": {
         "total": 200,
-        "passed": 133,
-        "passed_pct": 66.5,
+        "passed": 139,
+        "passed_pct": 69.5,
         "syntax_ok": 192,
         "no_code_returned": 0,
         "by_category": {
           "?": 200
         },
         "by_error_category": {
-          "missing_param": 25,
-          "file_not_found": 23,
-          "silent_no_op": 11,
+          "file_not_found": 26,
+          "missing_param": 19,
           "arity_error": 7,
+          "none": 4,
+          "silent_no_op": 4,
           "partial_dag": 1
         },
         "by_tag": {
@@ -420,18 +427,18 @@
       },
       "summary": {
         "total": 330,
-        "passed": 193,
-        "passed_pct": 58.5,
+        "passed": 217,
+        "passed_pct": 65.8,
         "syntax_ok": 321,
         "no_code_returned": 3,
         "by_category": {
           "modification": 330
         },
         "by_error_category": {
-          "missing_param": 56,
-          "silent_no_op": 54,
-          "file_not_found": 13,
-          "partial_dag": 7,
+          "missing_param": 40,
+          "silent_no_op": 26,
+          "partial_dag": 25,
+          "file_not_found": 15,
           "arity_error": 4,
           "no_code": 3
         },
@@ -442,8 +449,8 @@
           "extras-best-practice": 24
         },
         "conversations_total": 159,
-        "conversations_fully_passed": 74,
-        "conversations_fully_passed_pct": 46.5
+        "conversations_fully_passed": 91,
+        "conversations_fully_passed_pct": 57.2
       },
       "files": {
         "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn/verdicts_modifications_augmented.jsonl",
@@ -478,20 +485,20 @@
       },
       "summary": {
         "total": 319,
-        "passed": 122,
-        "passed_pct": 38.2,
-        "syntax_ok": 292,
+        "passed": 123,
+        "passed_pct": 38.6,
+        "syntax_ok": 290,
         "no_code_returned": 19,
         "by_category": {
           "modification": 319
         },
         "by_error_category": {
-          "file_not_found": 117,
-          "missing_param": 32,
+          "file_not_found": 122,
+          "missing_param": 22,
           "no_code": 19,
-          "silent_no_op": 17,
-          "arity_error": 8,
-          "partial_dag": 4
+          "silent_no_op": 15,
+          "partial_dag": 10,
+          "arity_error": 8
         },
         "by_tag": {
           "literal-match": 233,
@@ -536,20 +543,20 @@
       },
       "summary": {
         "total": 328,
-        "passed": 224,
-        "passed_pct": 68.3,
-        "syntax_ok": 321,
+        "passed": 281,
+        "passed_pct": 85.7,
+        "syntax_ok": 324,
         "no_code_returned": 3,
         "by_category": {
           "modification": 328
         },
         "by_error_category": {
-          "silent_no_op": 68,
-          "missing_param": 22,
-          "partial_dag": 9,
+          "missing_param": 23,
+          "partial_dag": 10,
+          "silent_no_op": 6,
+          "file_not_found": 3,
           "no_code": 3,
-          "ngsmanager_naming": 1,
-          "file_not_found": 1
+          "ngsmanager_naming": 2
         },
         "by_tag": {
           "literal-match": 283,
@@ -558,8 +565,8 @@
           "extras-best-practice": 3
         },
         "conversations_total": 159,
-        "conversations_fully_passed": 88,
-        "conversations_fully_passed_pct": 55.3
+        "conversations_fully_passed": 134,
+        "conversations_fully_passed_pct": 84.3
       },
       "files": {
         "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn_devstral_labs/verdicts_modifications_augmented.jsonl",
@@ -594,19 +601,20 @@
       },
       "summary": {
         "total": 329,
-        "passed": 160,
-        "passed_pct": 48.6,
-        "syntax_ok": 307,
+        "passed": 222,
+        "passed_pct": 67.5,
+        "syntax_ok": 305,
         "no_code_returned": 13,
         "by_category": {
           "modification": 329
         },
         "by_error_category": {
-          "silent_no_op": 112,
-          "missing_param": 22,
+          "missing_param": 55,
+          "file_not_found": 17,
           "no_code": 13,
-          "file_not_found": 13,
-          "arity_error": 9
+          "arity_error": 11,
+          "silent_no_op": 10,
+          "partial_dag": 1
         },
         "by_tag": {
           "literal-match": 226,
@@ -615,8 +623,8 @@
           "extras-best-practice": 10
         },
         "conversations_total": 159,
-        "conversations_fully_passed": 54,
-        "conversations_fully_passed_pct": 34.0
+        "conversations_fully_passed": 88,
+        "conversations_fully_passed_pct": 55.3
       },
       "files": {
         "verdicts_jsonl": "https://raw.githubusercontent.com/genpat-it/cohesive-llm-benchmark/main/results/llm_full_multi_turn_mistral_small/verdicts_modifications_augmented.jsonl",

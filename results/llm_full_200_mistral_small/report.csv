@@ -82,7 +82,7 @@ workflow {
     step_4TY_MLST__mlst(getInput())
 }
 "
-"A04_cgmlst_listeria","A04_cgmlst_listeria","A04","cgMLST allelic profile for Listeria monocytogenes from a pre-existing assembly.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","690","25","1","2","10.0","Pipeline approved. Proceeding with the cgMLST allelic profile generation for *Listeria monocytogenes* using the pre-existing assembly.","nextflow.enable.dsl=2
+"A04_cgmlst_listeria","A04_cgmlst_listeria","A04","cgMLST allelic profile for Listeria monocytogenes from a pre-existing assembly.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","690","25","1","2","10.0","Pipeline approved. Proceeding with the cgMLST allelic profile generation for *Listeria monocytogenes* using the pre-existing assembly.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -142,7 +142,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"A06_cgmlst_salmonella","A06_cgmlst_salmonella","A06","Generate cgMLST allelic profiles starting from a Salmonella enterica assembly.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","1088","44","1","2","13.2","Understood! I will proceed with generating a cgMLST allelic profiling pipeline for *Salmonella enterica* using the `module_typing_bacteria` template, which includes `step_4TY_cgMLST__chewbbaca`.","nextflow.enable.dsl=2
+"A06_cgmlst_salmonella","A06_cgmlst_salmonella","A06","Generate cgMLST allelic profiles starting from a Salmonella enterica assembly.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","1088","44","1","2","13.2","Understood! I will proceed with generating a cgMLST allelic profiling pipeline for *Salmonella enterica* using the `module_typing_bacteria` template, which includes `step_4TY_cgMLST__chewbbaca`.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -261,7 +261,7 @@ workflow {
     step_4AN_AMR__staramr(getSingleInput(), param('genus_species'))
 }
 "
-"B01_spades_listeria","B01_spades_listeria","B01","De novo genome assembly with SPAdes from Illumina paired-end reads of Listeria monocytogenes.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1392","64","2","2","11.3","Approved! The pipeline will proceed with the `module_denovo` template for de novo assembly of *Listeria monocytogenes* using SPAdes from Illumina paired-end reads.","nextflow.enable.dsl=2
+"B01_spades_listeria","B01_spades_listeria","B01","De novo genome assembly with SPAdes from Illumina paired-end reads of Listeria monocytogenes.","Y","Y","none","","5","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1392","64","2","2","11.3","Approved! The pipeline will proceed with the `module_denovo` template for de novo assembly of *Listeria monocytogenes* using SPAdes from Illumina paired-end reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -441,7 +441,7 @@ workflow {
     step_2AS_denovo__plasmidspades(getSingleInput())
 }
 "
-"B05_metaspades","B05_metaspades","B05","Run metagenomic assembly with metaSPAdes on paired-end Illumina reads from an environmental sample.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.MGS.1.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","3","N","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2MG_denovo__metaspades","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2MG_denovo__metaspades","step_2MG_denovo__metaspades","937","35","3","2","12.4","Understood! The pipeline for metagenomic assembly with metaSPAdes on paired-end Illumina reads is approved. Here is the detailed plan for the Architect Agent:
+"B05_metaspades","B05_metaspades","B05","Run metagenomic assembly with metaSPAdes on paired-end Illumina reads from an environmental sample.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.MGS.1.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","3","N","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2MG_denovo__metaspades","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2MG_denovo__metaspades","step_2MG_denovo__metaspades","937","35","3","2","12.4","Understood! The pipeline for metagenomic assembly with metaSPAdes on paired-end Illumina reads is approved. Here is the detailed plan for the Architect Agent:
 
 ---
 **Pipeline Plan for Metagenomic Assembly with metaSPAdAdes**
@@ -488,7 +488,7 @@ workflow {
     step_2MG_denovo__metaspades(getSingleInput())
 }
 "
-"C01_kmerfinder","C01_kmerfinder","C01","Identify the species of an unknown bacterial isolate from Illumina paired FASTQ using KmerFinder.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.UNK.1.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","1","N","","step_3TX_species__kmerfinder","","","","step_3TX_species__kmerfinder","725","40","0","2","9.4","Proceeding with the pipeline for species identification of an unknown bacterial isolate from Illumina paired FASTQ reads using KmerFinder.","nextflow.enable.dsl=2
+"C01_kmerfinder","C01_kmerfinder","C01","Identify the species of an unknown bacterial isolate from Illumina paired FASTQ using KmerFinder.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.UNK.1.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","1","N","","step_3TX_species__kmerfinder","","","","step_3TX_species__kmerfinder","725","40","0","2","9.4","Proceeding with the pipeline for species identification of an unknown bacterial isolate from Illumina paired FASTQ reads using KmerFinder.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -599,7 +599,7 @@ workflow {
     step_3TX_class__kraken2(getSingleInput())
 }
 "
-"D01_fastp_spades_lis","D01_fastp_spades_lis","D01","From Illumina paired-end FASTQ of Listeria monocytogenes: trim with fastp and assemble with SPAdes.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","755","32","2","2","11.7","Your pipeline has been approved and will proceed with the following steps:
+"D01_fastp_spades_lis","D01_fastp_spades_lis","D01","From Illumina paired-end FASTQ of Listeria monocytogenes: trim with fastp and assemble with SPAdes.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","6","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades","755","32","2","2","11.7","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Trimming**: Use `fastp` (`step_1PP_trimming__fastp`) to trim Illumina paired-end FASTQ reads.
 2. **Assembly**: Use SPAdes (`step_2AS_denovo__spades`) to assemble the trimmed reads into contigs.
@@ -1463,7 +1463,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"E13_abricate_sal","E13_abricate_sal","E13","Antimicrobial resistance gene screening with ABRicate for Salmonella enterica from paired Illumina FASTQ.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.7.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","N","step_2AS_denovo__shovill","step_2AS_denovo__spades","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","812","30","3","2","21.7","Pipeline approved. The draft plan has been finalized and will be forwarded to the Architect for implementation.","nextflow.enable.dsl=2
+"E13_abricate_sal","E13_abricate_sal","E13","Antimicrobial resistance gene screening with ABRicate for Salmonella enterica from paired Illumina FASTQ.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.7.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","N","step_2AS_denovo__shovill","step_2AS_denovo__spades","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","812","30","3","2","21.7","Pipeline approved. The draft plan has been finalized and will be forwarded to the Architect for implementation.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1667,7 +1667,7 @@ workflow {
     step_4AN_genes__prokka(getInput())
 }
 "
-"F03_mash_lis","F03_mash_lis","F03","Sketch-based species ID with Mash on a Listeria isolate (paired Illumina).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.A.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","1","N","","step_3TX_species__mash","","","","step_3TX_species__mash","729","43","0","2","10.1","Understood! I will proceed with the pipeline design for sketch-based species ID using Mash and KmerFinder on your Listeria isolate (paired Illumina reads).","nextflow.enable.dsl=2
+"F03_mash_lis","F03_mash_lis","F03","Sketch-based species ID with Mash on a Listeria isolate (paired Illumina).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.A.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","1","N","","step_3TX_species__mash","","","","step_3TX_species__mash","729","43","0","2","10.1","Understood! I will proceed with the pipeline design for sketch-based species ID using Mash and KmerFinder on your Listeria isolate (paired Illumina reads).","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2256,7 +2256,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"I02_mash_fastp_shovill","I02_mash_fastp_shovill","I02","Species sketch with Mash plus assembly via fastp + Shovill from paired Illumina reads.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","759","37","3","2","13.5","Proceeding with the pipeline design for species sketching using Mash, preprocessing with fastp, and assembly via Shovill from paired Illumina reads.","nextflow.enable.dsl=2
+"I02_mash_fastp_shovill","I02_mash_fastp_shovill","I02","Species sketch with Mash plus assembly via fastp + Shovill from paired Illumina reads.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","759","37","3","2","13.5","Proceeding with the pipeline design for species sketching using Mash, preprocessing with fastp, and assembly via Shovill from paired Illumina reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2340,7 +2340,7 @@ workflow {
     step_4TY_plasmid__mobsuite(getSingleInput())
 }
 "
-"J02_bbnorm_downsampling","J02_bbnorm_downsampling","J02","Read normalization / downsampling of paired Illumina FASTQ with BBnorm at k=25, target depth 100x.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAM.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","1","N","step_1PP_trimming__fastp","","","step_1PP_downsampling__bbnorm, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_1PP_downsampling__bbnorm","step_1PP_downsampling__bbnorm","766","42","2","2","11.1","Understood! I will proceed with adding BBnorm (`step_1PP_downsampling__bbnorm`) for read normalization/downsampling of your paired Illumina FASTQ data at k=25 and target depth 100x. This will be included as a standalone step after trimming and before assembly/mapping.","nextflow.enable.dsl=2
+"J02_bbnorm_downsampling","J02_bbnorm_downsampling","J02","Read normalization / downsampling of paired Illumina FASTQ with BBnorm at k=25, target depth 100x.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAM.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","1","N","step_1PP_trimming__fastp","","","step_1PP_downsampling__bbnorm, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_1PP_downsampling__bbnorm","step_1PP_downsampling__bbnorm","766","42","2","2","11.1","Understood! I will proceed with adding BBnorm (`step_1PP_downsampling__bbnorm`) for read normalization/downsampling of your paired Illumina FASTQ data at k=25 and target depth 100x. This will be included as a standalone step after trimming and before assembly/mapping.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2427,7 +2427,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"K02_mlst_eco_fastp_spades","K02_mlst_eco_fastp_spades","K02","MLST typing on Escherichia coli from paired-end Illumina FASTQ (fastp + spades + mlst).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.100.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","1163","60","3","2","20.1","Pipeline approved. Proceeding with the detailed design.","nextflow.enable.dsl=2
+"K02_mlst_eco_fastp_spades","K02_mlst_eco_fastp_spades","K02","MLST typing on Escherichia coli from paired-end Illumina FASTQ (fastp + spades + mlst).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.100.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","1163","60","3","2","20.1","Pipeline approved. Proceeding with the detailed design.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2920,7 +2920,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"K11_abricate_cam_fastp_spades","K11_abricate_cam_fastp_spades","K11","ABRicate AMR screening on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + spades + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.101.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","7","N","","step_4AN_AMR__abricate","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_2AS_denovo__spades, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","933","43","2","2","15.2","Pipeline approved. The Nextflow DSL2 pipeline will be built using the following steps:
+"K11_abricate_cam_fastp_spades","K11_abricate_cam_fastp_spades","K11","ABRicate AMR screening on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + spades + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.101.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","7","N","","step_4AN_AMR__abricate","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_2AS_denovo__spades, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","933","43","2","2","15.2","Pipeline approved. The Nextflow DSL2 pipeline will be built using the following steps:
 
 1. **Preprocessing**: Trim paired-end Illumina FASTQ reads using `fastp`.
 2. **Assembly**: Assemble the trimmed reads using `SPAdes`.
@@ -3551,7 +3551,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"K24_chewbbaca_sal_fastp_shovill","K24_chewbbaca_sal_fastp_shovill","K24","cgMLST allelic profiling on Salmonella enterica from paired-end Illumina FASTQ (fastp + shovill + chewbbaca).","Y","N","missing_param","ERROR ~ missing required param: step_3TX_species__kmerfinder__db","0","9","N","step_3TX_species__kmerfinder","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","1537","57","4","2","19.2","Pipeline approved. The Nextflow DSL2 pipeline for **cgMLST allelic profiling on *Salmonella enterica*** from paired-end Illumina FASTQ reads will be built using the following steps:
+"K24_chewbbaca_sal_fastp_shovill","K24_chewbbaca_sal_fastp_shovill","K24","cgMLST allelic profiling on Salmonella enterica from paired-end Illumina FASTQ (fastp + shovill + chewbbaca).","N","N","missing_param","ERROR ~ missing required param: step_3TX_species__kmerfinder__db","0","9","N","step_3TX_species__kmerfinder","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","1537","57","4","2","19.2","Pipeline approved. The Nextflow DSL2 pipeline for **cgMLST allelic profiling on *Salmonella enterica*** from paired-end Illumina FASTQ reads will be built using the following steps:
 
 1. **Preprocessing**: Trim reads using `fastp`.
 2. **Assembly**: Assemble trimmed reads using `Shovill`.
@@ -3673,7 +3673,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"K26_abricate_eco_fastp_shovill","K26_abricate_eco_fastp_shovill","K26","ABRicate AMR screening on Escherichia coli from paired-end Illumina FASTQ (fastp + shovill + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","Y","","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","1818","100","3","2","25.9","Pipeline approved! The Nextflow DSL2 pipeline will include:
+"K26_abricate_eco_fastp_shovill","K26_abricate_eco_fastp_shovill","K26","ABRicate AMR screening on Escherichia coli from paired-end Illumina FASTQ (fastp + shovill + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","Y","","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","1818","100","3","2","25.9","Pipeline approved! The Nextflow DSL2 pipeline will include:
 
 1. **Preprocessing**: Trimming paired-end Illumina FASTQ files using `fastp`.
 2. **Assembly**: De novo assembly of trimmed reads using `shovill`.
@@ -3790,7 +3790,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"K27_abricate_sal_fastp_shovill","K27_abricate_sal_fastp_shovill","K27","ABRicate AMR screening on Salmonella enterica from paired-end Illumina FASTQ (fastp + shovill + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","N","step_4AN_AMR__filtering","","","step_4AN_AMR__filtering","step_2AS_denovo__shovill, step_4AN_AMR__abricate, step_4AN_AMR__filtering, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","2050","103","4","2","36.2","Pipeline approved! The Nextflow DSL2 pipeline will include the following steps:
+"K27_abricate_sal_fastp_shovill","K27_abricate_sal_fastp_shovill","K27","ABRicate AMR screening on Salmonella enterica from paired-end Illumina FASTQ (fastp + shovill + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","N","step_4AN_AMR__filtering","","","step_4AN_AMR__filtering","step_2AS_denovo__shovill, step_4AN_AMR__abricate, step_4AN_AMR__filtering, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__abricate","2050","103","4","2","36.2","Pipeline approved! The Nextflow DSL2 pipeline will include the following steps:
 
 1. **Preprocessing**: Trim paired-end Illumina FASTQ reads using `fastp`.
 2. **Assembly**: Assemble the trimmed reads using `shovill`.
@@ -4629,7 +4629,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"K43_abricate_eco_fastp_unicycler","K43_abricate_eco_fastp_unicycler","K43","ABRicate AMR screening on Escherichia coli from paired-end Illumina FASTQ (fastp + unicycler + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.110.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","step_2AS_denovo__unicycler, step_4AN_AMR__abricate, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","1535","74","3","2","15.7","Your pipeline has been approved and will proceed with the following steps:
+"K43_abricate_eco_fastp_unicycler","K43_abricate_eco_fastp_unicycler","K43","ABRicate AMR screening on Escherichia coli from paired-end Illumina FASTQ (fastp + unicycler + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.110.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","step_2AS_denovo__unicycler, step_4AN_AMR__abricate, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","1535","74","3","2","15.7","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Preprocessing**: Trim paired-end Illumina FASTQ reads using `fastp`.
 2. **Assembly**: Assemble the trimmed reads using `Unicycler`.
@@ -5012,7 +5012,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"K50_flaA_cam_fastp_unicycler","K50_flaA_cam_fastp_unicycler","K50","flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + unicycler + flaA).","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.113.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_flaA__flaA","1249","74","3","2","39.1","Pipeline approved! The Nextflow DSL2 pipeline for **flaA typing on *Campylobacter jejuni*** from paired-end Illumina FASTQ data will be built using the following steps:
+"K50_flaA_cam_fastp_unicycler","K50_flaA_cam_fastp_unicycler","K50","flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + unicycler + flaA).","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.113.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_flaA__flaA","1249","74","3","2","39.1","Pipeline approved! The Nextflow DSL2 pipeline for **flaA typing on *Campylobacter jejuni*** from paired-end Illumina FASTQ data will be built using the following steps:
 
 1. **Preprocessing**: Trim raw Illumina FASTQ reads using `fastp`.
 2. **Assembly**: Assemble trimmed reads into a draft genome usi","nextflow.enable.dsl=2
@@ -5232,7 +5232,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"K54_mlst_sal_trimmomatic_spades","K54_mlst_sal_trimmomatic_spades","K54","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (trimmomatic + spades + mlst).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.112.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","N","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","","","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","645","40","0","2","13.6","Your pipeline for MLST typing on *Salmonella enterica* from paired-end Illumina FASTQ data has been approved. The pipeline will include:
+"K54_mlst_sal_trimmomatic_spades","K54_mlst_sal_trimmomatic_spades","K54","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (trimmomatic + spades + mlst).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.112.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","N","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","","","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","645","40","0","2","13.6","Your pipeline for MLST typing on *Salmonella enterica* from paired-end Illumina FASTQ data has been approved. The pipeline will include:
 
 1. **Trimmomatic** (`step_1PP_trimming__trimmomatic`) for trimming raw reads.
 2. **SPAdes** (`step_2AS_denovo__spades`) for de novo assembly of trimmed reads.
@@ -5386,7 +5386,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"K57_chewbbaca_eco_trimmomatic_spades","K57_chewbbaca_eco_trimmomatic_spades","K57","cgMLST allelic profiling on Escherichia coli from paired-end Illumina FASTQ (trimmomatic + spades + chewbbaca).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.113.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","9","N","step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca, step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","1528","77","3","2","19.2","Understood! The pipeline for **cgMLST allelic profiling on *Escherichia coli*** from paired-end Illumina FASTQ data has been approved. Here is the detailed plan for the Architect Agent:","nextflow.enable.dsl=2
+"K57_chewbbaca_eco_trimmomatic_spades","K57_chewbbaca_eco_trimmomatic_spades","K57","cgMLST allelic profiling on Escherichia coli from paired-end Illumina FASTQ (trimmomatic + spades + chewbbaca).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.113.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","9","N","step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca, step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","1528","77","3","2","19.2","Understood! The pipeline for **cgMLST allelic profiling on *Escherichia coli*** from paired-end Illumina FASTQ data has been approved. Here is the detailed plan for the Architect Agent:","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5542,7 +5542,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"K59_abricate_lis_trimmomatic_spades","K59_abricate_lis_trimmomatic_spades","K59","ABRicate AMR screening on Listeria monocytogenes from paired-end Illumina FASTQ (trimmomatic + spades + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.114.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","7","N","step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4AN_AMR__abricate","1007","56","3","2","21.3","Pipeline approved. The Nextflow DSL2 pipeline will include:
+"K59_abricate_lis_trimmomatic_spades","K59_abricate_lis_trimmomatic_spades","K59","ABRicate AMR screening on Listeria monocytogenes from paired-end Illumina FASTQ (trimmomatic + spades + abricate).","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.114.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","7","N","step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4AN_AMR__abricate","1007","56","3","2","21.3","Pipeline approved. The Nextflow DSL2 pipeline will include:
 
 1. **Trimming**: `step_1PP_trimming__fastp` for paired-end Illumina FASTQ reads.
 2. **Assembly**: `step_2AS_denovo__spades` for de novo assembly of trimmed reads.
@@ -5810,7 +5810,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"L04_mlst_abricate_lis","L04_mlst_abricate_lis","L04","From paired Illumina FASTQ of Listeria monocytogenes: trim with fastp, assemble with SPAdes, then run mlst and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__abricate, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","1693","74","4","2","24.8","Pipeline approved! The Nextflow DSL2 pipeline will be built as described.","nextflow.enable.dsl=2
+"L04_mlst_abricate_lis","L04_mlst_abricate_lis","L04","From paired Illumina FASTQ of Listeria monocytogenes: trim with fastp, assemble with SPAdes, then run mlst and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__abricate, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","1693","74","4","2","24.8","Pipeline approved! The Nextflow DSL2 pipeline will be built as described.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5897,7 +5897,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"L05_mlst_abricate_eco","L05_mlst_abricate_eco","L05","From paired Illumina FASTQ of Escherichia coli: trim with fastp, assemble with SPAdes, then run mlst and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__abricate, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","1341","63","4","2","43.0","Your pipeline has been approved and will proceed with the following steps:
+"L05_mlst_abricate_eco","L05_mlst_abricate_eco","L05","From paired Illumina FASTQ of Escherichia coli: trim with fastp, assemble with SPAdes, then run mlst and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__abricate, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst","1341","63","4","2","43.0","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Trimming**: Use `step_1PP_trimming__fastp` to trim the paired Illumina FASTQ reads.
 2. **Assembly**: Use `step_2AS_denovo__spades` to assemble the trimmed reads.
@@ -5977,7 +5977,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"L06_chewbbaca_abricate_lis","L06_chewbbaca_abricate_lis","L06","From paired Illumina FASTQ of Listeria monocytogenes: trim with fastp, assemble with SPAdes, then run chewbbaca and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","10","N","","step_4TY_cgMLST__chewbbaca","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_cgMLST__chewbbaca","1032","46","3","2","14.0","Pipeline approved. The Nextflow DSL2 pipeline will be built as follows:
+"L06_chewbbaca_abricate_lis","L06_chewbbaca_abricate_lis","L06","From paired Illumina FASTQ of Listeria monocytogenes: trim with fastp, assemble with SPAdes, then run chewbbaca and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","10","N","","step_4TY_cgMLST__chewbbaca","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_cgMLST__chewbbaca","1032","46","3","2","14.0","Pipeline approved. The Nextflow DSL2 pipeline will be built as follows:
 
 1. **Trim paired Illumina FASTQ** using `step_1PP_trimming__fastp`.
 2. **Assemble trimmed reads** using `step_2AS_denovo__spades`.
@@ -6369,7 +6369,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"L12_abricate_prokka_sal","L12_abricate_prokka_sal","L12","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run abricate and prokka in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka","step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka","1454","73","4","2","14.6","Pipeline approved. Proceeding with the plan.","nextflow.enable.dsl=2
+"L12_abricate_prokka_sal","L12_abricate_prokka_sal","L12","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run abricate and prokka in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka","step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka","1454","73","4","2","14.6","Pipeline approved. Proceeding with the plan.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6648,7 +6648,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"L17_staramr_abricate_cam","L17_staramr_abricate_cam","L17","From paired Illumina FASTQ of Campylobacter jejuni: trim with fastp, assemble with SPAdes, then run staramr and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.120.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","8","N","","step_4AN_AMR__abricate, step_4AN_AMR__staramr","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_2AS_denovo__spades, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_AMR__staramr","903","44","2","2","15.2","Pipeline approved! The Nextflow DSL2 pipeline will be built as described.","nextflow.enable.dsl=2
+"L17_staramr_abricate_cam","L17_staramr_abricate_cam","L17","From paired Illumina FASTQ of Campylobacter jejuni: trim with fastp, assemble with SPAdes, then run staramr and abricate in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.120.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","8","N","","step_4AN_AMR__abricate, step_4AN_AMR__staramr","","step_1PP_trimming__fastp, step_2AS_denovo__spades","step_2AS_denovo__spades, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_AMR__staramr","903","44","2","2","15.2","Pipeline approved! The Nextflow DSL2 pipeline will be built as described.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6986,7 +6986,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"M02_mlst+chewbbaca+prokka_sal","M02_mlst+chewbbaca+prokka_sal","M02","Comprehensive typing+AMR+annotation pipeline for Salmonella enterica from paired Illumina FASTQ: trim, assemble, then run mlst, chewbbaca, prokka in parallel on the assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.118.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","7","11","N","step_2AS_denovo__shovill","step_2AS_denovo__spades","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","1613","57","5","2","18.3","Pipeline approved. The comprehensive typing+AMR+annotation pipeline for **Salmonella enterica** will be built as follows:
+"M02_mlst+chewbbaca+prokka_sal","M02_mlst+chewbbaca+prokka_sal","M02","Comprehensive typing+AMR+annotation pipeline for Salmonella enterica from paired Illumina FASTQ: trim, assemble, then run mlst, chewbbaca, prokka in parallel on the assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.118.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","7","11","N","step_2AS_denovo__shovill","step_2AS_denovo__spades","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","1613","57","5","2","18.3","Pipeline approved. The comprehensive typing+AMR+annotation pipeline for **Salmonella enterica** will be built as follows:
 
 1. **Trimming**: `step_1PP_trimming__fastp` for preprocessing Illumina reads.
 2. **Assembly**: `step_2AS_denovo__shovill` for de novo assembly.
@@ -7158,7 +7158,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"M04_mlst+abricate+prokka_lis","M04_mlst+abricate+prokka_lis","M04","Comprehensive typing+AMR+annotation pipeline for Listeria monocytogenes from paired Illumina FASTQ: trim, assemble, then run mlst, abricate, prokka in parallel on the assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.122.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","1688","90","5","2","20.8","Understood! The pipeline for **Listeria monocytogenes** from paired Illumina FASTQ reads has been approved. Here is the detailed plan for the Architect Agent:
+"M04_mlst+abricate+prokka_lis","M04_mlst+abricate+prokka_lis","M04","Comprehensive typing+AMR+annotation pipeline for Listeria monocytogenes from paired Illumina FASTQ: trim, assemble, then run mlst, abricate, prokka in parallel on the assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.122.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","1688","90","5","2","20.8","Understood! The pipeline for **Listeria monocytogenes** from paired Illumina FASTQ reads has been approved. Here is the detailed plan for the Architect Agent:
 
 ---
 
@@ -7464,7 +7464,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"M08_mlst+staramr+prokka_cam","M08_mlst+staramr+prokka_cam","M08","Comprehensive typing+AMR+annotation pipeline for Campylobacter jejuni from paired Illumina FASTQ: trim, assemble, then run mlst, staramr, prokka in parallel on the assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.126.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst","1870","97","5","2","18.6","Understood! The pipeline for **Campylobacter jejuni** from paired Illumina FASTQ data has been approved. Here is the detailed plan for the Architect Agent:
+"M08_mlst+staramr+prokka_cam","M08_mlst+staramr+prokka_cam","M08","Comprehensive typing+AMR+annotation pipeline for Campylobacter jejuni from paired Illumina FASTQ: trim, assemble, then run mlst, staramr, prokka in parallel on the assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.126.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst","1870","97","5","2","18.6","Understood! The pipeline for **Campylobacter jejuni** from paired Illumina FASTQ data has been approved. Here is the detailed plan for the Architect Agent:
 
 ---
 
@@ -8335,7 +8335,7 @@ workflow {
     step_4AN_genes__prokka(getInput())
 }
 "
-"NA08_prokka_eco_assembly","NA08_prokka_eco_assembly","NA08","Run prokka on a pre-existing Escherichia coli assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.122.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'","0","1","Y","","","","step_4AN_genes__prokka","step_4AN_genes__prokka","step_4AN_genes__prokka","708","30","1","2","12.1","Understood! I will proceed with running Prokka on your pre-existing *Escherichia coli* assembly as a standalone step. If you later want to integrate this into a larger pipeline (e.g., adding AMR annotation or species confirmation), let me know!","nextflow.enable.dsl=2
+"NA08_prokka_eco_assembly","NA08_prokka_eco_assembly","NA08","Run prokka on a pre-existing Escherichia coli assembly.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.122.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'","0","1","Y","","","","step_4AN_genes__prokka","step_4AN_genes__prokka","step_4AN_genes__prokka","708","30","1","2","12.1","Understood! I will proceed with running Prokka on your pre-existing *Escherichia coli* assembly as a standalone step. If you later want to integrate this into a larger pipeline (e.g., adding AMR annotation or species confirmation), let me know!","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -8372,7 +8372,7 @@ workflow {
     step_4AN_genes__prokka(getInput())
 }
 "
-"O01_spades_lis","O01_spades_lis","O01","De novo assembly with spades from paired Illumina FASTQ of Listeria monocytogenes.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1382","64","2","2","11.9","Understood! I will proceed with the **`module_denovo`** pipeline for de novo assembly of *Listeria monocytogenes* using paired Illumina FASTQ reads. This includes host depletion with Bowtie and assembly with SPAdes.","nextflow.enable.dsl=2
+"O01_spades_lis","O01_spades_lis","O01","De novo assembly with spades from paired Illumina FASTQ of Listeria monocytogenes.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.127.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1382","64","2","2","11.9","Understood! I will proceed with the **`module_denovo`** pipeline for de novo assembly of *Listeria monocytogenes* using paired Illumina FASTQ reads. This includes host depletion with Bowtie and assembly with SPAdes.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -8443,7 +8443,7 @@ workflow {
     step_2AS_denovo__spades(getSingleInput())
 }
 "
-"O02_spades_sal","O02_spades_sal","O02","De novo assembly with spades from paired Illumina FASTQ of Salmonella enterica.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1271","60","2","2","13.0","Understood! The pipeline will proceed with **Option 1**: Host depletion + SPAdes assembly using the `module_denovo` template. This will include:
+"O02_spades_sal","O02_spades_sal","O02","De novo assembly with spades from paired Illumina FASTQ of Salmonella enterica.","Y","Y","none","","5","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1271","60","2","2","13.0","Understood! The pipeline will proceed with **Option 1**: Host depletion + SPAdes assembly using the `module_denovo` template. This will include:
 
 1. **Host depletion** using `step_1PP_hostdepl__bowtie` (if a host reference is provided).
 2. **De novo assembly** using `step_2AS_denovo__spades`.
@@ -8515,7 +8515,7 @@ workflow {
     step_2AS_denovo__spades(getSingleInput())
 }
 "
-"O03_spades_cam","O03_spades_cam","O03","De novo assembly with spades from paired Illumina FASTQ of Campylobacter jejuni.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1066","50","3","2","12.7","Your pipeline has been approved and will proceed with the following steps:
+"O03_spades_cam","O03_spades_cam","O03","De novo assembly with spades from paired Illumina FASTQ of Campylobacter jejuni.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.131.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1066","50","3","2","12.7","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Preprocessing**: Trim raw reads using `fastp` (`step_1PP_trimming__fastp`).
 2. **Host Depletion**: Remove host contamination using `bowtie` (`step_1PP_hostdepl__bowtie`).
@@ -8623,7 +8623,7 @@ workflow {
     step_2AS_denovo__shovill(getSingleInput())
 }
 "
-"O05_shovill_sal","O05_shovill_sal","O05","De novo assembly with shovill from paired Illumina FASTQ of Salmonella enterica.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_0SQ_rawreads__fastq, step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_0SQ_rawreads__fastq, step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_hostdepl__bowtie, step_2AS_denovo__shovill, step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_2AS_denovo__shovill","1562","76","4","2","12.5","Understood! The pipeline for de novo assembly of *Salmonella enterica* from paired Illumina FASTQ reads using Shovill has been approved. Here is the detailed plan for the Architect Agent:","nextflow.enable.dsl=2
+"O05_shovill_sal","O05_shovill_sal","O05","De novo assembly with shovill from paired Illumina FASTQ of Salmonella enterica.","Y","Y","arity_error","ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were given","3","3","N","step_0SQ_rawreads__fastq, step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_0SQ_rawreads__fastq, step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_hostdepl__bowtie, step_2AS_denovo__shovill, step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_2AS_denovo__shovill","1562","76","4","2","12.5","Understood! The pipeline for de novo assembly of *Salmonella enterica* from paired Illumina FASTQ reads using Shovill has been approved. Here is the detailed plan for the Architect Agent:","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -8806,7 +8806,7 @@ workflow {
     step_2AS_denovo__unicycler(getSingleInput())
 }
 "
-"O08_unicycler_eco","O08_unicycler_eco","O08","De novo assembly with unicycler from paired Illumina FASTQ of Escherichia coli.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__unicycler","step_2AS_denovo__unicycler","1289","57","3","2","47.5","Pipeline approved. Proceeding with the de novo assembly pipeline for *Escherichia coli* using Unicycler.","nextflow.enable.dsl=2
+"O08_unicycler_eco","O08_unicycler_eco","O08","De novo assembly with unicycler from paired Illumina FASTQ of Escherichia coli.","Y","Y","arity_error","ERROR ~ Workflow `wf_preprocess_e_coli:step_1PP_hostdepl__bowtie` declares 1 input channels but 2 were given","3","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__unicycler","step_2AS_denovo__unicycler","1289","57","3","2","47.5","Pipeline approved. Proceeding with the de novo assembly pipeline for *Escherichia coli* using Unicycler.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -8918,7 +8918,7 @@ workflow {
     step_2AS_denovo__unicycler(getSingleInput())
 }
 "
-"O10_plasmidspades_eco","O10_plasmidspades_eco","O10","De novo assembly with plasmidspades from paired Illumina FASTQ of Escherichia coli.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_2AS_denovo__plasmidspades","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__plasmidspades","1449","50","3","2","15.3","Understood! The pipeline will proceed with **SPAdes** (`step_2AS_denovo__spades`) for de novo assembly of *Escherichia coli* paired Illumina FASTQ reads, including preprocessing steps for trimming and host depletion. The detailed plan will be generated for the Architect.","nextflow.enable.dsl=2
+"O10_plasmidspades_eco","O10_plasmidspades_eco","O10","De novo assembly with plasmidspades from paired Illumina FASTQ of Escherichia coli.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.124.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","5","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_2AS_denovo__plasmidspades","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__plasmidspades","1449","50","3","2","15.3","Understood! The pipeline will proceed with **SPAdes** (`step_2AS_denovo__spades`) for de novo assembly of *Escherichia coli* paired Illumina FASTQ reads, including preprocessing steps for trimming and host depletion. The detailed plan will be generated for the Architect.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -9021,7 +9021,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"P02_chopper_flye_mlst_sal","P02_chopper_flye_mlst_sal","P02","Nanopore pipeline for Salmonella enterica: chopper trimming + Flye assembly + mlst.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","5","N","step_1PP_hostdepl__minimap2","","","step_1PP_hostdepl__minimap2, step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_hostdepl__minimap2, step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","1831","70","4","2","150.9","Your pipeline has been approved and will proceed with the following steps:
+"P02_chopper_flye_mlst_sal","P02_chopper_flye_mlst_sal","P02","Nanopore pipeline for Salmonella enterica: chopper trimming + Flye assembly + mlst.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.126.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","2","5","N","step_1PP_hostdepl__minimap2","","","step_1PP_hostdepl__minimap2, step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_hostdepl__minimap2, step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","1831","70","4","2","150.9","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Host Depletion**: Use `step_1PP_hostdepl__minimap2` to deplete host reads.
 2. **Chopper Trimming**: Use `step_1PP_trimming__chopper` for Nanopore read trimming.
@@ -9724,7 +9724,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"Q03_kmerfinder_fastp_spades_sal","Q03_kmerfinder_fastp_spades_sal","Q03","In parallel, identify the species with kmerfinder and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","7","N","step_0SQ_rawreads__fastq","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","1127","38","4","2","13.0","Pipeline approved. Proceeding with the design.","nextflow.enable.dsl=2
+"Q03_kmerfinder_fastp_spades_sal","Q03_kmerfinder_fastp_spades_sal","Q03","In parallel, identify the species with kmerfinder and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","7","N","step_0SQ_rawreads__fastq","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","1127","38","4","2","13.0","Pipeline approved. Proceeding with the design.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -9969,7 +9969,7 @@ workflow {
     assembled = step_2AS_denovo__shovill(trimmed).assembly
 }
 "
-"Q07_mash_fastp_spades_lis","Q07_mash_fastp_spades_lis","Q07","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + spades.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","1300","72","3","2","17.3","Pipeline approved. The detailed plan for the Architect Agent will be generated now.","nextflow.enable.dsl=2
+"Q07_mash_fastp_spades_lis","Q07_mash_fastp_spades_lis","Q07","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + spades.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","1300","72","3","2","17.3","Pipeline approved. The detailed plan for the Architect Agent will be generated now.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -10053,7 +10053,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"Q08_mash_fastp_spades_eco","Q08_mash_fastp_spades_eco","Q08","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + spades.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","1056","37","3","2","18.0","Pipeline approved. The Nextflow DSL2 pipeline will be built as follows:
+"Q08_mash_fastp_spades_eco","Q08_mash_fastp_spades_eco","Q08","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + spades.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","1056","37","3","2","18.0","Pipeline approved. The Nextflow DSL2 pipeline will be built as follows:
 
 1. **Input**: Paired Illumina FASTQ reads (Escherichia coli).
 2. **Trimming**: `step_1PP_trimming__fastp` (fastp) to trim the reads.
@@ -10106,7 +10106,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"Q09_mash_fastp_spades_sal","Q09_mash_fastp_spades_sal","Q09","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","993","42","3","2","13.0","Your pipeline has been approved and will proceed with the following steps:
+"Q09_mash_fastp_spades_sal","Q09_mash_fastp_spades_sal","Q09","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","993","42","3","2","13.0","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Species Identification**: Use `step_3TX_species__mash` to identify the species from the raw paired Illumina FASTQ reads of *Salmonella enterica*.
 2. **Preprocessing**: Trim the reads using `step_1PP_trimming__fastp`.
@@ -10164,7 +10164,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"Q10_mash_fastp_shovill_lis","Q10_mash_fastp_shovill_lis","Q10","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + shovill.","Y","Y","none","","8","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_2AS_denovo__shovill, step_3TX_species__mash, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","1526","70","3","2","24.2","Pipeline approved. Proceeding with the detailed plan for parallel species identification (Mash) and trimming+assembly (fastp + shovill) for Listeria monocytogenes.","nextflow.enable.dsl=2
+"Q10_mash_fastp_shovill_lis","Q10_mash_fastp_shovill_lis","Q10","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + shovill.","Y","N","none","","8","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_2AS_denovo__shovill, step_3TX_species__mash, step_1PP_trimming__fastp","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","1526","70","3","2","24.2","Pipeline approved. Proceeding with the detailed plan for parallel species identification (Mash) and trimming+assembly (fastp + shovill) for Listeria monocytogenes.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -10246,7 +10246,7 @@ workflow {
     assembled = step_2AS_denovo__shovill(trimmed).assembly
 }
 "
-"R01_kmerfinder_cam","R01_kmerfinder_cam","R01","kmerfinder on paired Illumina FASTQ of Campylobacter jejuni.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.135.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","7","1","N","step_1PP_trimming__fastp, step_2AS_denovo__spades","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_3TX_species__kmerfinder","1240","38","3","2","21.8","Understood! The pipeline for **Campylobacter jejuni** species identification using KmerFinder on paired Illumina FASTQ reads has been approved. Here is the detailed plan for the Architect Agent:
+"R01_kmerfinder_cam","R01_kmerfinder_cam","R01","kmerfinder on paired Illumina FASTQ of Campylobacter jejuni.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.135.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","7","1","N","step_1PP_trimming__fastp, step_2AS_denovo__spades","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder","step_3TX_species__kmerfinder","1240","38","3","2","21.8","Understood! The pipeline for **Campylobacter jejuni** species identification using KmerFinder on paired Illumina FASTQ reads has been approved. Here is the detailed plan for the Architect Agent:
 
 ---
 
@@ -10394,7 +10394,7 @@ workflow {
     step_3TX_species__mash(getSingleInput())
 }
 "
-"R04_mash_eco","R04_mash_eco","R04","mash on paired Illumina FASTQ of Escherichia coli.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.130.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","1","N","step_1PP_trimming__fastp, step_2AS_denovo__spades","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__spades","step_3TX_species__mash","1635","77","3","2","12.0","Proceeding with the approved pipeline for *Escherichia coli* paired Illumina FASTQ reads using Mash for species classification.","nextflow.enable.dsl=2
+"R04_mash_eco","R04_mash_eco","R04","mash on paired Illumina FASTQ of Escherichia coli.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.130.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","4","1","N","step_1PP_trimming__fastp, step_2AS_denovo__spades","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__spades","step_3TX_species__mash","1635","77","3","2","12.0","Proceeding with the approved pipeline for *Escherichia coli* paired Illumina FASTQ reads using Mash for species classification.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -10531,7 +10531,7 @@ workflow {
     step_3TX_class__kraken2(getSingleInput())
 }
 "
-"R06_kraken2_eco","R06_kraken2_eco","R06","kraken2 on paired Illumina FASTQ of Escherichia coli.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","2","N","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades, step_3TX_class__kraken2","step_3TX_class__kraken2, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_3TX_class__kraken2","2528","107","3","2","38.4","Your pipeline has been approved and will proceed with the following steps:
+"R06_kraken2_eco","R06_kraken2_eco","R06","kraken2 on paired Illumina FASTQ of Escherichia coli.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.131.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","3","2","N","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades, step_3TX_class__kraken2","step_3TX_class__kraken2, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_3TX_class__kraken2","2528","107","3","2","38.4","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Quality Control**: FastQC (`step_0SQ_rawreads__fastq`) to assess read quality.
 2. **Taxonomic Classification**: Kraken2 (`step_3TX_class__kraken2`) for species identification and classification.
@@ -10736,7 +10736,7 @@ workflow {
     step_3TX_class__kraken2(getSingleInput())
 }
 "
-"R08_kraken2_cam","R08_kraken2_cam","R08","kraken2 on paired Illumina FASTQ of Campylobacter jejuni.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.136.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","2","N","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_3TX_class__kraken2","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_3TX_class__kraken2","step_3TX_class__kraken2","1303","50","3","2","13.0","Your pipeline has been approved and will proceed with the following steps:
+"R08_kraken2_cam","R08_kraken2_cam","R08","kraken2 on paired Illumina FASTQ of Campylobacter jejuni.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.136.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","2","N","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_3TX_class__kraken2","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp, step_3TX_class__kraken2","step_3TX_class__kraken2","1303","50","3","2","13.0","Your pipeline has been approved and will proceed with the following steps:
 
 1. **Input Handling**: `step_0SQ_rawreads__fastq` to validate and process the raw FASTQ files.
 2. **Preprocessing**: `step_1PP_trimming__fastp` to trim adapters and low-quality bases from the Illumina reads.
@@ -10797,7 +10797,7 @@ workflow {
     step_3TX_class__kraken2(getSingleInput())
 }
 "
-"S01_fastp_lis","S01_fastp_lis","S01","fastp read trimming on illumina paired FASTQ of Listeria monocytogenes.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","N","step_2AS_denovo__shovill, step_3TX_class__kraken2, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_class__kraken2, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_3TX_class__kraken2, step_2AS_denovo__shovill, step_4AN_genes__prokka, step_4AN_AMR__abricate, step_4TY_MLST__mlst","step_1PP_trimming__fastp","1692","66","6","2","60.9","Pipeline approved. Proceeding with the construction of the Nextflow DSL2 pipeline for *Listeria monocytogenes* using the following steps:
+"S01_fastp_lis","S01_fastp_lis","S01","fastp read trimming on illumina paired FASTQ of Listeria monocytogenes.","Y","N","missing_param","ERROR ~ missing required param: step_3TX_class__kraken2__db","0","3","N","step_2AS_denovo__shovill, step_3TX_class__kraken2, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_class__kraken2, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_3TX_class__kraken2, step_2AS_denovo__shovill, step_4AN_genes__prokka, step_4AN_AMR__abricate, step_4TY_MLST__mlst","step_1PP_trimming__fastp","1692","66","6","2","60.9","Pipeline approved. Proceeding with the construction of the Nextflow DSL2 pipeline for *Listeria monocytogenes* using the following steps:
 
 1. **Trimming**: `fastp` (`step_1PP_trimming__fastp`) for Illumina paired-end FASTQ trimming.
 2. **Taxonomy Classification**: `Kraken2` (`step_3TX_class__kraken2","nextflow.enable.dsl=2
@@ -10873,7 +10873,7 @@ workflow {
     step_1PP_trimming__fastp(getInput())
 }
 "
-"S02_fastp_sal","S02_fastp_sal","S02","fastp read trimming on illumina paired FASTQ of Salmonella enterica.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","N","step_0SQ_rawreads__fastq","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_1PP_trimming__fastp","913","42","2","2","11.8","Approved! I will proceed with a custom pipeline for **fastp read trimming** on Illumina paired-end FASTQ data for *Salmonella enterica*.","nextflow.enable.dsl=2
+"S02_fastp_sal","S02_fastp_sal","S02","fastp read trimming on illumina paired FASTQ of Salmonella enterica.","Y","Y","arity_error","ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were given","3","3","N","step_0SQ_rawreads__fastq","","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_1PP_trimming__fastp","913","42","2","2","11.8","Approved! I will proceed with a custom pipeline for **fastp read trimming** on Illumina paired-end FASTQ data for *Salmonella enterica*.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -10922,7 +10922,7 @@ workflow {
     step_1PP_trimming__fastp(getInput())
 }
 "
-"S03_trimmomatic_eco","S03_trimmomatic_eco","S03","trimmomatic read trimming on illumina paired FASTQ of Escherichia coli.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","N","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","713","31","2","2","9.3","Understood! I will proceed with **fastp** (`step_1PP_trimming__fastp`) for trimming your Illumina paired-end FASTQ reads of *Escherichia coli*.","nextflow.enable.dsl=2
+"S03_trimmomatic_eco","S03_trimmomatic_eco","S03","trimmomatic read trimming on illumina paired FASTQ of Escherichia coli.","Y","Y","arity_error","ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were given","3","3","N","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_0SQ_rawreads__fastq, step_1PP_trimming__fastp","step_1PP_trimming__trimmomatic","713","31","2","2","9.3","Understood! I will proceed with **fastp** (`step_1PP_trimming__fastp`) for trimming your Illumina paired-end FASTQ reads of *Escherichia coli*.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -10960,7 +10960,7 @@ workflow {
     step_1PP_trimming__trimmomatic(getInput())
 }
 "
-"S04_trimmomatic_cam","S04_trimmomatic_cam","S04","trimmomatic read trimming on illumina paired FASTQ of Campylobacter jejuni.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","N","step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__trimmomatic","","step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__trimmomatic","1125","48","2","2","40.6","Understood! I will proceed with the following pipeline for Illumina paired-end FASTQ trimming and optional taxonomic classification of *Campylobacter jejuni*:
+"S04_trimmomatic_cam","S04_trimmomatic_cam","S04","trimmomatic read trimming on illumina paired FASTQ of Campylobacter jejuni.","Y","N","missing_param","ERROR ~ missing required param: step_3TX_class__kraken2__db","0","3","N","step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__trimmomatic","","step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__trimmomatic","1125","48","2","2","40.6","Understood! I will proceed with the following pipeline for Illumina paired-end FASTQ trimming and optional taxonomic classification of *Campylobacter jejuni*:
 
 1. **fastp** (`step_1PP_trimming__fastp`) for trimming Illumina paired-end reads.
 2. **Kraken2** (`step_3TX_class__kraken2`) for taxonomic c","nextflow.enable.dsl=2
@@ -11056,7 +11056,7 @@ workflow {
     step_1PP_trimming__chopper(getInput())
 }
 "
-"S06_chopper_sal","S06_chopper_sal","S06","chopper read trimming on nanopore FASTQ of Salmonella enterica.","N","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","2","N","","step_1PP_trimming__chopper","","","","step_1PP_trimming__chopper","480","25","0","2","10.1","Understood! The pipeline will proceed with **Chopper trimming** for Nanopore FASTQ reads of *Salmonella enterica*. No additional steps like taxonomic classification or assembly will be included unless requested later.","nextflow.enable.dsl=2
+"S06_chopper_sal","S06_chopper_sal","S06","chopper read trimming on nanopore FASTQ of Salmonella enterica.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.136.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","0","2","N","","step_1PP_trimming__chopper","","","","step_1PP_trimming__chopper","480","25","0","2","10.1","Understood! The pipeline will proceed with **Chopper trimming** for Nanopore FASTQ reads of *Salmonella enterica*. No additional steps like taxonomic classification or assembly will be included unless requested later.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -11088,7 +11088,7 @@ workflow {
     step_1PP_trimming__chopper(getInput())
 }
 "
-"S07_chopper_cam","S07_chopper_cam","S07","chopper read trimming on nanopore FASTQ of Campylobacter jejuni.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","2","Y","","","","step_1PP_trimming__chopper","step_1PP_trimming__chopper","step_1PP_trimming__chopper","953","38","1","2","13.0","Understood! I will proceed with **Chopper** (`step_1PP_trimming__chopper`) for nanopore FASTQ trimming of Campylobacter jejuni reads.","nextflow.enable.dsl=2
+"S07_chopper_cam","S07_chopper_cam","S07","chopper read trimming on nanopore FASTQ of Campylobacter jejuni.","Y","Y","none","","2","2","Y","","","","step_1PP_trimming__chopper","step_1PP_trimming__chopper","step_1PP_trimming__chopper","953","38","1","2","13.0","Understood! I will proceed with **Chopper** (`step_1PP_trimming__chopper`) for nanopore FASTQ trimming of Campylobacter jejuni reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 

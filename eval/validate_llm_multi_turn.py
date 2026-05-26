@@ -24,7 +24,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from harness.harness import Example, Harness   # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from validate_llm import analyse_code, categorize, syntax_check, determine_inputs  # noqa: E402
+from validate_llm import analyse_code, categorize, syntax_check, determine_inputs, inject_safe_defaults  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 RUNS_DIR = Path(os.environ.get("BENCH_RUNS_DIR", HERE / "_out")).resolve()
@@ -57,6 +57,8 @@ def validate_turn(harness: Harness, conv: dict, turn_rec: dict) -> dict:
 
     gt_analysis = analyse_code(gt_code)
     llm_analysis = analyse_code(nf_code or "")
+    # Stub params for extras the model added (host depletion, prokka, ...)
+    params = inject_safe_defaults(params, llm_analysis["called_steps"])
     gt_steps = set(gt_analysis["called_steps"] or gt_analysis["included_steps"])
     llm_steps = set(llm_analysis["called_steps"] or llm_analysis["included_steps"])
 

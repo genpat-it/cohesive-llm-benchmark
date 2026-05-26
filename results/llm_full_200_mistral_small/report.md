@@ -1,6 +1,6 @@
 # LLM evaluation — detailed report
 
-Total prompts: **200**  ·  generated code: **200**  ·  syntactically valid: **192**  ·  semantically valid: **133**
+Total prompts: **200**  ·  generated code: **200**  ·  syntactically valid: **192**  ·  semantically valid: **139**
 
 Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  missing steps **33**  ·  hallucinated (non-existent) steps **0**
 
@@ -8,11 +8,11 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 
 | Category | Count | Meaning |
 |----|----|----|
-| `none` | 121 | no error — pipeline passes |
-| `file_not_found` | 31 | expected input file is not in the framework layout |
-| `missing_param` | 25 | step requires a param() that was not supplied |
-| `silent_no_op` | 11 | DAG empty — pipeline runs but produces no output |
-| `arity_error` | 9 | workflow called with wrong number of arguments |
+| `none` | 124 | no error — pipeline passes |
+| `file_not_found` | 37 | expected input file is not in the framework layout |
+| `missing_param` | 19 | step requires a param() that was not supplied |
+| `arity_error` | 13 | workflow called with wrong number of arguments |
+| `silent_no_op` | 4 | DAG empty — pipeline runs but produces no output |
 | `ngsmanager_naming` | 2 | input file name does not match parseMetadataFromFileName regex |
 | `partial_dag` | 1 | only some of the expected processes appeared in the DAG |
 
@@ -23,20 +23,20 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 1 | `A01_mlst_listeria` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 2 | `A02_mlst_ecoli` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 3 | `A03_mlst_salmonella` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 4 | `A04_cgmlst_listeria` | ✅ | ✅ | ✅ | 3/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 4 | `A04_cgmlst_listeria` | ✅ | ✅ | ✅ | 3/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 5 | `A05_cgmlst_ecoli` | ✅ | ✅ | ✅ | 3/3 | `none` |  |
-| 6 | `A06_cgmlst_salmonella` | ✅ | ✅ | ✅ | 3/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 6 | `A06_cgmlst_salmonella` | ✅ | ✅ | ✅ | 3/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 7 | `A07_flaa_campylobacter` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 8 | `A08_staramr_campylobacter` | ✅ | ✅ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
-| 9 | `B01_spades_listeria` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
+| 9 | `B01_spades_listeria` | ✅ | ✅ | ✅ | 5/3 | `none` |  |
 | 10 | `B02_shovill_ecoli` | ✅ | ✅ | ✅ | 3/3 | `none` |  |
 | 11 | `B03_unicycler_salmonella` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 12 | `B04_plasmidspades` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
-| 13 | `B05_metaspades` | ✅ | ✅ | ✅ | 4/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 14 | `C01_kmerfinder` | ✅ | ✅ | ❌ | 0/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 13 | `B05_metaspades` | ✅ | ✅ | ✅ | 4/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 14 | `C01_kmerfinder` | ✅ | ✅ | ❌ | 0/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 15 | `C02_mash` | ✅ | ✅ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken2__db |
 | 16 | `C03_kraken2` | ✅ | ✅ | ✅ | 3/2 | `arity_error` | ERROR ~ Workflow `step_3TX_class__kraken2` declares 1 input channels but 0 were  |
-| 17 | `D01_fastp_spades_lis` | ✅ | ✅ | ✅ | 6/6 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 17 | `D01_fastp_spades_lis` | ✅ | ✅ | ✅ | 6/6 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 18 | `D02_fastp_shovill_eco` | ✅ | ✅ | ✅ | 6/6 | `none` |  |
 | 19 | `D03_trimmomatic_spades` | ✅ | ✅ | ✅ | 6/6 | `none` |  |
 | 20 | `D04_fastp_unicycler_sal` | ✅ | ✅ | ✅ | 6/6 | `none` |  |
@@ -53,12 +53,12 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 31 | `E10_mlst_sal_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 32 | `E11_cgmlst_lis_shovill` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 33 | `E12_mlst_cam` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 34 | `E13_abricate_sal` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 34 | `E13_abricate_sal` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 35 | `E14_prokka_eco` | ✅ | ❌ | ❌ | 3/7 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
 | 36 | `E15_cgmlst_lis_trimmomatic` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 37 | `F01_abricate_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 38 | `F02_prokka_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 39 | `F03_mash_lis` | ✅ | ✅ | ❌ | 0/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 39 | `F03_mash_lis` | ✅ | ✅ | ❌ | 0/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 40 | `F04_kraken2_unknown` | ✅ | ✅ | ✅ | 3/2 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
 | 41 | `G01_chopper_flye_lis` | ✅ | ✅ | ✅ | 4/4 | `ngsmanager_naming` | ERROR ~ unexpected file name: DS99999-DT260224_2026.LIS.B.1.1_R1.fastq.gz |
 | 42 | `G02_chopper_flye_eco` | ✅ | ✅ | ✅ | 4/4 | `none` |  |
@@ -67,11 +67,11 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 45 | `H03_prokka_plus_abricate_eco` | ✅ | ✅ | ✅ | 8/8 | `ngsmanager_naming` | ERROR ~ unexpected file name: DS99999-DT260224_2026.ECO.C.1.1_R1.fastq.gz |
 | 46 | `H04_mlst_plus_abricate_sal` | ✅ | ✅ | ❌ | 0/8 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
 | 47 | `I01_kmerfinder_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 48 | `I02_mash_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
+| 48 | `I02_mash_fastp_shovill` | ✅ | ✅ | ❌ | 7/7 | `none` |  |
 | 49 | `J01_mobsuite_plasmid` | ✅ | ✅ | ✅ | 4/1 | `none` |  |
-| 50 | `J02_bbnorm_downsampling` | ✅ | ✅ | ✅ | 4/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 50 | `J02_bbnorm_downsampling` | ✅ | ✅ | ✅ | 4/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 51 | `K01_mlst_lis_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 52 | `K02_mlst_eco_fastp_spades` | ✅ | ✅ | ❌ | 3/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 52 | `K02_mlst_eco_fastp_spades` | ✅ | ✅ | ❌ | 3/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 53 | `K03_mlst_sal_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 54 | `K04_mlst_cam_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 55 | `K05_chewbbaca_lis_fastp_spades` | ✅ | ❌ | ❌ | 3/9 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
@@ -80,7 +80,7 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 58 | `K08_abricate_lis_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 59 | `K09_abricate_eco_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 60 | `K10_abricate_sal_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 61 | `K11_abricate_cam_fastp_spades` | ✅ | ✅ | ❌ | 6/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 61 | `K11_abricate_cam_fastp_spades` | ✅ | ✅ | ❌ | 6/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 62 | `K12_prokka_lis_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 63 | `K13_prokka_eco_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 64 | `K14_prokka_sal_fastp_spades` | ✅ | ❌ | ❌ | 3/7 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
@@ -93,10 +93,10 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 71 | `K21_mlst_cam_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 72 | `K22_chewbbaca_lis_fastp_shovill` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 73 | `K23_chewbbaca_eco_fastp_shovill` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 74 | `K24_chewbbaca_sal_fastp_shovill` | ✅ | ✅ | ❌ | 0/9 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
+| 74 | `K24_chewbbaca_sal_fastp_shovill` | ✅ | ❌ | ❌ | 0/9 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
 | 75 | `K25_abricate_lis_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 76 | `K26_abricate_eco_fastp_shovill` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 77 | `K27_abricate_sal_fastp_shovill` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 76 | `K26_abricate_eco_fastp_shovill` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 77 | `K27_abricate_sal_fastp_shovill` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 78 | `K28_abricate_cam_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 79 | `K29_prokka_lis_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 80 | `K30_prokka_eco_fastp_shovill` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
@@ -112,52 +112,52 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 90 | `K40_chewbbaca_eco_fastp_unicycler` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 91 | `K41_chewbbaca_sal_fastp_unicycler` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 92 | `K42_abricate_lis_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 93 | `K43_abricate_eco_fastp_unicycler` | ✅ | ✅ | ❌ | 3/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 93 | `K43_abricate_eco_fastp_unicycler` | ✅ | ✅ | ❌ | 3/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 94 | `K44_abricate_sal_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 95 | `K45_abricate_cam_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 96 | `K46_prokka_lis_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 97 | `K47_prokka_eco_fastp_unicycler` | ✅ | ❌ | ❌ | 3/7 | `arity_error` | ERROR ~ Workflow `wf_prokka_e_coli_annotation:step_4AN_genes__prokka` declares 1 |
 | 98 | `K48_prokka_sal_fastp_unicycler` | ✅ | ❌ | ❌ | 3/7 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
 | 99 | `K49_prokka_cam_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 100 | `K50_flaA_cam_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 100 | `K50_flaA_cam_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 101 | `K51_staramr_cam_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 102 | `K52_mlst_lis_trimmomatic_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 103 | `K53_mlst_eco_trimmomatic_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 104 | `K54_mlst_sal_trimmomatic_spades` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 104 | `K54_mlst_sal_trimmomatic_spades` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 105 | `K55_mlst_cam_trimmomatic_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 106 | `K56_chewbbaca_lis_trimmomatic_spades` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 107 | `K57_chewbbaca_eco_trimmomatic_spades` | ✅ | ✅ | ❌ | 3/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 107 | `K57_chewbbaca_eco_trimmomatic_spades` | ✅ | ✅ | ❌ | 3/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 108 | `K58_chewbbaca_sal_trimmomatic_spades` | ✅ | ✅ | ❌ | 0/9 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
-| 109 | `K59_abricate_lis_trimmomatic_spades` | ✅ | ✅ | ❌ | 6/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 109 | `K59_abricate_lis_trimmomatic_spades` | ✅ | ✅ | ❌ | 6/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 110 | `K60_abricate_eco_trimmomatic_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 111 | `L01_mlst_chewbbaca_lis` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
 | 112 | `L02_mlst_chewbbaca_eco` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
 | 113 | `L03_mlst_chewbbaca_sal` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
-| 114 | `L04_mlst_abricate_lis` | ✅ | ✅ | ❌ | 4/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 115 | `L05_mlst_abricate_eco` | ✅ | ✅ | ❌ | 3/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 116 | `L06_chewbbaca_abricate_lis` | ✅ | ✅ | ❌ | 6/10 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 114 | `L04_mlst_abricate_lis` | ✅ | ✅ | ❌ | 4/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 115 | `L05_mlst_abricate_eco` | ✅ | ✅ | ❌ | 3/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 116 | `L06_chewbbaca_abricate_lis` | ✅ | ✅ | ❌ | 6/10 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 117 | `L07_chewbbaca_prokka_lis` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
 | 118 | `L08_chewbbaca_prokka_sal` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
 | 119 | `L09_mlst_prokka_eco` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 120 | `L10_mlst_prokka_sal` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 121 | `L11_abricate_prokka_lis` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
-| 122 | `L12_abricate_prokka_sal` | ✅ | ✅ | ❌ | 6/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 122 | `L12_abricate_prokka_sal` | ✅ | ✅ | ❌ | 6/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 123 | `L13_mlst_flaA_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 124 | `L14_mlst_staramr_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 125 | `L15_flaA_staramr_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 126 | `L16_flaA_abricate_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
-| 127 | `L17_staramr_abricate_cam` | ✅ | ✅ | ❌ | 6/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 127 | `L17_staramr_abricate_cam` | ✅ | ✅ | ❌ | 6/8 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 128 | `L18_staramr_prokka_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 129 | `L19_flaA_prokka_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 130 | `L20_mlst_prokka_lis` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 131 | `M01_mlst+chewbbaca+abricate_lis` | ✅ | ✅ | ✅ | 12/11 | `none` |  |
-| 132 | `M02_mlst+chewbbaca+prokka_sal` | ✅ | ✅ | ❌ | 7/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 132 | `M02_mlst+chewbbaca+prokka_sal` | ✅ | ✅ | ❌ | 7/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 133 | `M03_mlst+abricate+prokka_eco` | ✅ | ✅ | ❌ | 0/9 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
-| 134 | `M04_mlst+abricate+prokka_lis` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 134 | `M04_mlst+abricate+prokka_lis` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 135 | `M05_mlst+flaA+staramr_cam` | ✅ | ✅ | ✅ | 10/9 | `none` |  |
 | 136 | `M06_mlst+flaA+abricate_cam` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 137 | `M07_flaA+staramr+prokka_cam` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 138 | `M08_mlst+staramr+prokka_cam` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 138 | `M08_mlst+staramr+prokka_cam` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 139 | `M09_chewbbaca+abricate+prokka_lis` | ✅ | ✅ | ❌ | 0/11 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
 | 140 | `M10_chewbbaca+abricate+prokka_eco` | ✅ | ✅ | ✅ | 11/11 | `none` |  |
 | 141 | `N01_canonical_mlst_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
@@ -174,19 +174,19 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 152 | `NA05_abricate_cam_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 153 | `NA06_prokka_sal_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 154 | `NA07_prokka_cam_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 155 | `NA08_prokka_eco_assembly` | ✅ | ✅ | ❌ | 0/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 156 | `O01_spades_lis` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
-| 157 | `O02_spades_sal` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
-| 158 | `O03_spades_cam` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
+| 155 | `NA08_prokka_eco_assembly` | ✅ | ✅ | ❌ | 0/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 156 | `O01_spades_lis` | ✅ | ✅ | ❌ | 0/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 157 | `O02_spades_sal` | ✅ | ✅ | ✅ | 5/3 | `none` |  |
+| 158 | `O03_spades_cam` | ✅ | ✅ | ✅ | 3/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 159 | `O04_shovill_lis` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
-| 160 | `O05_shovill_sal` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
+| 160 | `O05_shovill_sal` | ✅ | ✅ | ✅ | 3/3 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
 | 161 | `O06_shovill_cam` | ✅ | ✅ | ✅ | 3/3 | `none` |  |
 | 162 | `O07_unicycler_lis` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
-| 163 | `O08_unicycler_eco` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
+| 163 | `O08_unicycler_eco` | ✅ | ✅ | ✅ | 3/3 | `arity_error` | ERROR ~ Workflow `wf_preprocess_e_coli:step_1PP_hostdepl__bowtie` declares 1 inp |
 | 164 | `O09_unicycler_cam` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 165 | `O10_plasmidspades_eco` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
+| 165 | `O10_plasmidspades_eco` | ✅ | ✅ | ✅ | 5/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 166 | `P01_chopper_flye_mlst_lis` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
-| 167 | `P02_chopper_flye_mlst_sal` | ✅ | ✅ | ❌ | 0/5 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 167 | `P02_chopper_flye_mlst_sal` | ✅ | ✅ | ❌ | 2/5 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 168 | `P03_chopper_flye_mlst_eco` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
 | 169 | `P04_chopper_flye_mlst_cam` | ✅ | ❌ | ❌ | 3/5 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__chopper` declares 1 input channels but 0 we |
 | 170 | `P05_chopper_flye_abricate_lis` | ✅ | ✅ | ✅ | 7/5 | `none` |  |
@@ -197,29 +197,29 @@ Step-set vs. ground truth:  exact match **130**  ·  extra steps **62**  ·  mis
 | 175 | `P10_chopper_flye_chewbbaca_sal` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 176 | `Q01_kmerfinder_fastp_spades_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 177 | `Q02_kmerfinder_fastp_spades_eco` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 178 | `Q03_kmerfinder_fastp_spades_sal` | ✅ | ✅ | ❌ | 4/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 178 | `Q03_kmerfinder_fastp_spades_sal` | ✅ | ✅ | ❌ | 4/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 179 | `Q04_kmerfinder_fastp_shovill_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 180 | `Q05_kmerfinder_fastp_shovill_eco` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
 | 181 | `Q06_kmerfinder_fastp_shovill_sal` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 182 | `Q07_mash_fastp_spades_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 183 | `Q08_mash_fastp_spades_eco` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 184 | `Q09_mash_fastp_spades_sal` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 185 | `Q10_mash_fastp_shovill_lis` | ✅ | ✅ | ✅ | 8/7 | `none` |  |
-| 186 | `R01_kmerfinder_cam` | ✅ | ✅ | ✅ | 7/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 182 | `Q07_mash_fastp_spades_lis` | ✅ | ✅ | ❌ | 7/7 | `none` |  |
+| 183 | `Q08_mash_fastp_spades_eco` | ✅ | ✅ | ❌ | 0/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 184 | `Q09_mash_fastp_spades_sal` | ✅ | ✅ | ❌ | 7/7 | `none` |  |
+| 185 | `Q10_mash_fastp_shovill_lis` | ✅ | ✅ | ❌ | 8/7 | `none` |  |
+| 186 | `R01_kmerfinder_cam` | ✅ | ✅ | ✅ | 7/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 187 | `R02_kmerfinder_sal` | ✅ | ✅ | ✅ | 9/1 | `none` |  |
 | 188 | `R03_mash_sal` | ✅ | ✅ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
-| 189 | `R04_mash_eco` | ✅ | ✅ | ✅ | 4/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 189 | `R04_mash_eco` | ✅ | ✅ | ✅ | 4/1 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 190 | `R05_kraken2_lis` | ✅ | ✅ | ❌ | 0/2 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
-| 191 | `R06_kraken2_eco` | ✅ | ✅ | ❌ | 0/2 | `missing_param` | ERROR ~ missing required param: hosts_dir |
+| 191 | `R06_kraken2_eco` | ✅ | ✅ | ✅ | 3/2 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
 | 192 | `R07_kraken2_sal` | ✅ | ✅ | ❌ | 0/2 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
-| 193 | `R08_kraken2_cam` | ✅ | ✅ | ❌ | 0/2 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 194 | `S01_fastp_lis` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 195 | `S02_fastp_sal` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 196 | `S03_trimmomatic_eco` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 197 | `S04_trimmomatic_cam` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 193 | `R08_kraken2_cam` | ✅ | ✅ | ❌ | 0/2 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 194 | `S01_fastp_lis` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken2__db |
+| 195 | `S02_fastp_sal` | ✅ | ✅ | ✅ | 3/3 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
+| 196 | `S03_trimmomatic_eco` | ✅ | ✅ | ✅ | 3/3 | `arity_error` | ERROR ~ Workflow `step_1PP_trimming__fastp` declares 1 input channels but 0 were |
+| 197 | `S04_trimmomatic_cam` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken2__db |
 | 198 | `S05_chopper_lis` | ✅ | ✅ | ✅ | 2/2 | `none` |  |
-| 199 | `S06_chopper_sal` | ✅ | ❌ | ❌ | 0/2 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 200 | `S07_chopper_cam` | ✅ | ✅ | ❌ | 0/2 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 199 | `S06_chopper_sal` | ✅ | ✅ | ❌ | 0/2 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_sma |
+| 200 | `S07_chopper_cam` | ✅ | ✅ | ✅ | 2/2 | `none` |  |
 
 ## Step-set comparison vs ground truth
 
@@ -486,95 +486,6 @@ workflow {
 ERROR ~ missing required param: step_3TX_species__kmerfinder__db
 ```
 
-### `B01_spades_listeria` — `missing_param`
-
-**Prompt:** De novo genome assembly with SPAdes from Illumina paired-end reads of Listeria monocytogenes.
-
-**Steps (LLM):** `step_1PP_hostdepl__bowtie, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__spades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    step_2AS_denovo__spades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { extractKey } from '../functions/common.nf'
-
-include { getHost; getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-def hostRiscd = '220308-020220308005121273-1PP_import-external'
-
-def hostCode = 'GRCh38'
-
-def hostPath = "${params.assets_dir}/module_denovo/GRCh38.fasta"
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow module_denovo {
-    
-    take:
-        
-        trimmedReads
-        
-        host
-        
-    
-    main:
-        trimmedReads.cross(host) { extractKey(it) }
-            .map { [ it[0][0], it[0][1], it[1][1] ] } // riscd, reads, host
-            .branch {
-                with_host: it[1][1]
-                without_host: true
-            }
-            .set { branchedTrimmed }
-
-        depleted = step_1PP_hostdepl__bowtie(branchedTrimmed.with_host)
-
-        branchedTrimmed.without_host
-            .mix(depleted)
-            .map { it[0,1] }
-            .set { denovoInput }
-
-        assembled = step_2AS_denovo__spades(denovoInput)
-    
-    emit:
-        
-        assembled = assembled
-        
-        depleted = depleted
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    module_denovo(getSingleInput(), getHost())
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
-```
-
 ### `C01_kmerfinder` — `file_not_found`
 
 **Prompt:** Identify the species of an unknown bacterial isolate from Illumina paired FASTQ using KmerFinder.
@@ -637,7 +548,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.UNK.1.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.UNK.1.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `C02_mash` — `missing_param`
@@ -1095,7 +1006,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.7.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.7.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `E14_prokka_eco` — `arity_error`
@@ -1237,7 +1148,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.A.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.A.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `H01_mlst_plus_cgmlst_lis` — `missing_param`
@@ -1562,6 +1473,73 @@ workflow {
 ERROR ~ missing required param: step_3TX_species__kmerfinder__db
 ```
 
+### `I02_mash_fastp_shovill` — `none`
+
+**Prompt:** Species sketch with Mash plus assembly via fastp + Shovill from paired Illumina reads.
+
+**Steps (LLM):** `step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__shovill`
+**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash`
+
+**Ground truth (passes validation):**
+```groovy
+nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
+workflow {
+    raw = getSingleInput()
+    step_3TX_species__mash(raw)
+    trimmed   = step_1PP_trimming__fastp(raw).trimmed
+    assembled = step_2AS_denovo__shovill(trimmed).assembly
+}
+```
+**LLM-generated (failed):**
+```groovy
+nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
+
+// --- GLOBALS ---
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+workflow wf_species_sketching {
+    
+    take:
+        
+        rawreads
+        
+    
+    main:
+        trimmed = step_1PP_trimming__fastp(rawreads).trimmed
+        step_3TX_species__mash(trimmed)
+
+        assembly = step_2AS_denovo__shovill(trimmed).assembly
+    
+}
+
+// --- ENTRYPOINT ---
+workflow {
+    wf_species_sketching(getSingleInput())
+}
+```
+**Error excerpt:**
+```
+(no excerpt)
+```
+
 ### `K02_mlst_eco_fastp_spades` — `file_not_found`
 
 **Prompt:** MLST typing on Escherichia coli from paired-end Illumina FASTQ (fastp + spades + mlst).
@@ -1648,7 +1626,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.100.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.100.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K05_chewbbaca_lis_fastp_spades` — `arity_error`
@@ -1783,7 +1761,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.101.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.101.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K14_prokka_sal_fastp_spades` — `arity_error`
@@ -2068,7 +2046,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K27_abricate_sal_fastp_shovill` — `file_not_found`
@@ -2200,7 +2178,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.106.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K30_prokka_eco_fastp_shovill` — `silent_no_op`
@@ -2393,7 +2371,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.110.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.110.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K47_prokka_eco_fastp_unicycler` — `arity_error`
@@ -2608,7 +2586,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.112.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.112.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K57_chewbbaca_eco_trimmomatic_spades` — `file_not_found`
@@ -2714,7 +2692,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.113.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.113.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K58_chewbbaca_sal_trimmomatic_spades` — `missing_param`
@@ -2881,7 +2859,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.114.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.114.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `L04_mlst_abricate_lis` — `file_not_found`
@@ -2986,7 +2964,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `L05_mlst_abricate_eco` — `file_not_found`
@@ -3080,7 +3058,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.116.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `L06_chewbbaca_abricate_lis` — `file_not_found`
@@ -3157,7 +3135,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `L12_abricate_prokka_sal` — `file_not_found`
@@ -3261,7 +3239,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `L17_staramr_abricate_cam` — `file_not_found`
@@ -3336,7 +3314,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.120.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.120.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `M02_mlst+chewbbaca+prokka_sal` — `file_not_found`
@@ -3426,7 +3404,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.118.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.118.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `M03_mlst+abricate+prokka_eco` — `missing_param`
@@ -3657,7 +3635,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.122.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.122.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `M08_mlst+staramr+prokka_cam` — `file_not_found`
@@ -3787,7 +3765,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.126.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.126.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `M09_chewbbaca+abricate+prokka_lis` — `missing_param`
@@ -4030,10 +4008,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.122.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.122.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
-### `O01_spades_lis` — `missing_param`
+### `O01_spades_lis` — `file_not_found`
 
 **Prompt:** De novo assembly with spades from paired Illumina FASTQ of Listeria monocytogenes.
 
@@ -4119,350 +4097,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
-```
-
-### `O02_spades_sal` — `missing_param`
-
-**Prompt:** De novo assembly with spades from paired Illumina FASTQ of Salmonella enterica.
-
-**Steps (LLM):** `step_1PP_hostdepl__bowtie, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__spades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    step_2AS_denovo__spades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { extractKey } from '../functions/common.nf'
-
-include { getHost; getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-def spadesRiscd = '220308-020220308005121273-2AS_import-external'
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow module_denovo {
-    
-    take:
-        
-        trimmedReads
-        
-        host
-        
-    
-    main:
-        trimmedReads.cross(host) { extractKey(it) }
-            .map { [ it[0][0], it[0][1], it[1][1] ] } // riscd, reads, host
-            .branch {
-                with_host: it[1][1]
-                without_host: true
-            }
-        .set { branchedTrimmed }
-
-        depleted = step_1PP_hostdepl__bowtie(branchedTrimmed.with_host)
-
-        branchedTrimmed.without_host
-            .mix(depleted)
-            .map { it[0,1] }
-        .set{ denovoInput }
-
-        assembled = step_2AS_denovo__spades(denovoInput)
-    
-    emit:
-        
-        assembled
-        
-        depleted
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    module_denovo(getSingleInput(), getHost())
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
-```
-
-### `O03_spades_cam` — `missing_param`
-
-**Prompt:** De novo assembly with spades from paired Illumina FASTQ of Campylobacter jejuni.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__spades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    step_2AS_denovo__spades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { extractKey } from '../functions/common.nf'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-def hostRef = "${params.hosts_dir}/human"
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow wf_campylobacter_denovo {
-    
-    take:
-        
-        rawReads
-        
-    
-    main:
-        trimmed = step_1PP_trimming__fastp(rawReads).trimmed
-
-        trimmed.cross(hostRef) { extractKey(it) }.map { [ it[0][0], it[0][1], it[1][1] ] }.set { prep }
-
-        depleted = step_1PP_hostdepl__bowtie(prep)
-
-        spades_out = step_2AS_denovo__spades(depleted)
-        assembly = spades_out.assembled
-    
-    emit:
-        
-        assembly
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    wf_campylobacter_denovo(getSingleInput())
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
-```
-
-### `O05_shovill_sal` — `missing_param`
-
-**Prompt:** De novo assembly with shovill from paired Illumina FASTQ of Salmonella enterica.
-
-**Steps (LLM):** `step_1PP_hostdepl__bowtie, step_2AS_denovo__shovill, step_0SQ_rawreads__fastq, step_1PP_trimming__fastp`
-**Steps (GT):**  `step_2AS_denovo__shovill`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-workflow {
-    step_2AS_denovo__shovill(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-
-include { step_0SQ_rawreads__fastq } from '../steps/step_0SQ_rawreads__fastq'
-
-// --- GLOBALS ---
-
-def hostRiscd = '220308-020220308005121273-1PP_hostdepl-external'
-
-def hostCode = 'human'
-
-def hostPath = "${params.assets_dir}/module_hostdepletion_external/human.fasta"
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow wf_deplete_and_assemble {
-    
-    take:
-        
-        trimmed
-        
-    
-    main:
-        trimmedAndHost = trimmed.multiMap {
-            trimmed: it
-            host: [ hostRiscd, hostCode, file(hostPath) ]
-        }
-
-        depleted = step_1PP_hostdepl__bowtie(trimmedAndHost)
-        ready = depleted.mix(trimmed).map { it[0,1] }
-
-        assembly = step_2AS_denovo__shovill(ready)
-    
-    emit:
-        
-        assembly
-        
-    
-}
-
-workflow wf_qc_assembly {
-    
-    take:
-        
-        assembly
-        
-    
-    main:
-        quast(assembly)
-        if (!params.skip_checkm) {
-            checkm(assembly)
-        }
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    rawreads = step_0SQ_rawreads__fastq(getSingleInput())
-
-    trimmed = step_1PP_trimming__fastp(rawreads)
-
-    wf_deplete_and_assemble(trimmed)
-
-    wf_qc_assembly(wf_deplete_and_assemble.assembly)
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
-```
-
-### `O08_unicycler_eco` — `missing_param`
-
-**Prompt:** De novo assembly with unicycler from paired Illumina FASTQ of Escherichia coli.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__unicycler`
-**Steps (GT):**  `step_2AS_denovo__unicycler`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__unicycler } from '../steps/step_2AS_denovo__unicycler'
-workflow {
-    step_2AS_denovo__unicycler(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_2AS_denovo__unicycler } from '../steps/step_2AS_denovo__unicycler'
-
-// --- GLOBALS ---
-
-def hostDepletionRiscd = '220308-020220308005121273-1PP_hostdepl-external'
-
-def hostDepletionCode = 'escherichia_coli_k12_mg1655'
-
-def hostDepletionPath = "${params.hosts_dir}/escherichia_coli_k12_mg1655"
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow wf_preprocess_e_coli {
-    
-    take:
-        
-        rawReads
-        
-    
-    main:
-        trimmedReads = step_1PP_trimming__fastp(rawReads).trimmed
-
-        trimmedAndHost = trimmedReads.multiMap {
-            reads: it
-            host: [hostDepletionRiscd, hostDepletionCode, file(hostDepletionPath)]
-        }
-
-        trimmedDepleted = step_1PP_hostdepl__bowtie(trimmedAndHost)
-
-        assembly = step_2AS_denovo__unicycler(trimmedDepleted).assembled
-    
-    emit:
-        
-        trimmedReads
-        
-        assembly
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    rawReads = getSingleInput()
-    wf_preprocess_e_coli(rawReads)
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.LIS.127.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `O09_unicycler_cam` — `silent_no_op`
@@ -4528,82 +4163,7 @@ workflow {
 No process placeholders appeared. when: clause filtered everything?
 ```
 
-### `O10_plasmidspades_eco` — `missing_param`
-
-**Prompt:** De novo assembly with plasmidspades from paired Illumina FASTQ of Escherichia coli.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__plasmidspades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__plasmidspades } from '../steps/step_2AS_denovo__plasmidspades'
-workflow {
-    step_2AS_denovo__plasmidspades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getHostUnkeyed; getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { extractKey } from '../functions/common.nf'
-
-include { module_qc_quast } from '../modules/module_qc_quast'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-// --- GLOBALS ---
-
-def hostGenome = "${params.hosts_dir}/human_hg38"
-
-def hostGenomeRiscd = '220308-020220308005121273-1PP_hostdepl-external'
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    // Step 1: Trimming with fastp
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    // Step 2: Host Depletion with Bowtie2
-    // Prepare input: [riscd, reads, host]
-    trimmed.cross(getHostUnkeyed()) { extractKey(it) }.map {
-        [ it[0][0], it[0][1], it[1][1] ]
-    }.set { trimmedAndHost }
-
-    // Perform host depletion
-    depleted = step_1PP_hostdepl__bowtie(trimmedAndHost).depleted
-
-    // Step 3: De Novo Assembly with SPAdes
-    // Prepare input: [riscd, reads]
-    spades_out = step_2AS_denovo__spades(depleted.map { [ it[0], it[1] ] })
-
-    // Optional: Publish assembly results
-    spades_out.assembled.view()
-
-    // Optional: Run QUAST for quality assessment
-    module_qc_quast(spades_out.assembled)
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
-```
-
-### `P02_chopper_flye_mlst_sal` — `silent_no_op`
+### `P02_chopper_flye_mlst_sal` — `file_not_found`
 
 **Prompt:** Nanopore pipeline for Salmonella enterica: chopper trimming + Flye assembly + mlst.
 
@@ -4699,7 +4259,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.126.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `P04_chopper_flye_mlst_cam` — `arity_error`
@@ -5001,7 +4561,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `Q05_kmerfinder_fastp_shovill_eco` — `silent_no_op`
@@ -5185,6 +4745,108 @@ workflow {
 No process placeholders appeared. when: clause filtered everything?
 ```
 
+### `Q07_mash_fastp_spades_lis` — `none`
+
+**Prompt:** In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + spades.
+
+**Steps (LLM):** `step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__spades`
+**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash`
+
+**Ground truth (passes validation):**
+```groovy
+nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    raw = getSingleInput()
+    step_3TX_species__mash(raw)
+    trimmed   = step_1PP_trimming__fastp(raw).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+```
+**LLM-generated (failed):**
+```groovy
+nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+def stepNameTrimming = '1PP_trimming'
+
+def methodNameTrimming = 'fastp'
+
+def stepNameSpecies = '3TX_species'
+
+def methodNameSpecies = 'mash'
+
+def stepNameAssembly = '2AS_denovo'
+
+def methodNameAssembly = 'spades'
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+workflow wf_trim_and_identify {
+    
+    take:
+        
+        rawReads
+        
+    
+    main:
+        fastpOut = step_1PP_trimming__fastp(rawReads)
+        step_3TX_species__mash(fastpOut.trimmed)
+    
+    emit:
+        
+        trimmed = fastpOut.trimmed
+        
+    
+}
+
+workflow wf_assemble_from_trimmed {
+    
+    take:
+        
+        trimmed
+        
+    
+    main:
+        spadesOut = step_2AS_denovo__spades(trimmed)
+    
+    emit:
+        
+        assembled = spadesOut.assembled
+        
+    
+}
+
+// --- ENTRYPOINT ---
+workflow {
+    rawReads = getSingleInput()
+
+    wf_trim_and_identify(rawReads)
+    wf_assemble_from_trimmed(wf_trim_and_identify.out.trimmed)
+}
+```
+**Error excerpt:**
+```
+(no excerpt)
+```
+
 ### `Q08_mash_fastp_spades_eco` — `file_not_found`
 
 **Prompt:** In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + spades.
@@ -5249,7 +4911,179 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.ECO.129.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+```
+
+### `Q09_mash_fastp_spades_sal` — `none`
+
+**Prompt:** In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.
+
+**Steps (LLM):** `step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades`
+**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash`
+
+**Ground truth (passes validation):**
+```groovy
+nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+workflow {
+    raw = getSingleInput()
+    step_3TX_species__mash(raw)
+    trimmed   = step_1PP_trimming__fastp(raw).trimmed
+    assembled = step_2AS_denovo__spades(trimmed).assembled
+}
+```
+**LLM-generated (failed):**
+```groovy
+nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
+
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+// --- GLOBALS ---
+
+def seqType = 'illumina_paired'
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+// --- ENTRYPOINT ---
+workflow {
+    rawreads = getSingleInput()
+
+    // Parallel species identification with Mash
+    mash_out = step_3TX_species__mash(rawreads)
+
+    // Parallel trimming with fastp
+    trimmed = step_1PP_trimming__fastp(rawreads).trimmed
+
+    // Assembly of trimmed reads with SPAdes
+    spades_out = step_2AS_denovo__spades(trimmed)
+
+    // Publish Mash species identification report
+    mash_out.set { _ }
+
+    // Publish trimmed reads
+    trimmed.set { _ }
+
+    // Publish assembled contigs
+    spades_out.assembled.set { _ }
+}
+```
+**Error excerpt:**
+```
+(no excerpt)
+```
+
+### `Q10_mash_fastp_shovill_lis` — `none`
+
+**Prompt:** In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + shovill.
+
+**Steps (LLM):** `step_2AS_denovo__shovill, step_3TX_species__mash, step_1PP_trimming__fastp`
+**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash`
+
+**Ground truth (passes validation):**
+```groovy
+nextflow.enable.dsl=2
+
+include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
+workflow {
+    raw = getSingleInput()
+    step_3TX_species__mash(raw)
+    trimmed   = step_1PP_trimming__fastp(raw).trimmed
+    assembled = step_2AS_denovo__shovill(trimmed).assembly
+}
+```
+**LLM-generated (failed):**
+```groovy
+nextflow.enable.dsl=2
+
+// --- IMPORTS ---
+
+include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
+
+include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
+
+include { module_qc_quast } from '../modules/module_qc_quast'
+
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
+
+include { module_qc_fastqc } from '../modules/module_qc_fastqc'
+
+// --- GLOBALS ---
+
+def mashDbPath = "${params.assets_dir}/mash/refseq/refseq.genomes.k21s1000.msh"
+
+def mashGramPath = "${params.assets_dir}/mash/BACTpipe/resources/gram_stain.txt"
+
+// --- INLINE PROCESSES ---
+
+// --- SUB WORKFLOWS ---
+
+workflow wf_trim_and_assemble {
+    
+    take:
+        
+        trimmed
+        
+    
+    main:
+        shovill_out = step_2AS_denovo__shovill(trimmed)
+        module_qc_quast(shovill_out.assembly)
+    
+    emit:
+        
+        assembly = shovill_out.assembly
+        
+    
+}
+
+workflow wf_species_id {
+    
+    take:
+        
+        reads
+        
+    
+    main:
+        step_3TX_species__mash(reads)
+    
+}
+
+// --- ENTRYPOINT ---
+workflow {
+    // Instantiate input channels
+    reads_ch = getSingleInput()
+    mash_db_ch = Channel.fromPath(mashDbPath)
+
+    // Parallel execution: trimming+assembly and species identification
+    trimmed = step_1PP_trimming__fastp(reads_ch)
+    wf_trim_and_assemble(trimmed)
+    wf_species_id(reads_ch)
+
+    // Optional: QC on raw reads (if needed)
+    // module_qc_fastqc(reads_ch)
+}
+```
+**Error excerpt:**
+```
+(no excerpt)
 ```
 
 ### `R03_mash_sal` — `missing_param`
@@ -5365,138 +5199,6 @@ workflow {
 **Error excerpt:**
 ```
 ERROR ~ missing required param: step_3TX_species__kmerfinder__db
-```
-
-### `R06_kraken2_eco` — `missing_param`
-
-**Prompt:** kraken2 on paired Illumina FASTQ of Escherichia coli.
-
-**Steps (LLM):** `step_3TX_class__kraken2, step_1PP_hostdepl__bowtie, step_2AS_denovo__spades`
-**Steps (GT):**  `step_3TX_class__kraken2`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_3TX_class__kraken2 } from '../steps/step_3TX_class__kraken2'
-workflow {
-    step_3TX_class__kraken2(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { extractKey } from '../functions/common.nf'
-
-include { getSingleInput; isIlluminaPaired } from '../functions/parameters.nf'
-
-include { step_3TX_class__kraken2 } from '../steps/step_3TX_class__kraken2'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { module_qc_fastqc } from '../modules/module_qc_fastqc'
-
-// --- GLOBALS ---
-
-def seqType = 'illumina_paired'
-
-def hostRiscd = '220308-020220308005121273-1PP_hostdepl-external'
-
-def hostCode = 'GRCh38'
-
-def hostPath = "${params.assets_dir}/module_covid_emergency/GRCh38.fasta"
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow wf_taxonomic_classification {
-    
-    take:
-        
-        raw_reads
-        
-    
-    main:
-        raw_reads.branch {
-            illumina: isIlluminaPaired(it[1])
-            other: true
-        }.set { ch_tech }
-
-        // Run FastQC on raw reads
-        module_qc_fastqc(ch_tech.illumina)
-
-        // Taxonomic classification with Kraken2
-        kraken2_out = step_3TX_class__kraken2(ch_tech.illumina)
-    
-    emit:
-        
-        genus_report = kraken2_out.genus_report
-        
-    
-}
-
-workflow wf_host_depletion {
-    
-    take:
-        
-        raw_reads
-        
-        host_ref
-        
-    
-    main:
-        raw_reads.cross(host_ref) { extractKey(it) }.map { [ it[0][0], it[0][1], it[1][1] ] }.set { prep }
-
-        // Perform host depletion using Bowtie
-        depleted = step_1PP_hostdepl__bowtie(prep)
-    
-}
-
-workflow wf_assembly {
-    
-    take:
-        
-        reads_for_assembly
-        
-    
-    main:
-        // Assemble reads using SPAdes
-        spades_out = step_2AS_denovo__spades(reads_for_assembly)
-    
-    emit:
-        
-        assembled = spades_out.assembled
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    // Step 1: Taxonomic classification
-    raw_reads = getSingleInput()
-    wf_taxonomic_classification(raw_reads)
-
-    // Step 2: Optional host depletion (decision based on Kraken2 results would be manual; here we assume it's needed)
-    // Prepare host reference
-    host_ref = [ hostRiscd, hostCode, file(hostPath) ]
-    wf_host_depletion(raw_reads, host_ref)
-
-    // Step 3: Optional assembly (using host-depleted reads)
-    // Note: In a real pipeline, this would be conditional based on user input or Kraken2 results
-    // Here we assume assembly is desired after host depletion
-    wf_assembly(depleted)
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
 ```
 
 ### `R07_kraken2_sal` — `missing_param`
@@ -5676,10 +5378,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.136.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.CAM.136.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `S01_fastp_lis` — `silent_no_op`
+### `S01_fastp_lis` — `missing_param`
 
 **Prompt:** fastp read trimming on illumina paired FASTQ of Listeria monocytogenes.
 
@@ -5767,133 +5469,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+ERROR ~ missing required param: step_3TX_class__kraken2__db
 ```
 
-### `S02_fastp_sal` — `silent_no_op`
-
-**Prompt:** fastp read trimming on illumina paired FASTQ of Salmonella enterica.
-
-**Steps (LLM):** `step_0SQ_rawreads__fastq, step_1PP_trimming__fastp`
-**Steps (GT):**  `step_1PP_trimming__fastp`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-workflow {
-    step_1PP_trimming__fastp(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getInput } from '../functions/parameters.nf'
-
-include { extractKey } from '../functions/common.nf'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_0SQ_rawreads__fastq } from '../steps/step_0SQ_rawreads__fastq'
-
-// --- GLOBALS ---
-
-def trimMethod = 'fastp'
-
-def trimContainer = 'ghcr.io/genpat-it/fastp:0.23.1--e4ac3df4c5'
-
-def trimThreads = 8
-
-def qualPhred = 20
-
-def trimPolyG = true
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    raw_reads = step_0SQ_rawreads__fastq(getInput())
-
-    trimmed = step_1PP_trimming__fastp(raw_reads).trimmed
-
-    fastqc(trimmed)
-
-    readsCheckInput = raw_reads.cross(trimmed) { extractKey(it) }.multiMap {
-        rawreads: it[0]
-        trimmed: it[1]
-    }
-    sample_reads_check(readsCheckInput.rawreads, readsCheckInput.trimmed)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `S03_trimmomatic_eco` — `silent_no_op`
-
-**Prompt:** trimmomatic read trimming on illumina paired FASTQ of Escherichia coli.
-
-**Steps (LLM):** `step_0SQ_rawreads__fastq, step_1PP_trimming__fastp`
-**Steps (GT):**  `step_1PP_trimming__trimmomatic`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__trimmomatic } from '../steps/step_1PP_trimming__trimmomatic'
-workflow {
-    step_1PP_trimming__trimmomatic(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getInput } from '../functions/parameters.nf'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_0SQ_rawreads__fastq } from '../steps/step_0SQ_rawreads__fastq'
-
-include { module_qc_fastqc } from '../modules/module_qc_fastqc'
-
-// --- GLOBALS ---
-
-def trimMethod = 'fastp'
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    // Ingest raw Illumina paired-end FASTQ reads
-    rawReads = step_0SQ_rawreads__fastq(getInput())
-
-    // Trim the reads using fastp
-    trimmed = step_1PP_trimming__fastp(rawReads).trimmed
-
-    // Run QC on trimmed reads
-    module_qc_fastqc(trimmed)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `S04_trimmomatic_cam` — `silent_no_op`
+### `S04_trimmomatic_cam` — `missing_param`
 
 **Prompt:** trimmomatic read trimming on illumina paired FASTQ of Campylobacter jejuni.
 
@@ -5963,10 +5542,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+ERROR ~ missing required param: step_3TX_class__kraken2__db
 ```
 
-### `S06_chopper_sal` — `silent_no_op`
+### `S06_chopper_sal` — `file_not_found`
 
 **Prompt:** chopper read trimming on nanopore FASTQ of Salmonella enterica.
 
@@ -6013,68 +5592,5 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `S07_chopper_cam` — `silent_no_op`
-
-**Prompt:** chopper read trimming on nanopore FASTQ of Campylobacter jejuni.
-
-**Steps (LLM):** `step_1PP_trimming__chopper`
-**Steps (GT):**  `step_1PP_trimming__chopper`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-workflow {
-    step_1PP_trimming__chopper(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-
-include { getSingleInput; isIlluminaPaired; isNanopore } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-def trimmerCode = 'chopper'
-
-def trimmerRiscd = '230718-020223071800512127-1PP_trimming-chopper'
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    rawreads = getSingleInput()
-
-    // Branch by technology (nanopore vs illumina)
-    rawreads.branch {
-        nanopore: isNanopore(it[1])
-        illumina: isIlluminaPaired(it[1])
-        other: true
-    }.set { ch_tech }
-
-    // Process nanopore reads with chopper
-    chopper_out = step_1PP_trimming__chopper(ch_tech.nanopore)
-
-    // Pass trimmed nanopore reads downstream
-    ready = chopper_out.trimmed
-
-    // Optional: mix with illumina reads if needed for downstream steps
-    // ready = ready.mix(ch_tech.illumina)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_mistral_small/_shared_inputdir/2026/2026.SAL.136.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```

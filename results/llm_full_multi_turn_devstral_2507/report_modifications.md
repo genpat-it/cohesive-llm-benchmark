@@ -1,12 +1,12 @@
 # LLM multi-turn evaluation — detailed report
 
-Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **122/319**  ·  conversations fully passing: **33/159**
+Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **123/319**  ·  conversations fully passing: **33/159**
 
 ## Pass rate by modification kind (per turn)
 
 | kind | turns | pass |
 |----|-----:|-----:|
-| `add` | 101 | 51 |
+| `add` | 101 | 52 |
 | `replace` | 95 | 34 |
 | `drop` | 63 | 11 |
 | `switch_species` | 60 | 26 |
@@ -15,13 +15,13 @@ Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **122
 
 | Category | Count |
 |----|----:|
-| `file_not_found` | 121 |
-| `none` | 118 |
-| `missing_param` | 32 |
+| `file_not_found` | 126 |
+| `none` | 119 |
+| `missing_param` | 22 |
 | `no_code` | 19 |
-| `silent_no_op` | 17 |
+| `silent_no_op` | 15 |
+| `partial_dag` | 10 |
 | `arity_error` | 8 |
-| `partial_dag` | 4 |
 
 ## Per-conversation outcome
 
@@ -29,7 +29,7 @@ Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **122
 |---|---------|------|----|----|------------------------------|
 | 1 | `MOD_M01_E02_add_mlst` | `add` | ✅ | ✅ |  |
 | 2 | `MOD_M02_D01_add_chewbbaca` | `add` | ✅ | ❌ | t2: `file_not_found` |
-| 3 | `MOD_M03_B01_add_trimming` | `add` | ❌ | ❌ | t1: `missing_param` |
+| 3 | `MOD_M03_B01_add_trimming` | `add` | ✅ | ❌ | t2: `file_not_found` |
 | 4 | `MOD_M04_A04_add_mlst_parallel` | `add` | ❌ | ❌ | t1: `silent_no_op` |
 | 5 | `MOD_M05_E07_add_prokka` | `add` | ❌ | ❌ | t1: `file_not_found` |
 | 6 | `MOD_M06_D01_replace_spades_with_shovill` | `replace` | ❌ | ❌ | t1: `file_not_found` |
@@ -52,8 +52,8 @@ Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **122
 | 23 | `MOD_K06_add_prokka_to_chewbbaca_lis_spades` | `add` | ✅ | ✅ |  |
 | 24 | `MOD_K07_add_prokka_to_chewbbaca_sal_spades` | `add` | ❌ | ✅ | t1: `file_not_found` |
 | 25 | `MOD_K08_add_chewbbaca_to_mlst_lis_spades` | `add` | ✅ | ✅ |  |
-| 26 | `MOD_K09_add_chewbbaca_to_mlst_eco_spades` | `add` | ✅ | ❌ | t2: `silent_no_op` |
-| 27 | `MOD_K10_add_abricate_to_mlst_lis_spades` | `add` | ❌ | ❌ | t1: `missing_param` |
+| 26 | `MOD_K09_add_chewbbaca_to_mlst_eco_spades` | `add` | ✅ | ❌ | t2: `partial_dag` |
+| 27 | `MOD_K10_add_abricate_to_mlst_lis_spades` | `add` | ❌ | ❌ | t1: `file_not_found` |
 | 28 | `MOD_K11_add_abricate_to_mlst_eco_spades` | `add` | ✅ | ❌ | t2: `file_not_found` |
 | 29 | `MOD_K12_add_abricate_to_mlst_sal_spades` | `add` | ✅ | ✅ |  |
 | 30 | `MOD_K13_add_prokka_to_mlst_lis_spades` | `add` | ✅ | ❌ | t2: `file_not_found` |
@@ -82,11 +82,11 @@ Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **122
 | 53 | `MOD_K36_add_chewbbaca_to_mlst_sal_shovill` | `add` | ❌ | ❌ | t1: `file_not_found` |
 | 54 | `MOD_K37_add_abricate_to_mlst_lis_spades` | `add` | ❌ | ✅ | t1: `file_not_found` |
 | 55 | `MOD_K38_add_prokka_to_mlst_eco_spades` | `add` | ✅ | ✅ |  |
-| 56 | `MOD_R01_replace_asm_spades_to_shovill_lis` | `replace` | ❌ | ✅ | t1: `missing_param` |
+| 56 | `MOD_R01_replace_asm_spades_to_shovill_lis` | `replace` | ❌ | ✅ | t1: `partial_dag` |
 | 57 | `MOD_R02_replace_asm_spades_to_shovill_sal` | `replace` | ✅ | ❌ | t2: `file_not_found` |
-| 58 | `MOD_R03_replace_asm_spades_to_shovill_eco` | `replace` | ❌ | ❌ | t1: `missing_param` |
+| 58 | `MOD_R03_replace_asm_spades_to_shovill_eco` | `replace` | ❌ | ❌ | t1: `partial_dag` |
 | 59 | `MOD_R04_replace_asm_spades_to_shovill_cam` | `replace` | ❌ | · | t1: `no_code` |
-| 60 | `MOD_R05_replace_asm_spades_to_unicycler_lis` | `replace` | ❌ | ❌ | t1: `missing_param` |
+| 60 | `MOD_R05_replace_asm_spades_to_unicycler_lis` | `replace` | ❌ | ❌ | t1: `partial_dag` |
 | 61 | `MOD_R06_replace_asm_spades_to_unicycler_sal` | `replace` | ✅ | ❌ | t2: `no_code` |
 | 62 | `MOD_R07_replace_asm_spades_to_unicycler_cam` | `replace` | ❌ | ❌ | t1: `file_not_found` |
 | 63 | `MOD_R08_replace_asm_shovill_to_spades_lis` | `replace` | ❌ | ❌ | t1: `file_not_found` |
@@ -111,7 +111,7 @@ Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **122
 | 82 | `MOD_RTY09_replace_typing_abricate_to_prokka_eco` | `replace` | ✅ | ✅ |  |
 | 83 | `MOD_RTY10_replace_typing_prokka_to_abricate_sal` | `replace` | ✅ | ✅ |  |
 | 84 | `MOD_RTY11_replace_typing_flaA_to_mlst_cam` | `replace` | ✅ | ✅ |  |
-| 85 | `MOD_RTY12_replace_typing_staramr_to_abricate_cam` | `replace` | ❌ | ✅ | t1: `silent_no_op` |
+| 85 | `MOD_RTY12_replace_typing_staramr_to_abricate_cam` | `replace` | ❌ | ✅ | t1: `partial_dag` |
 | 86 | `MOD_RM01_replace_mono_mlst_to_chewbbaca_sal` | `replace` | ❌ | ❌ | t1: `file_not_found` |
 | 87 | `MOD_RM02_replace_mono_mlst_to_chewbbaca_lis` | `replace` | ❌ | ❌ | t1: `file_not_found` |
 | 88 | `MOD_RM03_replace_mono_chewbbaca_to_mlst_lis` | `replace` | ✅ | ✅ |  |
@@ -174,9 +174,9 @@ Total conversations: **159**  ·  total turns: **319**  ·  per-turn pass: **122
 | 145 | `MOD_SMA08_mlst_mono_retarget_sal_to_cam` | `switch_species` | ❌ | ❌ | t1: `file_not_found` |
 | 146 | `MOD_SMA09_mlst_mono_retarget_eco_to_cam` | `switch_species` | ❌ | ❌ | t1: `silent_no_op` |
 | 147 | `MOD_SMA10_mlst_mono_retarget_cam_to_lis` | `switch_species` | ✅ | ❌ | t2: `no_code` |
-| 148 | `MOD_3T01_addAdd_lis` | `add` | ✅ | ❌ | t2: `missing_param` |
+| 148 | `MOD_3T01_addAdd_lis` | `add` | ✅ | ❌ | t2: `file_not_found` |
 | 149 | `MOD_3T02_addAdd_eco` | `add` | ❌ | ✅ | t1: `file_not_found` |
-| 150 | `MOD_3T03_addAdd_sal` | `add` | ❌ | ❌ | t1: `missing_param` |
+| 150 | `MOD_3T03_addAdd_sal` | `add` | ❌ | ❌ | t1: `partial_dag` |
 | 151 | `MOD_3T_AD01_addThenDrop_lis` | `add` | ❌ | ❌ | t1: `partial_dag` |
 | 152 | `MOD_3T_AD02_addThenDrop_eco` | `add` | ❌ | ❌ | t1: `file_not_found` |
 | 153 | `MOD_3T_AD03_addThenDrop_sal` | `add` | ❌ | ❌ | t1: `missing_param` |
@@ -307,92 +307,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `MOD_M03_B01_add_trimming_t1` — `missing_param`
-**Conversation:** `MOD_M03_B01_add_trimming` (add) — turn 1
-**Prompt:** De novo genome assembly with SPAdes from Illumina paired-end reads of Listeria monocytogenes.
-
-**Steps (LLM):** `step_1PP_hostdepl__bowtie, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__spades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    step_2AS_denovo__spades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getHost; getSingleInput } from '../functions/parameters.nf'
-
-include { extractKey } from '../functions/common.nf'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow module_denovo {
-    
-    take:
-        
-        trimmedReads
-        
-        host
-        
-    
-    main:
-        trimmedReads.cross(host) { extractKey(it) }
-            .map { [ it[0][0], it[0][1], it[1][1] ] } //riscd, reads, host
-            .branch {
-                with_host: it[1][1]
-                without_host: true
-            }
-        .set { branchedTrimmed }
-
-        depleted = step_1PP_hostdepl__bowtie(branchedTrimmed.with_host)
-
-        branchedTrimmed.without_host
-            .mix(depleted)
-            .map { it[0,1] }
-            .set{ denovoInput }
-        assembled = step_2AS_denovo__spades(denovoInput)
-    
-    emit:
-        
-        assembled
-        
-        depleted
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    module_denovo(getSingleInput(), getHost())
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
-```
-
-### `MOD_M03_B01_add_trimming_t2` — `missing_param`
+### `MOD_M03_B01_add_trimming_t2` — `file_not_found`
 **Conversation:** `MOD_M03_B01_add_trimming` (add) — turn 2
 **Prompt:** Add a fastp trimming step before the assembly.
 
@@ -498,7 +416,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.3.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_M04_A04_add_mlst_parallel_t1` — `silent_no_op`
@@ -748,7 +666,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_M05_E07_add_prokka_t1` — `file_not_found`
@@ -844,7 +762,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.6.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.6.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_M05_E07_add_prokka_t2` — `missing_param`
@@ -1017,7 +935,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_M06_D01_replace_spades_with_shovill_t2` — `silent_no_op`
@@ -1605,7 +1523,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.5.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.5.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_M09_E07_replace_abricate_with_prokka_t2` — `file_not_found`
@@ -1693,7 +1611,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.6.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.6.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_M10_A05_replace_cgmlst_with_mlst_t1` — `file_not_found`
@@ -1752,7 +1670,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_M10_A05_replace_cgmlst_with_mlst_t2` — `file_not_found`
@@ -1805,7 +1723,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_M11_H01_drop_cgmlst_t1` — `missing_param`
@@ -2054,7 +1972,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.6.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.6.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_M15_A04_switch_species_to_ecoli_t1` — `missing_param`
@@ -2240,7 +2158,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_M16_E07_switch_species_to_salmonella_t2` — `file_not_found`
@@ -2360,7 +2278,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.7.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.7.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_M17_D05_switch_species_to_ecoli_t1` — `no_code`
@@ -2529,7 +2447,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K02_add_mlst_to_chewbbaca_sal_spades_t1` — `file_not_found`
@@ -2627,7 +2545,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K02_add_mlst_to_chewbbaca_sal_spades_t2` — `file_not_found`
@@ -2710,7 +2628,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K03_add_mlst_to_chewbbaca_eco_spades_t2` — `file_not_found`
@@ -2803,7 +2721,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.200.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K05_add_abricate_to_chewbbaca_sal_spades_t1` — `file_not_found`
@@ -2917,7 +2835,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.201.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.201.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K07_add_prokka_to_chewbbaca_sal_spades_t1` — `file_not_found`
@@ -3046,10 +2964,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.202.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.202.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `MOD_K09_add_chewbbaca_to_mlst_eco_spades_t2` — `silent_no_op`
+### `MOD_K09_add_chewbbaca_to_mlst_eco_spades_t2` — `partial_dag`
 **Conversation:** `MOD_K09_add_chewbbaca_to_mlst_eco_spades` (add) — turn 2
 **Prompt:** Now also run chewbbaca in parallel on the same assembly.
 
@@ -3122,10 +3040,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+Only 7/10 expected processes appeared in the DAG
 ```
 
-### `MOD_K10_add_abricate_to_mlst_lis_spades_t1` — `missing_param`
+### `MOD_K10_add_abricate_to_mlst_lis_spades_t1` — `file_not_found`
 **Conversation:** `MOD_K10_add_abricate_to_mlst_lis_spades` (add) — turn 1
 **Prompt:** mlst on Listeria monocytogenes from paired Illumina FASTQ (fastp + spades).
 
@@ -3210,7 +3128,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.204.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K10_add_abricate_to_mlst_lis_spades_t2` — `file_not_found`
@@ -3307,7 +3225,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.204.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.204.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K11_add_abricate_to_mlst_eco_spades_t2` — `file_not_found`
@@ -3427,7 +3345,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.202.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.202.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K13_add_prokka_to_mlst_lis_spades_t2` — `file_not_found`
@@ -3505,7 +3423,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.205.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.205.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K14_add_prokka_to_mlst_eco_spades_t2` — `file_not_found`
@@ -3583,7 +3501,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.203.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.203.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K17_add_prokka_to_abricate_lis_spades_t1` — `file_not_found`
@@ -3654,7 +3572,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.206.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.206.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K19_add_mlst_to_abricate_sal_spades_t1` — `file_not_found`
@@ -3724,7 +3642,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.205.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.205.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K22_add_staramr_to_flaA_cam_spades_t1` — `file_not_found`
@@ -3832,7 +3750,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.202.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.202.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K23_add_abricate_to_flaA_cam_spades_t1` — `no_code`
@@ -4040,7 +3958,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.206.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.206.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K28_add_prokka_to_staramr_cam_spades_t1` — `file_not_found`
@@ -4148,7 +4066,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.208.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.208.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K28_add_prokka_to_staramr_cam_spades_t2` — `arity_error`
@@ -4311,7 +4229,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.210.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.210.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K30_add_staramr_to_mlst_cam_spades_t2` — `file_not_found`
@@ -4400,7 +4318,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.210.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.210.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K31_add_abricate_to_mlst_lis_shovill_t1` — `missing_param`
@@ -4794,7 +4712,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.208.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.208.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K36_add_chewbbaca_to_mlst_sal_shovill_t2` — `file_not_found`
@@ -4864,7 +4782,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.208.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.208.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_K37_add_abricate_to_mlst_lis_spades_t1` — `file_not_found`
@@ -4967,10 +4885,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `MOD_R01_replace_asm_spades_to_shovill_lis_t1` — `missing_param`
+### `MOD_R01_replace_asm_spades_to_shovill_lis_t1` — `partial_dag`
 **Conversation:** `MOD_R01_replace_asm_spades_to_shovill_lis` (replace) — turn 1
 **Prompt:** Trim + assemble Listeria monocytogenes from paired Illumina FASTQ using fastp + spades.
 
@@ -5051,7 +4969,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+Only 5/6 expected processes appeared in the DAG
 ```
 
 ### `MOD_R02_replace_asm_spades_to_shovill_sal_t2` — `file_not_found`
@@ -5144,10 +5062,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `MOD_R03_replace_asm_spades_to_shovill_eco_t1` — `missing_param`
+### `MOD_R03_replace_asm_spades_to_shovill_eco_t1` — `partial_dag`
 **Conversation:** `MOD_R03_replace_asm_spades_to_shovill_eco` (replace) — turn 1
 **Prompt:** Trim + assemble Escherichia coli from paired Illumina FASTQ using fastp + spades.
 
@@ -5228,7 +5146,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+Only 5/6 expected processes appeared in the DAG
 ```
 
 ### `MOD_R03_replace_asm_spades_to_shovill_eco_t2` — `no_code`
@@ -5287,7 +5205,7 @@ workflow {
 http exception: HTTPConnectionPool(host='127.0.0.1', port=8765): Read timed out. (read timeout=180)
 ```
 
-### `MOD_R05_replace_asm_spades_to_unicycler_lis_t1` — `missing_param`
+### `MOD_R05_replace_asm_spades_to_unicycler_lis_t1` — `partial_dag`
 **Conversation:** `MOD_R05_replace_asm_spades_to_unicycler_lis` (replace) — turn 1
 **Prompt:** Trim + assemble Listeria monocytogenes from paired Illumina FASTQ using fastp + spades.
 
@@ -5368,10 +5286,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+Only 5/6 expected processes appeared in the DAG
 ```
 
-### `MOD_R05_replace_asm_spades_to_unicycler_lis_t2` — `missing_param`
+### `MOD_R05_replace_asm_spades_to_unicycler_lis_t2` — `file_not_found`
 **Conversation:** `MOD_R05_replace_asm_spades_to_unicycler_lis` (replace) — turn 2
 **Prompt:** Replace spades with unicycler.
 
@@ -5503,7 +5421,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.211.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R06_replace_asm_spades_to_unicycler_sal_t2` — `no_code`
@@ -5596,7 +5514,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R07_replace_asm_spades_to_unicycler_cam_t2` — `no_code`
@@ -5717,7 +5635,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R08_replace_asm_shovill_to_spades_lis_t2` — `file_not_found`
@@ -5806,7 +5724,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R09_replace_asm_shovill_to_spades_eco_t1` — `file_not_found`
@@ -5901,7 +5819,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R09_replace_asm_shovill_to_spades_eco_t2` — `file_not_found`
@@ -5990,7 +5908,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.209.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R10_replace_asm_shovill_to_unicycler_lis_t1` — `file_not_found`
@@ -6083,7 +6001,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.213.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.213.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R10_replace_asm_shovill_to_unicycler_lis_t2` — `file_not_found`
@@ -6172,7 +6090,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.213.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.213.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_R12_replace_asm_unicycler_to_shovill_eco_t2` — `file_not_found`
@@ -6265,7 +6183,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.210.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.210.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RT01_replace_trim_fastp_to_trimmomatic_lis_t1` — `no_code`
@@ -6382,7 +6300,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.211.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.211.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RT03_replace_trim_fastp_to_trimmomatic_sal_t1` — `file_not_found`
@@ -6471,7 +6389,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RT03_replace_trim_fastp_to_trimmomatic_sal_t2` — `file_not_found`
@@ -6559,7 +6477,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.212.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RT04_replace_trim_fastp_to_trimmomatic_cam_t2` — `no_code`
@@ -6675,7 +6593,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.215.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.215.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RT06_replace_trim_trimmomatic_to_fastp_sal_t2` — `file_not_found`
@@ -6764,7 +6682,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.213.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.213.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RTY02_replace_typing_mlst_to_chewbbaca_sal_t1` — `file_not_found`
@@ -6868,7 +6786,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.214.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.214.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RTY05_replace_typing_mlst_to_prokka_lis_t1` — `file_not_found`
@@ -6989,7 +6907,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.218.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.218.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_RTY08_replace_typing_chewbbaca_to_abricate_sal_t1` — `file_not_found`
@@ -7111,10 +7029,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.216.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.216.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `MOD_RTY12_replace_typing_staramr_to_abricate_cam_t1` — `silent_no_op`
+### `MOD_RTY12_replace_typing_staramr_to_abricate_cam_t1` — `partial_dag`
 **Conversation:** `MOD_RTY12_replace_typing_staramr_to_abricate_cam` (replace) — turn 1
 **Prompt:** staramr on Campylobacter jejuni from paired Illumina FASTQ (fastp + SPAdes + staramr).
 
@@ -7180,7 +7098,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+Only 4/7 expected processes appeared in the DAG
 ```
 
 ### `MOD_RM01_replace_mono_mlst_to_chewbbaca_sal_t1` — `file_not_found`
@@ -7233,7 +7151,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM01_replace_mono_mlst_to_chewbbaca_sal_t2` — `silent_no_op`
@@ -7456,7 +7374,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.220.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.220.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM02_replace_mono_mlst_to_chewbbaca_lis_t2` — `silent_no_op`
@@ -7685,7 +7603,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.219.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.219.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM04_replace_mono_chewbbaca_to_mlst_sal_t2` — `file_not_found`
@@ -7739,7 +7657,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.219.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.219.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM05_replace_mono_chewbbaca_to_abricate_lis_t1` — `file_not_found`
@@ -7798,7 +7716,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.222.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.222.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM05_replace_mono_chewbbaca_to_abricate_lis_t2` — `file_not_found`
@@ -7853,7 +7771,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.222.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.222.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM06_replace_mono_abricate_to_prokka_eco_t1` — `file_not_found`
@@ -7910,7 +7828,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.214.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.214.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM06_replace_mono_abricate_to_prokka_eco_t2` — `file_not_found`
@@ -7968,7 +7886,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.214.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.214.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM07_replace_mono_abricate_to_mlst_sal_t1` — `silent_no_op`
@@ -8103,7 +8021,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.220.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.220.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM08_replace_mono_flaA_to_staramr_cam_t1` — `file_not_found`
@@ -8158,7 +8076,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.216.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.216.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM08_replace_mono_flaA_to_staramr_cam_t2` — `no_code`
@@ -8241,7 +8159,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.217.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.217.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM09_replace_mono_staramr_to_flaA_cam_t2` — `file_not_found`
@@ -8298,7 +8216,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.217.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.217.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM10_replace_mono_staramr_to_mlst_cam_t1` — `file_not_found`
@@ -8355,7 +8273,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_RM10_replace_mono_staramr_to_mlst_cam_t2` — `file_not_found`
@@ -8409,7 +8327,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_D01_drop_chewbbaca_keep_mlst_lis_t1` — `file_not_found`
@@ -8564,7 +8482,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.223.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.223.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D01_drop_chewbbaca_keep_mlst_lis_t2` — `file_not_found`
@@ -8687,7 +8605,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.223.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.223.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D02_drop_chewbbaca_keep_mlst_sal_t1` — `missing_param`
@@ -9160,7 +9078,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.224.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.224.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D05_drop_mlst_keep_chewbbaca_sal_t1` — `file_not_found`
@@ -9291,7 +9209,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.222.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.222.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D05_drop_mlst_keep_chewbbaca_sal_t2` — `file_not_found`
@@ -9380,7 +9298,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.222.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.222.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D06_drop_abricate_keep_mlst_lis_t1` — `missing_param`
@@ -9576,7 +9494,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.225.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.225.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D07_drop_abricate_keep_mlst_eco_t1` — `missing_param`
@@ -10064,7 +9982,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.224.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.224.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D10_drop_prokka_keep_abricate_lis_t1` — `arity_error`
@@ -10224,7 +10142,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.226.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.226.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_D11_drop_flaA_keep_mlst_cam_t1` — `missing_param`
@@ -10712,7 +10630,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.225.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.225.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_DA03_drop_assembly_sal_t2` — `silent_no_op`
@@ -10898,7 +10816,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.228.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.228.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM02_drop_mono_chewbbaca_keep_mlst_sal_t2` — `file_not_found`
@@ -10951,7 +10869,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.226.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.226.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM03_drop_mono_mlst_keep_chewbbaca_lis_t1` — `file_not_found`
@@ -11042,7 +10960,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.229.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.229.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM03_drop_mono_mlst_keep_chewbbaca_lis_t2` — `silent_no_op`
@@ -11268,7 +11186,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.218.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM04_drop_mono_mlst_keep_chewbbaca_eco_t2` — `silent_no_op`
@@ -11583,7 +11501,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.227.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.227.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM06_drop_mono_prokka_keep_mlst_lis_t1` — `file_not_found`
@@ -11648,7 +11566,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.230.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.230.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM07_drop_mono_staramr_keep_mlst_cam_t1` — `file_not_found`
@@ -11709,7 +11627,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.222.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.222.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM07_drop_mono_staramr_keep_mlst_cam_t2` — `arity_error`
@@ -11829,7 +11747,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.223.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.223.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM09_drop_mono_flaA_keep_staramr_cam_t1` — `missing_param`
@@ -12071,7 +11989,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.225.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.225.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM11_drop_mono_abricate_keep_prokka_eco_t2` — `file_not_found`
@@ -12130,7 +12048,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.219.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.219.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM12_drop_mono_prokka_keep_abricate_lis_t1` — `arity_error`
@@ -12259,7 +12177,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.231.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.231.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM13_drop_mono_prokka_keep_mlst_sal_t1` — `arity_error`
@@ -12380,7 +12298,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.228.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.228.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_DM14_drop_mono_abricate_keep_prokka_sal_t1` — `arity_error`
@@ -12511,7 +12429,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.229.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.229.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_S02_cgmlst_retarget_lis_to_eco_t2` — `file_not_found`
@@ -12611,7 +12529,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.220.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.220.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_S04_cgmlst_retarget_sal_to_eco_t2` — `silent_no_op`
@@ -12815,7 +12733,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.222.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.222.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_S05_cgmlst_retarget_eco_to_lis_t2` — `arity_error`
@@ -13069,7 +12987,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.233.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.233.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_SM01_mlst_retarget_lis_to_cam_t1` — `file_not_found`
@@ -13133,7 +13051,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.236.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.236.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_SM02_mlst_retarget_sal_to_cam_t2` — `file_not_found`
@@ -13237,7 +13155,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.227.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.227.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_SM04_mlst_retarget_cam_to_lis_t2` — `file_not_found`
@@ -13357,7 +13275,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.237.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.237.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_SMA01_mlst_mono_retarget_lis_to_sal_t1` — `file_not_found`
@@ -13410,7 +13328,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.238.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.238.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA01_mlst_mono_retarget_lis_to_sal_t2` — `file_not_found`
@@ -13463,7 +13381,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.236.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.236.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA02_mlst_mono_retarget_lis_to_eco_t1` — `file_not_found`
@@ -13518,7 +13436,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.239.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.239.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA02_mlst_mono_retarget_lis_to_eco_t2` — `file_not_found`
@@ -13571,7 +13489,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.226.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.226.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA03_mlst_mono_retarget_sal_to_lis_t1` — `file_not_found`
@@ -13624,7 +13542,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.237.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.237.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA03_mlst_mono_retarget_sal_to_lis_t2` — `file_not_found`
@@ -13677,7 +13595,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.240.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.240.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA04_mlst_mono_retarget_sal_to_eco_t1` — `file_not_found`
@@ -13730,7 +13648,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.238.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.238.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA04_mlst_mono_retarget_sal_to_eco_t2` — `file_not_found`
@@ -13783,7 +13701,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.227.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.227.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA05_mlst_mono_retarget_eco_to_lis_t1` — `file_not_found`
@@ -13836,7 +13754,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.228.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.228.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA05_mlst_mono_retarget_eco_to_lis_t2` — `silent_no_op`
@@ -13945,7 +13863,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.229.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.229.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA06_mlst_mono_retarget_eco_to_sal_t2` — `file_not_found`
@@ -13998,7 +13916,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.239.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.239.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA07_mlst_mono_retarget_lis_to_cam_t1` — `file_not_found`
@@ -14051,7 +13969,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.242.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.242.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA07_mlst_mono_retarget_lis_to_cam_t2` — `silent_no_op`
@@ -14180,7 +14098,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.240.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.240.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA08_mlst_mono_retarget_sal_to_cam_t2` — `file_not_found`
@@ -14234,7 +14152,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.233.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.233.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA09_mlst_mono_retarget_eco_to_cam_t1` — `silent_no_op`
@@ -14360,7 +14278,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.CAM.234.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.CAM.234.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `MOD_SMA10_mlst_mono_retarget_cam_to_lis_t2` — `no_code`
@@ -14389,7 +14307,7 @@ workflow {
 http exception: HTTPConnectionPool(host='127.0.0.1', port=8765): Read timed out. (read timeout=180)
 ```
 
-### `MOD_3T01_addAdd_lis_t2` — `missing_param`
+### `MOD_3T01_addAdd_lis_t2` — `file_not_found`
 **Conversation:** `MOD_3T01_addAdd_lis` (add) — turn 2
 **Prompt:** Now also run MLST on the assembly.
 
@@ -14474,7 +14392,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.244.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T01_addAdd_lis_t3` — `file_not_found`
@@ -14573,7 +14491,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.244.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.244.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T02_addAdd_eco_t1` — `file_not_found`
@@ -14662,10 +14580,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.231.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.231.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `MOD_3T03_addAdd_sal_t1` — `missing_param`
+### `MOD_3T03_addAdd_sal_t1` — `partial_dag`
 **Conversation:** `MOD_3T03_addAdd_sal` (add) — turn 1
 **Prompt:** From paired Illumina FASTQ of Salmonella enterica: trim with fastp and assemble with SPAdes.
 
@@ -14746,10 +14664,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+Only 5/6 expected processes appeared in the DAG
 ```
 
-### `MOD_3T03_addAdd_sal_t2` — `missing_param`
+### `MOD_3T03_addAdd_sal_t2` — `file_not_found`
 **Conversation:** `MOD_3T03_addAdd_sal` (add) — turn 2
 **Prompt:** Now also run MLST on the assembly.
 
@@ -14859,7 +14777,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-ERROR ~ missing required param: hosts_dir
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.241.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_AD01_addThenDrop_lis_t1` — `partial_dag`
@@ -15250,7 +15168,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.232.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.232.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_AD02_addThenDrop_eco_t2` — `file_not_found`
@@ -15417,7 +15335,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.232.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.232.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_AD02_addThenDrop_eco_t3` — `file_not_found`
@@ -15523,7 +15441,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.232.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.ECO.232.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_AD03_addThenDrop_sal_t1` — `missing_param`
@@ -15903,7 +15821,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.246.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.246.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_RA01_replaceThenAdd_lis_t2` — `file_not_found`
@@ -15996,7 +15914,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.246.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.246.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_RA01_replaceThenAdd_lis_t3` — `file_not_found`
@@ -16104,7 +16022,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.246.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.246.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_RA02_replaceThenAdd_eco_t1` — `no_code`
@@ -16221,7 +16139,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.243.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.243.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_RA03_replaceThenAdd_sal_t2` — `file_not_found`
@@ -16314,7 +16232,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.243.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.243.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_RA03_replaceThenAdd_sal_t3` — `file_not_found`
@@ -16423,7 +16341,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.243.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.SAL.243.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `MOD_3T_SA02_switchThenAdd_eco_to_lis_t2` — `file_not_found`
@@ -16527,5 +16445,5 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.248.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_multi_turn_devstral_2507/_shared_inputdir/2026/2026.LIS.248.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```

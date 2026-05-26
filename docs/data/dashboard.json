@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-26T15:03:30Z",
+  "generated_at": "2026-05-26T19:02:33Z",
   "models": [
     {
       "key": "default",
@@ -10,20 +10,21 @@
       "single_turn": {
         "headline": {
           "total": 200,
-          "passed": 137,
-          "pct": 68,
-          "corrected_passed": 137,
-          "corrected_pct": 68,
+          "passed": 163,
+          "pct": 82,
+          "corrected_passed": 163,
+          "corrected_pct": 82,
           "harness_gap": 0
         },
         "by_error": {
-          "none": 131,
-          "silent_no_op": 37,
+          "none": 158,
+          "file_not_found": 14,
           "missing_param": 13,
-          "file_not_found": 8,
           "ngsmanager_naming": 6,
           "no_code": 4,
-          "arity_error": 1
+          "arity_error": 3,
+          "silent_no_op": 1,
+          "partial_dag": 1
         },
         "by_category": {
           "A": {
@@ -32,7 +33,7 @@
           },
           "B": {
             "total": 5,
-            "passed": 3
+            "passed": 4
           },
           "C": {
             "total": 3,
@@ -44,7 +45,7 @@
           },
           "E": {
             "total": 15,
-            "passed": 9
+            "passed": 12
           },
           "F": {
             "total": 4,
@@ -68,15 +69,15 @@
           },
           "K": {
             "total": 60,
-            "passed": 51
+            "passed": 54
           },
           "L": {
             "total": 20,
-            "passed": 15
+            "passed": 17
           },
           "M": {
             "total": 10,
-            "passed": 4
+            "passed": 5
           },
           "N": {
             "total": 7,
@@ -84,54 +85,50 @@
           },
           "NA": {
             "total": 8,
-            "passed": 4
+            "passed": 8
           },
           "O": {
             "total": 10,
-            "passed": 5
+            "passed": 10
           },
           "P": {
             "total": 10,
-            "passed": 7
+            "passed": 9
           },
           "Q": {
             "total": 10,
-            "passed": 5
+            "passed": 8
           },
           "R": {
             "total": 8,
-            "passed": 4
+            "passed": 5
           },
           "S": {
             "total": 7,
-            "passed": 3
+            "passed": 4
           }
         },
         "by_species": {
           "listeria": {
             "total": 53,
-            "passed": 37,
-            "silent_no_op": 9
+            "passed": 43
           },
           "ecoli": {
             "total": 43,
-            "passed": 33,
-            "silent_no_op": 6
+            "passed": 37
           },
           "salmonella": {
             "total": 45,
-            "passed": 27,
-            "silent_no_op": 10
+            "passed": 34
           },
           "campylobacter": {
             "total": 46,
-            "passed": 32,
-            "silent_no_op": 10
+            "passed": 41
           },
           "other": {
             "total": 13,
             "passed": 8,
-            "silent_no_op": 2
+            "silent_no_op": 1
           }
         },
         "by_tag": {
@@ -145,26 +142,26 @@
         "headline": {
           "turns": {
             "total": 330,
-            "passed": 193,
-            "pct": 58,
-            "corrected_passed": 210,
-            "corrected_pct": 64,
-            "harness_gap": 17
+            "passed": 217,
+            "pct": 66,
+            "corrected_passed": 217,
+            "corrected_pct": 66,
+            "harness_gap": 0
           },
           "convs": {
             "total": 159,
-            "full_pass": 74,
-            "pct": 47,
-            "corrected_full_pass": 80,
-            "corrected_pct": 50
+            "full_pass": 91,
+            "pct": 57,
+            "corrected_full_pass": 91,
+            "corrected_pct": 57
           }
         },
         "by_error": {
-          "none": 189,
-          "missing_param": 56,
-          "silent_no_op": 54,
-          "file_not_found": 14,
-          "partial_dag": 7,
+          "none": 213,
+          "missing_param": 40,
+          "silent_no_op": 26,
+          "partial_dag": 25,
+          "file_not_found": 16,
           "arity_error": 5,
           "no_code": 3,
           "ngsmanager_naming": 2
@@ -172,67 +169,65 @@
         "by_kind": {
           "add": {
             "total": 104,
-            "passed": 78
+            "passed": 82
           },
           "replace": {
             "total": 99,
-            "passed": 59
+            "passed": 77
           },
           "drop": {
             "total": 66,
-            "passed": 31
+            "passed": 32
           },
           "switch_species": {
             "total": 61,
-            "passed": 25
+            "passed": 26
           }
         },
         "by_species": {
           "other": {
             "total": 26,
-            "passed": 17,
-            "silent_no_op": 5
+            "passed": 18,
+            "silent_no_op": 4
           },
           "salmonella": {
             "total": 79,
-            "passed": 38,
-            "silent_no_op": 16
+            "passed": 46,
+            "silent_no_op": 8
           },
           "ecoli": {
             "total": 70,
-            "passed": 32,
-            "silent_no_op": 14
+            "passed": 37,
+            "silent_no_op": 7
           },
           "listeria": {
             "total": 103,
-            "passed": 65,
-            "silent_no_op": 14
+            "passed": 71,
+            "silent_no_op": 7
           },
           "campylobacter": {
             "total": 52,
-            "passed": 41,
-            "silent_no_op": 5
+            "passed": 45
           }
         },
         "by_tag": {
           "literal-match": 228,
           "extras-irrelevant": 69,
           "missing-steps": 64,
-          "extras-best-practice": 24,
-          "harness-param-gap": 17
+          "extras-best-practice": 24
         },
         "by_turn": {
           "t1": {
             "total": 159,
-            "passed": 95
+            "passed": 105
           },
           "t2": {
             "total": 159,
-            "passed": 94
+            "passed": 107
           },
           "t3": {
             "total": 12,
-            "passed": 4
+            "passed": 5
           }
         }
       }
@@ -245,18 +240,21 @@
       "single_turn": {
         "headline": {
           "total": 200,
-          "passed": 59,
-          "pct": 30,
-          "corrected_passed": 60,
-          "corrected_pct": 30,
-          "harness_gap": 1
+          "passed": 116,
+          "pct": 58,
+          "corrected_passed": 116,
+          "corrected_pct": 58,
+          "harness_gap": 0
         },
         "by_error": {
-          "silent_no_op": 107,
-          "none": 55,
-          "file_not_found": 21,
+          "none": 114,
+          "file_not_found": 48,
           "no_code": 15,
-          "missing_param": 2
+          "silent_no_op": 12,
+          "partial_dag": 4,
+          "missing_param": 3,
+          "arity_error": 2,
+          "ngsmanager_naming": 2
         },
         "by_category": {
           "A": {
@@ -265,19 +263,19 @@
           },
           "B": {
             "total": 5,
-            "passed": 0
+            "passed": 1
           },
           "C": {
             "total": 3,
-            "passed": 3
+            "passed": 2
           },
           "D": {
             "total": 5,
-            "passed": 0
+            "passed": 1
           },
           "E": {
             "total": 15,
-            "passed": 5
+            "passed": 11
           },
           "F": {
             "total": 4,
@@ -285,15 +283,15 @@
           },
           "G": {
             "total": 2,
-            "passed": 0
+            "passed": 1
           },
           "H": {
             "total": 4,
-            "passed": 0
+            "passed": 1
           },
           "I": {
             "total": 2,
-            "passed": 1
+            "passed": 0
           },
           "J": {
             "total": 2,
@@ -301,19 +299,19 @@
           },
           "K": {
             "total": 60,
-            "passed": 16
+            "passed": 42
           },
           "L": {
             "total": 20,
-            "passed": 4
+            "passed": 14
           },
           "M": {
             "total": 10,
-            "passed": 5
+            "passed": 7
           },
           "N": {
             "total": 7,
-            "passed": 1
+            "passed": 5
           },
           "NA": {
             "total": 8,
@@ -321,15 +319,15 @@
           },
           "O": {
             "total": 10,
-            "passed": 1
+            "passed": 7
           },
           "P": {
             "total": 10,
-            "passed": 6
+            "passed": 9
           },
           "Q": {
             "total": 10,
-            "passed": 7
+            "passed": 5
           },
           "R": {
             "total": 8,
@@ -343,69 +341,68 @@
         "by_species": {
           "listeria": {
             "total": 53,
-            "passed": 16,
-            "silent_no_op": 28
+            "passed": 32,
+            "silent_no_op": 2
           },
           "ecoli": {
             "total": 43,
-            "passed": 13,
-            "silent_no_op": 27
+            "passed": 30,
+            "silent_no_op": 4
           },
           "salmonella": {
             "total": 45,
-            "passed": 11,
-            "silent_no_op": 24
+            "passed": 25,
+            "silent_no_op": 2
           },
           "campylobacter": {
             "total": 46,
-            "passed": 15,
-            "silent_no_op": 24
+            "passed": 27,
+            "silent_no_op": 2
           },
           "other": {
             "total": 13,
-            "passed": 4,
-            "silent_no_op": 4
+            "passed": 2,
+            "silent_no_op": 2
           }
         },
         "by_tag": {
           "literal-match": 134,
           "missing-steps": 49,
           "extras-irrelevant": 29,
-          "extras-best-practice": 16,
-          "harness-param-gap": 1
+          "extras-best-practice": 16
         }
       },
       "multi_turn": {
         "headline": {
           "turns": {
             "total": 319,
-            "passed": 122,
-            "pct": 38,
-            "corrected_passed": 131,
-            "corrected_pct": 41,
-            "harness_gap": 9
+            "passed": 123,
+            "pct": 39,
+            "corrected_passed": 123,
+            "corrected_pct": 39,
+            "harness_gap": 0
           },
           "convs": {
             "total": 159,
             "full_pass": 33,
             "pct": 21,
-            "corrected_full_pass": 36,
-            "corrected_pct": 23
+            "corrected_full_pass": 33,
+            "corrected_pct": 21
           }
         },
         "by_error": {
-          "file_not_found": 121,
-          "none": 118,
-          "missing_param": 32,
+          "file_not_found": 126,
+          "none": 119,
+          "missing_param": 22,
           "no_code": 19,
-          "silent_no_op": 17,
-          "arity_error": 8,
-          "partial_dag": 4
+          "silent_no_op": 15,
+          "partial_dag": 10,
+          "arity_error": 8
         },
         "by_kind": {
           "add": {
             "total": 101,
-            "passed": 51
+            "passed": 52
           },
           "replace": {
             "total": 95,
@@ -423,7 +420,7 @@
         "by_species": {
           "other": {
             "total": 26,
-            "passed": 8,
+            "passed": 9,
             "silent_no_op": 3
           },
           "salmonella": {
@@ -434,7 +431,7 @@
           "ecoli": {
             "total": 66,
             "passed": 29,
-            "silent_no_op": 4
+            "silent_no_op": 3
           },
           "listeria": {
             "total": 100,
@@ -443,21 +440,19 @@
           },
           "campylobacter": {
             "total": 49,
-            "passed": 20,
-            "silent_no_op": 1
+            "passed": 20
           }
         },
         "by_tag": {
           "literal-match": 233,
           "missing-steps": 66,
           "extras-irrelevant": 40,
-          "extras-best-practice": 10,
-          "harness-param-gap": 9
+          "extras-best-practice": 10
         },
         "by_turn": {
           "t1": {
             "total": 159,
-            "passed": 64
+            "passed": 65
           },
           "t2": {
             "total": 149,
@@ -478,29 +473,28 @@
       "single_turn": {
         "headline": {
           "total": 200,
-          "passed": 132,
-          "pct": 66,
-          "corrected_passed": 135,
-          "corrected_pct": 68,
-          "harness_gap": 3
+          "passed": 182,
+          "pct": 91,
+          "corrected_passed": 182,
+          "corrected_pct": 91,
+          "harness_gap": 0
         },
         "by_error": {
-          "none": 129,
-          "silent_no_op": 58,
+          "none": 185,
           "missing_param": 6,
-          "ngsmanager_naming": 3,
+          "ngsmanager_naming": 4,
           "no_code": 2,
-          "file_not_found": 1,
+          "file_not_found": 2,
           "arity_error": 1
         },
         "by_category": {
           "A": {
             "total": 8,
-            "passed": 6
+            "passed": 8
           },
           "B": {
             "total": 5,
-            "passed": 2
+            "passed": 4
           },
           "C": {
             "total": 3,
@@ -512,11 +506,11 @@
           },
           "E": {
             "total": 15,
-            "passed": 4
+            "passed": 12
           },
           "F": {
             "total": 4,
-            "passed": 2
+            "passed": 4
           },
           "G": {
             "total": 2,
@@ -532,35 +526,35 @@
           },
           "J": {
             "total": 2,
-            "passed": 0
+            "passed": 1
           },
           "K": {
             "total": 60,
-            "passed": 44
+            "passed": 60
           },
           "L": {
             "total": 20,
-            "passed": 16
+            "passed": 19
           },
           "M": {
             "total": 10,
-            "passed": 7
+            "passed": 9
           },
           "N": {
             "total": 7,
-            "passed": 6
+            "passed": 7
           },
           "NA": {
             "total": 8,
-            "passed": 3
+            "passed": 8
           },
           "O": {
             "total": 10,
-            "passed": 7
+            "passed": 10
           },
           "P": {
             "total": 10,
-            "passed": 7
+            "passed": 10
           },
           "Q": {
             "total": 10,
@@ -568,118 +562,111 @@
           },
           "R": {
             "total": 8,
-            "passed": 5
+            "passed": 6
           },
           "S": {
             "total": 7,
-            "passed": 6
+            "passed": 7
           }
         },
         "by_species": {
           "listeria": {
             "total": 53,
-            "passed": 40,
-            "silent_no_op": 10
+            "passed": 50
           },
           "ecoli": {
             "total": 43,
-            "passed": 30,
-            "silent_no_op": 11
+            "passed": 39
           },
           "salmonella": {
             "total": 45,
-            "passed": 25,
-            "silent_no_op": 17
+            "passed": 40
           },
           "campylobacter": {
             "total": 46,
-            "passed": 30,
-            "silent_no_op": 14
+            "passed": 43
           },
           "other": {
             "total": 13,
-            "passed": 7,
-            "silent_no_op": 6
+            "passed": 10
           }
         },
         "by_tag": {
           "literal-match": 171,
           "extras-best-practice": 16,
           "extras-irrelevant": 11,
-          "missing-steps": 10,
-          "harness-param-gap": 3
+          "missing-steps": 10
         }
       },
       "multi_turn": {
         "headline": {
           "turns": {
             "total": 328,
-            "passed": 224,
-            "pct": 68,
-            "corrected_passed": 224,
-            "corrected_pct": 68,
+            "passed": 281,
+            "pct": 86,
+            "corrected_passed": 281,
+            "corrected_pct": 86,
             "harness_gap": 0
           },
           "convs": {
             "total": 159,
-            "full_pass": 88,
-            "pct": 55,
-            "corrected_full_pass": 88,
-            "corrected_pct": 55
+            "full_pass": 134,
+            "pct": 84,
+            "corrected_full_pass": 134,
+            "corrected_pct": 84
           }
         },
         "by_error": {
-          "none": 224,
-          "silent_no_op": 68,
-          "missing_param": 22,
-          "partial_dag": 9,
+          "none": 281,
+          "missing_param": 23,
+          "partial_dag": 10,
+          "silent_no_op": 6,
+          "file_not_found": 3,
           "no_code": 3,
-          "ngsmanager_naming": 1,
-          "file_not_found": 1
+          "ngsmanager_naming": 2
         },
         "by_kind": {
           "add": {
             "total": 103,
-            "passed": 66
+            "passed": 90
           },
           "replace": {
             "total": 99,
-            "passed": 72
+            "passed": 97
           },
           "drop": {
             "total": 65,
-            "passed": 39
+            "passed": 42
           },
           "switch_species": {
             "total": 61,
-            "passed": 47
+            "passed": 52
           }
         },
         "by_species": {
           "other": {
             "total": 26,
-            "passed": 16,
-            "silent_no_op": 7
+            "passed": 21
           },
           "salmonella": {
             "total": 79,
-            "passed": 51,
-            "silent_no_op": 18
+            "passed": 65,
+            "silent_no_op": 2
           },
           "ecoli": {
             "total": 70,
-            "passed": 47,
-            "silent_no_op": 13
+            "passed": 57,
+            "silent_no_op": 2
           },
           "listeria": {
             "total": 102,
-            "passed": 81,
-            "silent_no_op": 14
+            "passed": 94,
+            "silent_no_op": 1
           },
           "campylobacter": {
             "total": 51,
-            "passed": 29,
-            "silent_no_op": 16
+            "passed": 44,
+            "silent_no_op": 1
           }
         },
         "by_tag": {
@@ -691,11 +678,11 @@
         "by_turn": {
           "t1": {
             "total": 159,
-            "passed": 105
+            "passed": 137
           },
           "t2": {
             "total": 158,
-            "passed": 112
+            "passed": 137
           },
           "t3": {
             "total": 11,
@@ -712,18 +699,18 @@
       "single_turn": {
         "headline": {
           "total": 200,
-          "passed": 133,
-          "pct": 66,
-          "corrected_passed": 138,
-          "corrected_pct": 69,
-          "harness_gap": 5
+          "passed": 139,
+          "pct": 70,
+          "corrected_passed": 139,
+          "corrected_pct": 70,
+          "harness_gap": 0
         },
         "by_error": {
-          "none": 121,
-          "file_not_found": 31,
-          "missing_param": 25,
-          "silent_no_op": 11,
-          "arity_error": 9,
+          "none": 124,
+          "file_not_found": 37,
+          "missing_param": 19,
+          "arity_error": 13,
+          "silent_no_op": 4,
           "ngsmanager_naming": 2,
           "partial_dag": 1
         },
@@ -734,7 +721,7 @@
           },
           "B": {
             "total": 5,
-            "passed": 4
+            "passed": 5
           },
           "C": {
             "total": 3,
@@ -762,7 +749,7 @@
           },
           "I": {
             "total": 2,
-            "passed": 2
+            "passed": 1
           },
           "J": {
             "total": 2,
@@ -790,7 +777,7 @@
           },
           "O": {
             "total": 10,
-            "passed": 3
+            "passed": 8
           },
           "P": {
             "total": 10,
@@ -798,142 +785,139 @@
           },
           "Q": {
             "total": 10,
-            "passed": 6
+            "passed": 3
           },
           "R": {
             "total": 8,
-            "passed": 3
+            "passed": 4
           },
           "S": {
             "total": 7,
-            "passed": 1
+            "passed": 4
           }
         },
         "by_species": {
           "listeria": {
             "total": 53,
-            "passed": 39,
-            "silent_no_op": 1
+            "passed": 38
           },
           "ecoli": {
             "total": 43,
-            "passed": 25,
-            "silent_no_op": 3
+            "passed": 29,
+            "silent_no_op": 2
           },
           "salmonella": {
             "total": 45,
-            "passed": 24,
-            "silent_no_op": 4
+            "passed": 26,
+            "silent_no_op": 1
           },
           "campylobacter": {
             "total": 46,
-            "passed": 34,
-            "silent_no_op": 3
+            "passed": 36,
+            "silent_no_op": 1
           },
           "other": {
             "total": 13,
-            "passed": 11
+            "passed": 10
           }
         },
         "by_tag": {
           "literal-match": 130,
           "extras-irrelevant": 47,
           "missing-steps": 33,
-          "extras-best-practice": 27,
-          "harness-param-gap": 5
+          "extras-best-practice": 27
         }
       },
       "multi_turn": {
         "headline": {
           "turns": {
             "total": 329,
-            "passed": 160,
-            "pct": 49,
-            "corrected_passed": 163,
-            "corrected_pct": 50,
-            "harness_gap": 3
+            "passed": 222,
+            "pct": 67,
+            "corrected_passed": 222,
+            "corrected_pct": 67,
+            "harness_gap": 0
           },
           "convs": {
             "total": 159,
-            "full_pass": 54,
-            "pct": 34,
-            "corrected_full_pass": 56,
-            "corrected_pct": 35
+            "full_pass": 88,
+            "pct": 55,
+            "corrected_full_pass": 88,
+            "corrected_pct": 55
           }
         },
         "by_error": {
-          "none": 145,
-          "silent_no_op": 112,
-          "file_not_found": 25,
-          "missing_param": 22,
+          "none": 201,
+          "missing_param": 55,
+          "file_not_found": 34,
           "no_code": 13,
-          "arity_error": 11,
-          "channel_emit": 1
+          "arity_error": 13,
+          "silent_no_op": 10,
+          "channel_emit": 2,
+          "partial_dag": 1
         },
         "by_kind": {
           "add": {
             "total": 104,
-            "passed": 67
+            "passed": 75
           },
           "replace": {
             "total": 98,
-            "passed": 61
+            "passed": 82
           },
           "drop": {
             "total": 66,
-            "passed": 17
+            "passed": 30
           },
           "switch_species": {
             "total": 61,
-            "passed": 15
+            "passed": 35
           }
         },
         "by_species": {
           "other": {
             "total": 26,
-            "passed": 11,
-            "silent_no_op": 9
+            "passed": 16,
+            "silent_no_op": 3
           },
           "salmonella": {
             "total": 79,
-            "passed": 33,
-            "silent_no_op": 22
+            "passed": 43,
+            "silent_no_op": 1
           },
           "ecoli": {
             "total": 69,
-            "passed": 32,
-            "silent_no_op": 27
+            "passed": 48,
+            "silent_no_op": 3
           },
           "listeria": {
             "total": 103,
-            "passed": 49,
-            "silent_no_op": 40
+            "passed": 70,
+            "silent_no_op": 3
           },
           "campylobacter": {
             "total": 52,
-            "passed": 35,
-            "silent_no_op": 14
+            "passed": 45
           }
         },
         "by_tag": {
           "literal-match": 226,
           "extras-irrelevant": 85,
           "missing-steps": 75,
-          "extras-best-practice": 10,
-          "harness-param-gap": 3
+          "extras-best-practice": 10
         },
         "by_turn": {
           "t1": {
             "total": 159,
-            "passed": 83
+            "passed": 118
           },
           "t2": {
             "total": 159,
-            "passed": 74
+            "passed": 99
           },
           "t3": {
             "total": 11,
-            "passed": 3
+            "passed": 5
           }
         }
       }

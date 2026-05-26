@@ -1,6 +1,6 @@
 # LLM evaluation — detailed report
 
-Total prompts: **200**  ·  generated code: **196**  ·  syntactically valid: **190**  ·  semantically valid: **137**
+Total prompts: **200**  ·  generated code: **196**  ·  syntactically valid: **191**  ·  semantically valid: **163**
 
 Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  missing steps **11**  ·  hallucinated (non-existent) steps **0**
 
@@ -8,13 +8,14 @@ Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  mis
 
 | Category | Count | Meaning |
 |----|----|----|
-| `none` | 131 | no error — pipeline passes |
-| `silent_no_op` | 37 | DAG empty — pipeline runs but produces no output |
+| `none` | 158 | no error — pipeline passes |
+| `file_not_found` | 14 | expected input file is not in the framework layout |
 | `missing_param` | 13 | step requires a param() that was not supplied |
-| `file_not_found` | 8 | expected input file is not in the framework layout |
 | `ngsmanager_naming` | 6 | input file name does not match parseMetadataFromFileName regex |
 | `no_code` | 4 | LLM did not return any .nf code |
-| `arity_error` | 1 | workflow called with wrong number of arguments |
+| `arity_error` | 3 | workflow called with wrong number of arguments |
+| `silent_no_op` | 1 | DAG empty — pipeline runs but produces no output |
+| `partial_dag` | 1 | only some of the expected processes appeared in the DAG |
 
 ## Per-prompt outcome
 
@@ -24,17 +25,17 @@ Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  mis
 | 2 | `A02_mlst_ecoli` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 3 | `A03_mlst_salmonella` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 4 | `A04_cgmlst_listeria` | ✅ | ✅ | ✅ | 3/3 | `none` |  |
-| 5 | `A05_cgmlst_ecoli` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 5 | `A05_cgmlst_ecoli` | ✅ | ❌ | ❌ | 0/3 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 6 | `A06_cgmlst_salmonella` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
-| 7 | `A07_flaa_campylobacter` | ✅ | ✅ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
+| 7 | `A07_flaa_campylobacter` | ✅ | ❌ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
 | 8 | `A08_staramr_campylobacter` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 9 | `B01_spades_listeria` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 9 | `B01_spades_listeria` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 10 | `B02_shovill_ecoli` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 11 | `B03_unicycler_salmonella` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
 | 12 | `B04_plasmidspades` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 13 | `B05_metaspades` | ✅ | ✅ | ✅ | 8/3 | `none` |  |
 | 14 | `C01_kmerfinder` | ✅ | ✅ | ✅ | 4/1 | `none` |  |
-| 15 | `C02_mash` | ✅ | ✅ | ❌ | 0/1 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 15 | `C02_mash` | ✅ | ✅ | ❌ | 1/1 | `none` |  |
 | 16 | `C03_kraken2` | ✅ | ✅ | ❌ | 0/2 | `missing_param` | ERROR ~ missing required param: multi_clustering__reportree__summary_columns |
 | 17 | `D01_fastp_spades_lis` | ✅ | ✅ | ✅ | 6/6 | `none` |  |
 | 18 | `D02_fastp_shovill_eco` | ✅ | ✅ | ✅ | 6/6 | `none` |  |
@@ -43,18 +44,18 @@ Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  mis
 | 21 | `D05_fastp_spades_cam` | ✅ | ✅ | ✅ | 6/6 | `none` |  |
 | 22 | `E01_mlst_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 23 | `E02_cgmlst_lis_fastp_spades` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 24 | `E03_cgmlst_sal_fastp_spades` | ✅ | ✅ | ❌ | 0/9 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 24 | `E03_cgmlst_sal_fastp_spades` | ✅ | ✅ | ❌ | 3/9 | `partial_dag` | Only 3/9 expected processes appeared in the DAG |
 | 25 | `E04_cgmlst_eco_fastp_shovill` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 26 | `E05_flaa_cam` | ✅ | ❌ | ❌ | 6/7 | `arity_error` | ERROR ~ Workflow `module_surveillance:step_4TY_flaA__flaA` declares 2 input chan |
 | 27 | `E06_staramr_cam` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 28 | `E07_abricate_eco` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 28 | `E07_abricate_eco` | ✅ | ✅ | ✅ | 8/7 | `none` |  |
 | 29 | `E08_prokka_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 30 | `E09_mlst_eco_trimmomatic` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 31 | `E10_mlst_sal_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 32 | `E11_cgmlst_lis_shovill` | ✅ | ✅ | ❌ | 0/9 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 32 | `E11_cgmlst_lis_shovill` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 33 | `E12_mlst_cam` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 34 | `E13_abricate_sal` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 35 | `E14_prokka_eco` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 34 | `E13_abricate_sal` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
+| 35 | `E14_prokka_eco` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 36 | `E15_cgmlst_lis_trimmomatic` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 37 | `F01_abricate_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 38 | `F02_prokka_assembly` | ✅ | ✅ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_species__kmerfinder__db |
@@ -85,15 +86,15 @@ Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  mis
 | 63 | `K13_prokka_eco_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 64 | `K14_prokka_sal_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 65 | `K15_prokka_cam_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 66 | `K16_flaA_cam_fastp_spades` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 66 | `K16_flaA_cam_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 67 | `K17_staramr_cam_fastp_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 68 | `K18_mlst_lis_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 69 | `K19_mlst_eco_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 70 | `K20_mlst_sal_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 71 | `K21_mlst_cam_fastp_shovill` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 71 | `K21_mlst_cam_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 72 | `K22_chewbbaca_lis_fastp_shovill` | ⚪ | ❌ | ❌ | 0/9 | `no_code` | http exception: HTTPConnectionPool(host='127.0.0.1', port=8765): Read timed out. |
-| 73 | `K23_chewbbaca_eco_fastp_shovill` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 74 | `K24_chewbbaca_sal_fastp_shovill` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 73 | `K23_chewbbaca_eco_fastp_shovill` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
+| 74 | `K24_chewbbaca_sal_fastp_shovill` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 75 | `K25_abricate_lis_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 76 | `K26_abricate_eco_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 77 | `K27_abricate_sal_fastp_shovill` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
@@ -110,7 +111,7 @@ Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  mis
 | 88 | `K38_mlst_cam_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 89 | `K39_chewbbaca_lis_fastp_unicycler` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 90 | `K40_chewbbaca_eco_fastp_unicycler` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 91 | `K41_chewbbaca_sal_fastp_unicycler` | ✅ | ✅ | ❌ | 0/9 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 91 | `K41_chewbbaca_sal_fastp_unicycler` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 92 | `K42_abricate_lis_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 93 | `K43_abricate_eco_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 94 | `K44_abricate_sal_fastp_unicycler` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
@@ -127,99 +128,99 @@ Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  mis
 | 105 | `K55_mlst_cam_trimmomatic_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 106 | `K56_chewbbaca_lis_trimmomatic_spades` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 107 | `K57_chewbbaca_eco_trimmomatic_spades` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 108 | `K58_chewbbaca_sal_trimmomatic_spades` | ✅ | ✅ | ❌ | 0/9 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 108 | `K58_chewbbaca_sal_trimmomatic_spades` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 109 | `K59_abricate_lis_trimmomatic_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 110 | `K60_abricate_eco_trimmomatic_spades` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 111 | `L01_mlst_chewbbaca_lis` | ✅ | ✅ | ❌ | 7/10 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 111 | `L01_mlst_chewbbaca_lis` | ✅ | ✅ | ❌ | 7/10 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 112 | `L02_mlst_chewbbaca_eco` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
 | 113 | `L03_mlst_chewbbaca_sal` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
 | 114 | `L04_mlst_abricate_lis` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 115 | `L05_mlst_abricate_eco` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
-| 116 | `L06_chewbbaca_abricate_lis` | ✅ | ✅ | ❌ | 0/10 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 116 | `L06_chewbbaca_abricate_lis` | ✅ | ✅ | ❌ | 6/10 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 117 | `L07_chewbbaca_prokka_lis` | ✅ | ✅ | ✅ | 10/10 | `none` |  |
-| 118 | `L08_chewbbaca_prokka_sal` | ✅ | ✅ | ❌ | 0/10 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 118 | `L08_chewbbaca_prokka_sal` | ✅ | ✅ | ❌ | 6/10 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 119 | `L09_mlst_prokka_eco` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 120 | `L10_mlst_prokka_sal` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 121 | `L11_abricate_prokka_lis` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 122 | `L12_abricate_prokka_sal` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
-| 123 | `L13_mlst_flaA_cam` | ✅ | ✅ | ❌ | 0/8 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 123 | `L13_mlst_flaA_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 124 | `L14_mlst_staramr_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 125 | `L15_flaA_staramr_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 126 | `L16_flaA_abricate_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 127 | `L17_staramr_abricate_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 128 | `L18_staramr_prokka_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
 | 129 | `L19_flaA_prokka_cam` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
-| 130 | `L20_mlst_prokka_lis` | ✅ | ✅ | ❌ | 0/8 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 131 | `M01_mlst+chewbbaca+abricate_lis` | ✅ | ✅ | ❌ | 7/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
-| 132 | `M02_mlst+chewbbaca+prokka_sal` | ✅ | ✅ | ❌ | 7/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 130 | `L20_mlst_prokka_lis` | ✅ | ✅ | ✅ | 8/8 | `none` |  |
+| 131 | `M01_mlst+chewbbaca+abricate_lis` | ✅ | ✅ | ❌ | 7/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
+| 132 | `M02_mlst+chewbbaca+prokka_sal` | ✅ | ✅ | ❌ | 7/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 133 | `M03_mlst+abricate+prokka_eco` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 134 | `M04_mlst+abricate+prokka_lis` | ✅ | ✅ | ❌ | 0/9 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 135 | `M05_mlst+flaA+staramr_cam` | ✅ | ✅ | ❌ | 0/9 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 134 | `M04_mlst+abricate+prokka_lis` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
+| 135 | `M05_mlst+flaA+staramr_cam` | ✅ | ❌ | ❌ | 7/9 | `arity_error` | ERROR ~ Workflow `module_surveillance:step_4TY_flaA__flaA` declares 2 input chan |
 | 136 | `M06_mlst+flaA+abricate_cam` | ✅ | ✅ | ✅ | 10/9 | `none` |  |
-| 137 | `M07_flaA+staramr+prokka_cam` | ✅ | ❌ | ❌ | 0/9 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 137 | `M07_flaA+staramr+prokka_cam` | ✅ | ❌ | ❌ | 6/9 | `arity_error` | ERROR ~ Workflow `step_4TY_flaA__flaA` declares 2 input channels but 1 were give |
 | 138 | `M08_mlst+staramr+prokka_cam` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 139 | `M09_chewbbaca+abricate+prokka_lis` | ✅ | ✅ | ❌ | 6/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 139 | `M09_chewbbaca+abricate+prokka_lis` | ✅ | ✅ | ❌ | 6/11 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 140 | `M10_chewbbaca+abricate+prokka_eco` | ✅ | ✅ | ✅ | 11/11 | `none` |  |
 | 141 | `N01_canonical_mlst_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 142 | `N02_canonical_mlst_eco` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 143 | `N03_canonical_mlst_sal` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 144 | `N04_canonical_mlst_cam` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 145 | `N05_canonical_cgmlst_lis` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
-| 146 | `N06_canonical_cgmlst_eco` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 146 | `N06_canonical_cgmlst_eco` | ✅ | ✅ | ❌ | 6/9 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 147 | `N07_canonical_cgmlst_sal` | ✅ | ✅ | ✅ | 9/9 | `none` |  |
 | 148 | `NA01_mlst_cam_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 149 | `NA02_mlst_sal_assembly` | ✅ | ✅ | ❌ | 0/1 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 149 | `NA02_mlst_sal_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 150 | `NA03_abricate_lis_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 151 | `NA04_abricate_sal_assembly` | ✅ | ✅ | ❌ | 0/1 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 151 | `NA04_abricate_sal_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 152 | `NA05_abricate_cam_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 153 | `NA06_prokka_sal_assembly` | ✅ | ❌ | ❌ | 0/1 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 154 | `NA07_prokka_cam_assembly` | ✅ | ✅ | ❌ | 0/1 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 153 | `NA06_prokka_sal_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
+| 154 | `NA07_prokka_cam_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 155 | `NA08_prokka_eco_assembly` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 156 | `O01_spades_lis` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
-| 157 | `O02_spades_sal` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 158 | `O03_spades_cam` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 159 | `O04_shovill_lis` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 157 | `O02_spades_sal` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
+| 158 | `O03_spades_cam` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
+| 159 | `O04_shovill_lis` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 160 | `O05_shovill_sal` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 161 | `O06_shovill_cam` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 162 | `O07_unicycler_lis` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
-| 163 | `O08_unicycler_eco` | ✅ | ❌ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 164 | `O09_unicycler_cam` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: hosts_dir |
+| 163 | `O08_unicycler_eco` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
+| 164 | `O09_unicycler_cam` | ✅ | ✅ | ✅ | 5/3 | `none` |  |
 | 165 | `O10_plasmidspades_eco` | ✅ | ✅ | ✅ | 6/3 | `none` |  |
 | 166 | `P01_chopper_flye_mlst_lis` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
 | 167 | `P02_chopper_flye_mlst_sal` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
-| 168 | `P03_chopper_flye_mlst_eco` | ✅ | ❌ | ❌ | 0/5 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 169 | `P04_chopper_flye_mlst_cam` | ✅ | ✅ | ❌ | 0/5 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 168 | `P03_chopper_flye_mlst_eco` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
+| 169 | `P04_chopper_flye_mlst_cam` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
 | 170 | `P05_chopper_flye_abricate_lis` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
 | 171 | `P06_chopper_flye_abricate_eco` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
 | 172 | `P07_chopper_flye_abricate_sal` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
 | 173 | `P08_chopper_flye_prokka_lis` | ✅ | ✅ | ✅ | 5/5 | `none` |  |
-| 174 | `P09_chopper_flye_chewbbaca_lis` | ✅ | ✅ | ❌ | 4/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/202 |
+| 174 | `P09_chopper_flye_chewbbaca_lis` | ✅ | ✅ | ❌ | 4/7 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
 | 175 | `P10_chopper_flye_chewbbaca_sal` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 176 | `Q01_kmerfinder_fastp_spades_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 177 | `Q02_kmerfinder_fastp_spades_eco` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 178 | `Q03_kmerfinder_fastp_spades_sal` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
-| 179 | `Q04_kmerfinder_fastp_shovill_lis` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 179 | `Q04_kmerfinder_fastp_shovill_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 180 | `Q05_kmerfinder_fastp_shovill_eco` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 181 | `Q06_kmerfinder_fastp_shovill_sal` | ⚪ | ❌ | ❌ | 0/7 | `no_code` | no nextflow_code after max turns |
 | 182 | `Q07_mash_fastp_spades_lis` | ⚪ | ❌ | ❌ | 0/7 | `no_code` | http exception: HTTPConnectionPool(host='127.0.0.1', port=8765): Read timed out. |
-| 183 | `Q08_mash_fastp_spades_eco` | ✅ | ❌ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 184 | `Q09_mash_fastp_spades_sal` | ✅ | ✅ | ❌ | 0/7 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 183 | `Q08_mash_fastp_spades_eco` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
+| 184 | `Q09_mash_fastp_spades_sal` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 185 | `Q10_mash_fastp_shovill_lis` | ✅ | ✅ | ✅ | 7/7 | `none` |  |
 | 186 | `R01_kmerfinder_cam` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
 | 187 | `R02_kmerfinder_sal` | ✅ | ✅ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken__db_kraken |
 | 188 | `R03_mash_sal` | ✅ | ✅ | ❌ | 0/1 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken__db_kraken |
-| 189 | `R04_mash_eco` | ✅ | ✅ | ✅ | 1/1 | `none` |  |
-| 190 | `R05_kraken2_lis` | ✅ | ✅ | ❌ | 0/2 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 189 | `R04_mash_eco` | ✅ | ✅ | ❌ | 1/1 | `none` |  |
+| 190 | `R05_kraken2_lis` | ✅ | ✅ | ✅ | 2/2 | `none` |  |
 | 191 | `R06_kraken2_eco` | ✅ | ✅ | ✅ | 5/2 | `none` |  |
 | 192 | `R07_kraken2_sal` | ✅ | ✅ | ✅ | 5/2 | `none` |  |
-| 193 | `R08_kraken2_cam` | ✅ | ✅ | ❌ | 0/2 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
-| 194 | `S01_fastp_lis` | ✅ | ✅ | ❌ | 0/3 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 193 | `R08_kraken2_cam` | ✅ | ✅ | ✅ | 5/2 | `file_not_found` | WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inp |
+| 194 | `S01_fastp_lis` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken__db_kraken |
 | 195 | `S02_fastp_sal` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken__db_kraken |
 | 196 | `S03_trimmomatic_eco` | ✅ | ✅ | ❌ | 0/3 | `missing_param` | ERROR ~ missing required param: step_3TX_class__kraken__db_kraken |
 | 197 | `S04_trimmomatic_cam` | ✅ | ✅ | ✅ | 3/3 | `none` |  |
 | 198 | `S05_chopper_lis` | ✅ | ✅ | ✅ | 2/2 | `none` |  |
 | 199 | `S06_chopper_sal` | ✅ | ✅ | ✅ | 2/2 | `none` |  |
-| 200 | `S07_chopper_cam` | ✅ | ✅ | ❌ | 0/2 | `silent_no_op` | No process placeholders appeared. when: clause filtered everything? |
+| 200 | `S07_chopper_cam` | ✅ | ✅ | ✅ | 2/2 | `none` |  |
 
 ## Step-set comparison vs ground truth
 
@@ -424,7 +425,7 @@ Step-set vs. ground truth:  exact match **159**  ·  extra steps **35**  ·  mis
 
 ## Failure detail (one section per failing prompt)
 
-### `A05_cgmlst_ecoli` — `silent_no_op`
+### `A05_cgmlst_ecoli` — `file_not_found`
 
 **Prompt:** cgMLST allelic profile on an Escherichia coli assembly.
 
@@ -464,7 +465,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.ECO.2.1.1/2AS_import/DS99999-DT260224_external/result/*.fasta'
 ```
 
 ### `A06_cgmlst_salmonella` — `missing_param`
@@ -669,53 +670,6 @@ workflow {
 ERROR ~ missing required param: step_3TX_species__kmerfinder__db
 ```
 
-### `B01_spades_listeria` — `silent_no_op`
-
-**Prompt:** De novo genome assembly with SPAdes from Illumina paired-end reads of Listeria monocytogenes.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__spades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    step_2AS_denovo__spades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
 ### `B03_unicycler_salmonella` — `missing_param`
 
 **Prompt:** Assemble a Salmonella enterica genome with Unicycler from Illumina paired-end reads.
@@ -805,7 +759,7 @@ workflow {
 ERROR ~ missing required param: hosts_dir
 ```
 
-### `C02_mash` — `silent_no_op`
+### `C02_mash` — `none`
 
 **Prompt:** Run Mash sketch-based species identification on paired-end Illumina reads.
 
@@ -845,7 +799,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+(no excerpt)
 ```
 
 ### `C03_kraken2` — `missing_param`
@@ -989,7 +943,7 @@ workflow {
 No process placeholders appeared. when: clause filtered everything?
 ```
 
-### `E03_cgmlst_sal_fastp_spades` — `silent_no_op`
+### `E03_cgmlst_sal_fastp_spades` — `partial_dag`
 
 **Prompt:** Generate cgMLST profiles for Salmonella enterica starting from paired-end Illumina FASTQ.
 
@@ -1053,7 +1007,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+Only 3/9 expected processes appeared in the DAG
 ```
 
 ### `E05_flaa_cam` — `arity_error`
@@ -1121,68 +1075,7 @@ workflow {
 ERROR ~ Workflow `module_surveillance:step_4TY_flaA__flaA` declares 2 input channels but 1 were given
 ```
 
-### `E07_abricate_eco` — `silent_no_op`
-
-**Prompt:** Resistance gene detection with ABRicate on Escherichia coli from Illumina paired FASTQ.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4AN_AMR__abricate`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4AN_AMR__abricate(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-
-include { getEmpty } from '../functions/common.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-
-    step_4AN_genes__prokka(assembled.map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
-
-    step_4AN_AMR__abricate(assembled)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `E11_cgmlst_lis_shovill` — `silent_no_op`
+### `E11_cgmlst_lis_shovill` — `file_not_found`
 
 **Prompt:** Listeria cgMLST starting from Illumina paired reads: trim, Shovill assembly, chewbbaca typing.
 
@@ -1232,131 +1125,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `E13_abricate_sal` — `silent_no_op`
-
-**Prompt:** Antimicrobial resistance gene screening with ABRicate for Salmonella enterica from paired Illumina FASTQ.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4AN_AMR__abricate(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow module_surveillance {
-    
-    take:
-        
-        rawreads
-        
-    
-    main:
-        trimmed = step_1PP_trimming__fastp(rawreads)
-
-        assembly = step_2AS_denovo__spades(trimmed.trimmed)
-
-        step_4AN_AMR__abricate(assembly.assembled)
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    module_surveillance(getSingleInput())
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `E14_prokka_eco` — `silent_no_op`
-
-**Prompt:** Annotate an E. coli assembly with Prokka, starting from paired Illumina reads.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4AN_genes__prokka(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { getEmpty } from '../functions/common.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-
-    step_4AN_genes__prokka(assembled.map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.LIS.8.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `F02_prokka_assembly` — `missing_param`
@@ -1764,116 +1533,6 @@ workflow {
 ERROR ~ missing required param: hosts_dir
 ```
 
-### `K16_flaA_cam_fastp_spades` — `silent_no_op`
-
-**Prompt:** flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + spades + flaA).
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4TY_flaA__flaA } from '../steps/step_4TY_flaA__flaA'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4TY_flaA__flaA(assembled, param('genus_species'))
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4TY_flaA__flaA } from '../steps/step_4TY_flaA__flaA'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { getSingleInput; param } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-
-    step_4TY_flaA__flaA(assembled, param('genus_species'))
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `K21_mlst_cam_fastp_shovill` — `silent_no_op`
-
-**Prompt:** MLST typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + mlst).
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__shovill(trimmed).assembly
-    step_4TY_MLST__mlst(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembly = step_2AS_denovo__shovill(trimmed).assembly
-
-    step_4TY_MLST__mlst(assembly)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
 ### `K22_chewbbaca_lis_fastp_shovill` — `no_code`
 
 **Prompt:** cgMLST allelic profiling on Listeria monocytogenes from paired-end Illumina FASTQ (fastp + shovill + chewbbaca).
@@ -1954,7 +1613,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.105.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.ECO.105.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `K24_chewbbaca_sal_fastp_shovill` — `file_not_found`
@@ -2007,10 +1666,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.105.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.SAL.105.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `K41_chewbbaca_sal_fastp_unicycler` — `silent_no_op`
+### `K41_chewbbaca_sal_fastp_unicycler` — `file_not_found`
 
 **Prompt:** cgMLST allelic profiling on Salmonella enterica from paired-end Illumina FASTQ (fastp + unicycler + chewbbaca).
 
@@ -2062,64 +1721,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `K58_chewbbaca_sal_trimmomatic_spades` — `silent_no_op`
-
-**Prompt:** cgMLST allelic profiling on Salmonella enterica from paired-end Illumina FASTQ (trimmomatic + spades + chewbbaca).
-
-**Steps (LLM):** `step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca`
-**Steps (GT):**  `step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__trimmomatic } from '../steps/step_1PP_trimming__trimmomatic'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
-workflow {
-    trimmed   = step_1PP_trimming__trimmomatic(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { step_4TY_cgMLST__chewbbaca } from '../steps/step_4TY_cgMLST__chewbbaca'
-
-include { step_1PP_trimming__trimmomatic } from '../steps/step_1PP_trimming__trimmomatic'
-
-// --- GLOBALS ---
-
-def species = 'salmonella_enterica'
-
-def schema = 's_enterica_chewie_3255_210531'
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__trimmomatic(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4TY_cgMLST__chewbbaca(assembled, species, schema)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.SAL.109.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `L01_mlst_chewbbaca_lis` — `file_not_found`
@@ -2179,10 +1781,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.115.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.LIS.115.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `L06_chewbbaca_abricate_lis` — `silent_no_op`
+### `L06_chewbbaca_abricate_lis` — `file_not_found`
 
 **Prompt:** From paired Illumina FASTQ of Listeria monocytogenes: trim with fastp, assemble with SPAdes, then run chewbbaca and abricate in parallel.
 
@@ -2239,10 +1841,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.LIS.117.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `L08_chewbbaca_prokka_sal` — `silent_no_op`
+### `L08_chewbbaca_prokka_sal` — `file_not_found`
 
 **Prompt:** From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run chewbbaca and prokka in parallel.
 
@@ -2321,130 +1923,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `L13_mlst_flaA_cam` — `silent_no_op`
-
-**Prompt:** From paired Illumina FASTQ of Campylobacter jejuni: trim with fastp, assemble with SPAdes, then run mlst and flaA in parallel.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_flaA__flaA`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_flaA__flaA`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-include { step_4TY_flaA__flaA } from '../steps/step_4TY_flaA__flaA'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4TY_MLST__mlst(assembled)
-    step_4TY_flaA__flaA(assembled, param('genus_species'))
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4TY_flaA__flaA } from '../steps/step_4TY_flaA__flaA'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { getSingleInput; param } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-
-    step_4TY_MLST__mlst(assembled)
-    step_4TY_flaA__flaA(assembled, param('genus_species'))
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `L20_mlst_prokka_lis` — `silent_no_op`
-
-**Prompt:** From paired Illumina FASTQ of Listeria monocytogenes: trim with fastp, assemble with SPAdes, then run mlst and prokka in parallel.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_genes__prokka`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4TY_MLST__mlst(assembled)
-    step_4AN_genes__prokka(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-
-include { getEmpty } from '../functions/common.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-
-    step_4TY_MLST__mlst(assembled)
-
-    step_4AN_genes__prokka(assembled.map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.SAL.115.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `M01_mlst+chewbbaca+abricate_lis` — `file_not_found`
@@ -2509,7 +1988,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.121.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.LIS.121.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `M02_mlst+chewbbaca+prokka_sal` — `file_not_found`
@@ -2576,109 +2055,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.SAL.118.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.SAL.118.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
-### `M04_mlst+abricate+prokka_lis` — `silent_no_op`
-
-**Prompt:** Comprehensive typing+AMR+annotation pipeline for Listeria monocytogenes from paired Illumina FASTQ: trim, assemble, then run mlst, abricate, prokka in parallel on the assembly.
-
-**Steps (LLM):** `step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_1PP_trimming__fastp`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4TY_MLST__mlst`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-workflow {
-    trimmed   = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-    step_4TY_MLST__mlst(assembled)
-    step_4AN_AMR__abricate(assembled)
-    step_4AN_genes__prokka(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-
-include { getEmpty } from '../functions/common.nf'
-
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow wf_assembly_and_typing {
-    
-    take:
-        
-        trimmed
-        
-    
-    main:
-        assembly = step_2AS_denovo__spades(trimmed).assembled
-        step_4TY_MLST__mlst(assembly)
-        step_4AN_AMR__abricate(assembly)
-        step_4AN_genes__prokka(assembly.map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
-    
-    emit:
-        
-        assembly
-        
-    
-}
-
-workflow wf_trimming {
-    
-    take:
-        
-        rawreads
-        
-    
-    main:
-        trimmed = step_1PP_trimming__fastp(rawreads).trimmed
-    
-    emit:
-        
-        trimmed
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = wf_trimming(getSingleInput())
-    assembly = wf_assembly_and_typing(trimmed)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `M05_mlst+flaA+staramr_cam` — `silent_no_op`
+### `M05_mlst+flaA+staramr_cam` — `arity_error`
 
 **Prompt:** Comprehensive typing+AMR+annotation pipeline for Campylobacter jejuni from paired Illumina FASTQ: trim, assemble, then run mlst, flaA, staramr in parallel on the assembly.
 
@@ -2752,10 +2132,10 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+ERROR ~ Workflow `module_surveillance:step_4TY_flaA__flaA` declares 2 input channels but 1 were given
 ```
 
-### `M07_flaA+staramr+prokka_cam` — `silent_no_op`
+### `M07_flaA+staramr+prokka_cam` — `arity_error`
 
 **Prompt:** Comprehensive typing+AMR+annotation pipeline for Campylobacter jejuni from paired Illumina FASTQ: trim, assemble, then run flaA, staramr, prokka in parallel on the assembly.
 
@@ -2818,7 +2198,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+ERROR ~ Workflow `step_4TY_flaA__flaA` declares 2 input channels but 1 were given
 ```
 
 ### `M09_chewbbaca+abricate+prokka_lis` — `file_not_found`
@@ -2885,7 +2265,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.123.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.LIS.123.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `N06_canonical_cgmlst_eco` — `file_not_found`
@@ -2940,558 +2320,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.ECO.121.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
-```
-
-### `NA02_mlst_sal_assembly` — `silent_no_op`
-
-**Prompt:** Run mlst on a pre-existing Salmonella enterica assembly.
-
-**Steps (LLM):** `step_4TY_MLST__mlst`
-**Steps (GT):**  `step_4TY_MLST__mlst`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-workflow {
-    step_4TY_MLST__mlst(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-
-include { getAssembly } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    step_4TY_MLST__mlst(getAssembly())
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `NA04_abricate_sal_assembly` — `silent_no_op`
-
-**Prompt:** Run abricate on a pre-existing Salmonella enterica assembly.
-
-**Steps (LLM):** `step_4AN_AMR__abricate`
-**Steps (GT):**  `step_4AN_AMR__abricate`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-workflow {
-    step_4AN_AMR__abricate(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getAssembly } from '../functions/parameters.nf'
-
-include { step_4AN_AMR__abricate } from '../steps/step_4AN_AMR__abricate'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    step_4AN_AMR__abricate(getAssembly())
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `NA06_prokka_sal_assembly` — `silent_no_op`
-
-**Prompt:** Run prokka on a pre-existing Salmonella enterica assembly.
-
-**Steps (LLM):** `step_4AN_genes__prokka`
-**Steps (GT):**  `step_4AN_genes__prokka`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-workflow {
-    step_4AN_genes__prokka(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-
-include { getAssembly } from '../functions/parameters.nf'
-
-include { getEmpty } from '../functions/common.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    step_4AN_genes__prokka(getAssembly().map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `NA07_prokka_cam_assembly` — `silent_no_op`
-
-**Prompt:** Run prokka on a pre-existing Campylobacter jejuni assembly.
-
-**Steps (LLM):** `step_4AN_genes__prokka`
-**Steps (GT):**  `step_4AN_genes__prokka`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-workflow {
-    step_4AN_genes__prokka(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4AN_genes__prokka } from '../steps/step_4AN_genes__prokka'
-
-include { getAssembly } from '../functions/parameters.nf'
-
-include { getEmpty } from '../functions/common.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    step_4AN_genes__prokka(getAssembly().map { [ it[0], it[1], 'Bacteria', '-', '-', getEmpty() ] })
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `O02_spades_sal` — `silent_no_op`
-
-**Prompt:** De novo assembly with spades from paired Illumina FASTQ of Salmonella enterica.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__spades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    step_2AS_denovo__spades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `O03_spades_cam` — `silent_no_op`
-
-**Prompt:** De novo assembly with spades from paired Illumina FASTQ of Campylobacter jejuni.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__spades`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    step_2AS_denovo__spades(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `O04_shovill_lis` — `silent_no_op`
-
-**Prompt:** De novo assembly with shovill from paired Illumina FASTQ of Listeria monocytogenes.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__shovill`
-**Steps (GT):**  `step_2AS_denovo__shovill`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-workflow {
-    step_2AS_denovo__shovill(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-    assembly = step_2AS_denovo__shovill(trimmed).assembly
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `O08_unicycler_eco` — `silent_no_op`
-
-**Prompt:** De novo assembly with unicycler from paired Illumina FASTQ of Escherichia coli.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__unicycler`
-**Steps (GT):**  `step_2AS_denovo__unicycler`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__unicycler } from '../steps/step_2AS_denovo__unicycler'
-workflow {
-    step_2AS_denovo__unicycler(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_2AS_denovo__unicycler } from '../steps/step_2AS_denovo__unicycler'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__unicycler(trimmed).assembled
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `O09_unicycler_cam` — `missing_param`
-
-**Prompt:** De novo assembly with unicycler from paired Illumina FASTQ of Campylobacter jejuni.
-
-**Steps (LLM):** `step_1PP_hostdepl__bowtie, step_2AS_denovo__spades`
-**Steps (GT):**  `step_2AS_denovo__unicycler`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_2AS_denovo__unicycler } from '../steps/step_2AS_denovo__unicycler'
-workflow {
-    step_2AS_denovo__unicycler(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getHost; getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-include { step_1PP_hostdepl__bowtie } from '../steps/step_1PP_hostdepl__bowtie'
-
-include { extractKey } from '../functions/common.nf'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-workflow module_denovo {
-    
-    take:
-        
-        trimmedReads
-        
-        host
-        
-    
-    main:
-        trimmedReads.cross(host) { extractKey(it) }
-            .map { [ it[0][0], it[0][1], it[1][1] ] } //riscd, reads, host
-            .branch {
-                with_host: it[1][1]
-                without_host: true
-            }
-        .set { branchedTrimmed }
-
-        depleted = step_1PP_hostdepl__bowtie(branchedTrimmed.with_host)
-
-        branchedTrimmed.without_host
-            .mix(depleted)
-            .map { it[0,1] }
-            .set{ denovoInput }
-        assembled = step_2AS_denovo__spades(denovoInput)
-    
-    emit:
-        
-        assembled
-        
-        depleted
-        
-    
-}
-
-// --- ENTRYPOINT ---
-workflow {
-    module_denovo(getSingleInput(), getHost())
-}
-```
-**Error excerpt:**
-```
-ERROR ~ missing required param: hosts_dir
-```
-
-### `P03_chopper_flye_mlst_eco` — `silent_no_op`
-
-**Prompt:** Nanopore pipeline for Escherichia coli: chopper trimming + Flye assembly + mlst.
-
-**Steps (LLM):** `step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst`
-**Steps (GT):**  `step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-include { step_2AS_denovo__flye } from '../steps/step_2AS_denovo__flye'
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-workflow {
-    trimmed   = step_1PP_trimming__chopper(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__flye(trimmed).assembly
-    step_4TY_MLST__mlst(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-
-include { step_2AS_denovo__flye } from '../steps/step_2AS_denovo__flye'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__chopper(getSingleInput()).trimmed
-    assembly = step_2AS_denovo__flye(trimmed).assembly
-    step_4TY_MLST__mlst(assembly)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `P04_chopper_flye_mlst_cam` — `silent_no_op`
-
-**Prompt:** Nanopore pipeline for Campylobacter jejuni: chopper trimming + Flye assembly + mlst.
-
-**Steps (LLM):** `step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst`
-**Steps (GT):**  `step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-include { step_2AS_denovo__flye } from '../steps/step_2AS_denovo__flye'
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-workflow {
-    trimmed   = step_1PP_trimming__chopper(getSingleInput()).trimmed
-    assembled = step_2AS_denovo__flye(trimmed).assembly
-    step_4TY_MLST__mlst(assembled)
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_4TY_MLST__mlst } from '../steps/step_4TY_MLST__mlst'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-
-include { step_2AS_denovo__flye } from '../steps/step_2AS_denovo__flye'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__chopper(getSingleInput()).trimmed
-    assembly = step_2AS_denovo__flye(trimmed).assembly
-    step_4TY_MLST__mlst(assembly)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.ECO.121.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `P09_chopper_flye_chewbbaca_lis` — `file_not_found`
@@ -3544,63 +2373,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-WARN: file not found: '/mnt/data/cohesive_llm_bench_scratch/_shared_inputdir/2026/2026.LIS.133.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
-```
-
-### `Q04_kmerfinder_fastp_shovill_lis` — `silent_no_op`
-
-**Prompt:** In parallel, identify the species with kmerfinder and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + shovill.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_3TX_species__kmerfinder } from '../steps/step_3TX_species__kmerfinder'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-workflow {
-    raw = getSingleInput()
-    step_3TX_species__kmerfinder(raw)
-    trimmed   = step_1PP_trimming__fastp(raw).trimmed
-    assembled = step_2AS_denovo__shovill(trimmed).assembly
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_2AS_denovo__shovill } from '../steps/step_2AS_denovo__shovill'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_3TX_species__kmerfinder } from '../steps/step_3TX_species__kmerfinder'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembly = step_2AS_denovo__shovill(trimmed).assembly
-
-    species = step_3TX_species__kmerfinder(assembly).assigned_species
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
+WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200/_shared_inputdir/2026/2026.LIS.133.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'
 ```
 
 ### `Q06_kmerfinder_fastp_shovill_sal` — `no_code`
@@ -3663,118 +2436,6 @@ workflow {
 **Error excerpt:**
 ```
 http exception: HTTPConnectionPool(host='127.0.0.1', port=8765): Read timed out. (read timeout=180)
-```
-
-### `Q08_mash_fastp_spades_eco` — `silent_no_op`
-
-**Prompt:** In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + spades.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    raw = getSingleInput()
-    step_3TX_species__mash(raw)
-    trimmed   = step_1PP_trimming__fastp(raw).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-
-    step_3TX_species__mash(assembled)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `Q09_mash_fastp_spades_sal` — `silent_no_op`
-
-**Prompt:** In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash`
-**Steps (GT):**  `step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-workflow {
-    raw = getSingleInput()
-    step_3TX_species__mash(raw)
-    trimmed   = step_1PP_trimming__fastp(raw).trimmed
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_2AS_denovo__spades } from '../steps/step_2AS_denovo__spades'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    assembled = step_2AS_denovo__spades(trimmed).assembled
-
-    step_3TX_species__mash(assembled)
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
 ```
 
 ### `R02_kmerfinder_sal` — `missing_param`
@@ -3916,21 +2577,21 @@ workflow {
 ERROR ~ missing required param: step_3TX_class__kraken__db_kraken
 ```
 
-### `R05_kraken2_lis` — `silent_no_op`
+### `R04_mash_eco` — `none`
 
-**Prompt:** kraken2 on paired Illumina FASTQ of Listeria monocytogenes.
+**Prompt:** mash on paired Illumina FASTQ of Escherichia coli.
 
-**Steps (LLM):** `step_3TX_class__kraken2`
-**Steps (GT):**  `step_3TX_class__kraken2`
+**Steps (LLM):** `step_3TX_species__mash`
+**Steps (GT):**  `step_3TX_species__mash`
 
 **Ground truth (passes validation):**
 ```groovy
 nextflow.enable.dsl=2
 
 include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_3TX_class__kraken2 } from '../steps/step_3TX_class__kraken2'
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
 workflow {
-    step_3TX_class__kraken2(getSingleInput())
+    step_3TX_species__mash(getSingleInput())
 }
 ```
 **LLM-generated (failed):**
@@ -3939,9 +2600,9 @@ nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
-include { step_3TX_class__kraken2 } from '../steps/step_3TX_class__kraken2'
-
 include { getSingleInput } from '../functions/parameters.nf'
+
+include { step_3TX_species__mash } from '../steps/step_3TX_species__mash'
 
 // --- GLOBALS ---
 
@@ -3951,70 +2612,15 @@ include { getSingleInput } from '../functions/parameters.nf'
 
 // --- ENTRYPOINT ---
 workflow {
-    step_3TX_class__kraken2(getSingleInput()).genus_report
+    step_3TX_species__mash(getSingleInput())
 }
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+(no excerpt)
 ```
 
-### `R08_kraken2_cam` — `silent_no_op`
-
-**Prompt:** kraken2 on paired Illumina FASTQ of Campylobacter jejuni.
-
-**Steps (LLM):** `step_1PP_trimming__fastp, step_3TX_class__kraken2`
-**Steps (GT):**  `step_3TX_class__kraken2`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getSingleInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_3TX_class__kraken2 } from '../steps/step_3TX_class__kraken2'
-workflow {
-    step_3TX_class__kraken2(getSingleInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { step_1PP_trimming__fastp } from '../steps/step_1PP_trimming__fastp'
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_3TX_class__kraken2 } from '../steps/step_3TX_class__kraken2'
-
-include { module_qc_fastqc } from '../modules/module_qc_fastqc'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    module_qc_fastqc(getSingleInput())
-
-    trimmed = step_1PP_trimming__fastp(getSingleInput()).trimmed
-
-    kraken_out = step_3TX_class__kraken2(trimmed)
-
-    module_qc_fastqc(trimmed)
-
-    kraken_out.genus_report
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
-```
-
-### `S01_fastp_lis` — `silent_no_op`
+### `S01_fastp_lis` — `missing_param`
 
 **Prompt:** fastp read trimming on illumina paired FASTQ of Listeria monocytogenes.
 
@@ -4115,7 +2721,7 @@ workflow {
 ```
 **Error excerpt:**
 ```
-No process placeholders appeared. when: clause filtered everything?
+ERROR ~ missing required param: step_3TX_class__kraken__db_kraken
 ```
 
 ### `S02_fastp_sal` — `missing_param`
@@ -4324,47 +2930,4 @@ workflow {
 **Error excerpt:**
 ```
 ERROR ~ missing required param: step_3TX_class__kraken__db_kraken
-```
-
-### `S07_chopper_cam` — `silent_no_op`
-
-**Prompt:** chopper read trimming on nanopore FASTQ of Campylobacter jejuni.
-
-**Steps (LLM):** `step_1PP_trimming__chopper`
-**Steps (GT):**  `step_1PP_trimming__chopper`
-
-**Ground truth (passes validation):**
-```groovy
-nextflow.enable.dsl=2
-
-include { getInput; optionalOrDefault; param } from '../functions/parameters.nf'
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-workflow {
-    step_1PP_trimming__chopper(getInput())
-}
-```
-**LLM-generated (failed):**
-```groovy
-nextflow.enable.dsl=2
-
-// --- IMPORTS ---
-
-include { getSingleInput } from '../functions/parameters.nf'
-
-include { step_1PP_trimming__chopper } from '../steps/step_1PP_trimming__chopper'
-
-// --- GLOBALS ---
-
-// --- INLINE PROCESSES ---
-
-// --- SUB WORKFLOWS ---
-
-// --- ENTRYPOINT ---
-workflow {
-    step_1PP_trimming__chopper(getSingleInput())
-}
-```
-**Error excerpt:**
-```
-No process placeholders appeared. when: clause filtered everything?
 ```

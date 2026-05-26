@@ -49,7 +49,7 @@ workflow {
     step_4TY_MLST__mlst(getInput())
 }
 "
-"A03_mlst_salmonella","A03_mlst_salmonella","A03","Classic MLST (PubMLST) on a Salmonella enterica assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_4TY_MLST__mlst","step_4TY_MLST__mlst","step_4TY_MLST__mlst","319","18","1","2","33.8","Approved! I will proceed with the MLST typing step for your Salmonella enterica assembly using the specified component.","nextflow.enable.dsl=2
+"A03_mlst_salmonella","A03_mlst_salmonella","A03","Classic MLST (PubMLST) on a Salmonella enterica assembly.","Y","Y","none","","1","1","Y","","","","step_4TY_MLST__mlst","step_4TY_MLST__mlst","step_4TY_MLST__mlst","319","18","1","2","33.8","Approved! I will proceed with the MLST typing step for your Salmonella enterica assembly using the specified component.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -99,7 +99,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(getInput(), param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"A05_cgmlst_ecoli","A05_cgmlst_ecoli","A05","cgMLST allelic profile on an Escherichia coli assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","423","18","1","2","14.2","Understood. I will proceed with the cgMLST allelic profile generation for Escherichia coli using the `step_4TY_cgMLST__chewbbaca` component.","nextflow.enable.dsl=2
+"A05_cgmlst_ecoli","A05_cgmlst_ecoli","A05","cgMLST allelic profile on an Escherichia coli assembly.","Y","Y","none","","3","3","Y","","","","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","step_4TY_cgMLST__chewbbaca","423","18","1","2","14.2","Understood. I will proceed with the cgMLST allelic profile generation for Escherichia coli using the `step_4TY_cgMLST__chewbbaca` component.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -232,7 +232,7 @@ workflow {
     step_2AS_denovo__shovill(getSingleInput())
 }
 "
-"B03_unicycler_salmonella","B03_unicycler_salmonella","B03","Assemble a Salmonella enterica genome with Unicycler from Illumina paired-end reads.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__unicycler","step_2AS_denovo__unicycler","657","26","3","2","13.0","Approved! I will proceed with the pipeline design for assembling a Salmonella enterica genome from Illumina paired-end reads using Unicycler. The pipeline will include preprocessing (trimming with fastp), host depletion (using Bowtie), and assembly with Unicycler.","nextflow.enable.dsl=2
+"B03_unicycler_salmonella","B03_unicycler_salmonella","B03","Assemble a Salmonella enterica genome with Unicycler from Illumina paired-end reads.","Y","Y","none","","8","3","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_2AS_denovo__unicycler","step_2AS_denovo__unicycler","657","26","3","2","13.0","Approved! I will proceed with the pipeline design for assembling a Salmonella enterica genome from Illumina paired-end reads using Unicycler. The pipeline will include preprocessing (trimming with fastp), host depletion (using Bowtie), and assembly with Unicycler.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -293,7 +293,7 @@ workflow {
     step_2AS_denovo__plasmidspades(getSingleInput())
 }
 "
-"B05_metaspades","B05_metaspades","B05","Run metagenomic assembly with metaSPAdes on paired-end Illumina reads from an environmental sample.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","Y","","","","step_2MG_denovo__metaspades","step_2MG_denovo__metaspades","step_2MG_denovo__metaspades","349","18","1","2","8.5","Pipeline approved! I will now design a Nextflow DSL2 pipeline for metagenomic assembly using metaSPAdes for your paired-end Illumina reads.","nextflow.enable.dsl=2
+"B05_metaspades","B05_metaspades","B05","Run metagenomic assembly with metaSPAdes on paired-end Illumina reads from an environmental sample.","Y","Y","none","","3","3","Y","","","","step_2MG_denovo__metaspades","step_2MG_denovo__metaspades","step_2MG_denovo__metaspades","349","18","1","2","8.5","Pipeline approved! I will now design a Nextflow DSL2 pipeline for metagenomic assembly using metaSPAdes for your paired-end Illumina reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -344,7 +344,7 @@ workflow {
     step_3TX_species__kmerfinder(getInput())
 }
 "
-"C02_mash","C02_mash","C02","Run Mash sketch-based species identification on paired-end Illumina reads.","Y","Y","none","","1","1","Y","","","","step_3TX_species__mash","step_3TX_species__mash","step_3TX_species__mash","334","18","1","2","7.5","Approved. I will proceed with Mash sketch-based species identification using the `step_3TX_species__mash` component for your paired-end Illumina reads.","nextflow.enable.dsl=2
+"C02_mash","C02_mash","C02","Run Mash sketch-based species identification on paired-end Illumina reads.","Y","N","none","","1","1","Y","","","","step_3TX_species__mash","step_3TX_species__mash","step_3TX_species__mash","334","18","1","2","7.5","Approved. I will proceed with Mash sketch-based species identification using the `step_3TX_species__mash` component for your paired-end Illumina reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -369,7 +369,7 @@ workflow {
     step_3TX_species__mash(getSingleInput())
 }
 "
-"C03_kraken2","C03_kraken2","C03","Taxonomic classification of paired-end Illumina reads with Kraken2.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","2","Y","","","","step_3TX_class__kraken2","step_3TX_class__kraken2","step_3TX_class__kraken2","337","18","1","2","6.9","Approved! I will design a pipeline using the Kraken2 component for taxonomic classification of your paired-end Illumina reads.","nextflow.enable.dsl=2
+"C03_kraken2","C03_kraken2","C03","Taxonomic classification of paired-end Illumina reads with Kraken2.","Y","Y","none","","2","2","Y","","","","step_3TX_class__kraken2","step_3TX_class__kraken2","step_3TX_class__kraken2","337","18","1","2","6.9","Approved! I will design a pipeline using the Kraken2 component for taxonomic classification of your paired-end Illumina reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -579,7 +579,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"E02_cgmlst_lis_fastp_spades","E02_cgmlst_lis_fastp_spades","E02","cgMLST allelic profile for Listeria monocytogenes from paired Illumina FASTQ (fastp + SPAdes + chewbbaca).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","730","30","3","2","12.2","The pipeline for generating a cgMLST allelic profile for Listeria monocytogenes from paired Illumina FASTQ files has been approved. I will now proceed with the design using the specified steps: trimming with fastp, assembly with SPAdes, and cgMLST profiling with chewbbaca.","nextflow.enable.dsl=2
+"E02_cgmlst_lis_fastp_spades","E02_cgmlst_lis_fastp_spades","E02","cgMLST allelic profile for Listeria monocytogenes from paired Illumina FASTQ (fastp + SPAdes + chewbbaca).","Y","Y","none","","9","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","730","30","3","2","12.2","The pipeline for generating a cgMLST allelic profile for Listeria monocytogenes from paired Illumina FASTQ files has been approved. I will now proceed with the design using the specified steps: trimming with fastp, assembly with SPAdes, and cgMLST profiling with chewbbaca.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -620,7 +620,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"E03_cgmlst_sal_fastp_spades","E03_cgmlst_sal_fastp_spades","E03","Generate cgMLST profiles for Salmonella enterica starting from paired-end Illumina FASTQ.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","9","N","step_3TX_species__kmerfinder","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","826","30","4","2","13.9","Thank you for your approval. I will now proceed with designing the pipeline for generating cgMLST profiles for Salmonella enterica from paired-end Illumina FASTQ files.","nextflow.enable.dsl=2
+"E03_cgmlst_sal_fastp_spades","E03_cgmlst_sal_fastp_spades","E03","Generate cgMLST profiles for Salmonella enterica starting from paired-end Illumina FASTQ.","Y","N","missing_param","ERROR ~ missing required param: step_3TX_species__kmerfinder__db","0","9","N","step_3TX_species__kmerfinder","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","826","30","4","2","13.9","Thank you for your approval. I will now proceed with designing the pipeline for generating cgMLST profiles for Salmonella enterica from paired-end Illumina FASTQ files.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -661,7 +661,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"E04_cgmlst_eco_fastp_shovill","E04_cgmlst_eco_fastp_shovill","E04","E. coli cgMLST typing from Illumina paired FASTQ using fastp + Shovill + chewbbaca.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","724","28","3","2","11.4","Thank you for approving the pipeline. I will now draft the detailed plan for the Architect Agent based on the steps we discussed.","nextflow.enable.dsl=2
+"E04_cgmlst_eco_fastp_shovill","E04_cgmlst_eco_fastp_shovill","E04","E. coli cgMLST typing from Illumina paired FASTQ using fastp + Shovill + chewbbaca.","Y","Y","none","","9","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_cgMLST__chewbbaca","724","28","3","2","11.4","Thank you for approving the pipeline. I will now draft the detailed plan for the Architect Agent based on the steps we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -700,7 +700,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"E05_flaa_cam","E05_flaa_cam","E05","flaA typing pipeline for Campylobacter from paired-end Illumina FASTQ.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","N","step_2AS_mapping__bowtie, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades","","step_2AS_mapping__bowtie, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4TY_flaA__flaA","step_3TX_species__kmerfinder, step_2AS_mapping__bowtie, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4AN_AMR__staramr, step_4TY_MLST__mlst, step_4TY_flaA__flaA, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","2240","76","8","2","44.5","Understood. I will now draft the pipeline for flaA typing of Campylobacter using the module_typing_bacteria template.","nextflow.enable.dsl=2
+"E05_flaa_cam","E05_flaa_cam","E05","flaA typing pipeline for Campylobacter from paired-end Illumina FASTQ.","Y","N","missing_param","ERROR ~ missing required param: step_3TX_species__kmerfinder__db","0","7","N","step_2AS_mapping__bowtie, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades","","step_2AS_mapping__bowtie, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4TY_flaA__flaA","step_3TX_species__kmerfinder, step_2AS_mapping__bowtie, step_4AN_AMR__abricate, step_4AN_genes__prokka, step_4AN_AMR__staramr, step_4TY_MLST__mlst, step_4TY_flaA__flaA, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","2240","76","8","2","44.5","Understood. I will now draft the pipeline for flaA typing of Campylobacter using the module_typing_bacteria template.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -787,7 +787,7 @@ workflow {
     step_4TY_flaA__flaA(assembled, param('genus_species'))
 }
 "
-"E06_staramr_cam","E06_staramr_cam","E06","AMR analysis with staramr for Campylobacter from paired Illumina FASTQ (trim + assembly + staramr).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr","635","24","3","2","11.3","Perfect! I will proceed with the pipeline you approved. The workflow will include trimming with fastp, assembly with SPAdes, and AMR detection with Staramr for your Campylobacter samples.","nextflow.enable.dsl=2
+"E06_staramr_cam","E06_staramr_cam","E06","AMR analysis with staramr for Campylobacter from paired Illumina FASTQ (trim + assembly + staramr).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr","635","24","3","2","11.3","Perfect! I will proceed with the pipeline you approved. The workflow will include trimming with fastp, assembly with SPAdes, and AMR detection with Staramr for your Campylobacter samples.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -834,7 +834,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"E08_prokka_lis","E08_prokka_lis","E08","Annotate a Listeria monocytogenes genome with Prokka, starting from paired Illumina FASTQ (trim + assembly + Prokka).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","718","26","3","2","16.4","Approved. I will now generate the pipeline plan for trimming, assembly, and annotation of the Listeria monocytogenes genome using the specified tools.","nextflow.enable.dsl=2
+"E08_prokka_lis","E08_prokka_lis","E08","Annotate a Listeria monocytogenes genome with Prokka, starting from paired Illumina FASTQ (trim + assembly + Prokka).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","718","26","3","2","16.4","Approved. I will now generate the pipeline plan for trimming, assembly, and annotation of the Listeria monocytogenes genome using the specified tools.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -906,7 +906,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"E10_mlst_sal_shovill","E10_mlst_sal_shovill","E10","Salmonella enterica MLST: fastp + Shovill + mlst.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","598","24","3","2","10.9","Your Salmonella enterica MLST pipeline has been approved. I will now generate the detailed plan for the Architect Agent based on the workflow we discussed.","nextflow.enable.dsl=2
+"E10_mlst_sal_shovill","E10_mlst_sal_shovill","E10","Salmonella enterica MLST: fastp + Shovill + mlst.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","598","24","3","2","10.9","Your Salmonella enterica MLST pipeline has been approved. I will now generate the detailed plan for the Architect Agent based on the workflow we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -976,7 +976,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"E12_mlst_cam","E12_mlst_cam","E12","MLST analysis for Campylobacter from paired Illumina FASTQ (fastp + SPAdes + mlst).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","598","24","3","2","12.0","Pipeline approved! I will now prepare the detailed plan for the Architect Agent to build the MLST analysis pipeline for Campylobacter using the specified steps.","nextflow.enable.dsl=2
+"E12_mlst_cam","E12_mlst_cam","E12","MLST analysis for Campylobacter from paired Illumina FASTQ (fastp + SPAdes + mlst).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","598","24","3","2","12.0","Pipeline approved! I will now prepare the detailed plan for the Architect Agent to build the MLST analysis pipeline for Campylobacter using the specified steps.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1011,7 +1011,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"E13_abricate_sal","E13_abricate_sal","E13","Antimicrobial resistance gene screening with ABRicate for Salmonella enterica from paired Illumina FASTQ.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","2","11.8","Thank you for approving the pipeline. I will now proceed with the design based on the steps we discussed.","nextflow.enable.dsl=2
+"E13_abricate_sal","E13_abricate_sal","E13","Antimicrobial resistance gene screening with ABRicate for Salmonella enterica from paired Illumina FASTQ.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","2","11.8","Thank you for approving the pipeline. I will now proceed with the design based on the steps we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1046,7 +1046,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"E14_prokka_eco","E14_prokka_eco","E14","Annotate an E. coli assembly with Prokka, starting from paired Illumina reads.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","718","26","3","2","10.9","Thank you for approving the plan. I will now proceed with generating the pipeline for annotating an E. coli assembly with Prokka, starting from paired Illumina reads.","nextflow.enable.dsl=2
+"E14_prokka_eco","E14_prokka_eco","E14","Annotate an E. coli assembly with Prokka, starting from paired Illumina reads.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","718","26","3","2","10.9","Thank you for approving the plan. I will now proceed with generating the pipeline for annotating an E. coli assembly with Prokka, starting from paired Illumina reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1147,7 +1147,7 @@ workflow {
     step_4AN_AMR__abricate(getInput())
 }
 "
-"F02_prokka_assembly","F02_prokka_assembly","F02","Annotate a bacterial genome assembly with Prokka.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_4AN_genes__prokka","step_4AN_genes__prokka","step_4AN_genes__prokka","486","23","1","2","10.7","Approved. I will design a pipeline to annotate your bacterial genome assembly using Prokka.","nextflow.enable.dsl=2
+"F02_prokka_assembly","F02_prokka_assembly","F02","Annotate a bacterial genome assembly with Prokka.","Y","Y","none","","1","1","Y","","","","step_4AN_genes__prokka","step_4AN_genes__prokka","step_4AN_genes__prokka","486","23","1","2","10.7","Approved. I will design a pipeline to annotate your bacterial genome assembly using Prokka.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1177,7 +1177,7 @@ workflow {
     step_4AN_genes__prokka(getInput())
 }
 "
-"F03_mash_lis","F03_mash_lis","F03","Sketch-based species ID with Mash on a Listeria isolate (paired Illumina).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_3TX_species__mash","step_3TX_species__mash","step_3TX_species__mash","334","18","1","2","7.8","Approved. I will proceed with the sketch-based species identification using Mash for your Listeria isolate with paired Illumina reads.","nextflow.enable.dsl=2
+"F03_mash_lis","F03_mash_lis","F03","Sketch-based species ID with Mash on a Listeria isolate (paired Illumina).","Y","Y","ngsmanager_naming","ERROR ~ unexpected file name: DS99999-DT260224_2026.LIS.A.1.1_R1.fastq.gz","1","1","Y","","","","step_3TX_species__mash","step_3TX_species__mash","step_3TX_species__mash","334","18","1","2","7.8","Approved. I will proceed with the sketch-based species identification using Mash for your Listeria isolate with paired Illumina reads.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1202,7 +1202,7 @@ workflow {
     step_3TX_species__mash(getSingleInput())
 }
 "
-"F04_kraken2_unknown","F04_kraken2_unknown","F04","Classify an unknown bacterial isolate (paired Illumina FASTQ) using Kraken2.","Y","Y","file_not_found","WARN: file not found: '/tmp/cohesive_llm_bench/_shared_inputdir/2026/2026.UNK.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","2","2","Y","","","","step_3TX_class__kraken2","step_3TX_class__kraken2","step_3TX_class__kraken2","397","19","1","2","10.4","Approved. I will proceed with the Kraken2 classification step for your paired Illumina FASTQ files.","nextflow.enable.dsl=2
+"F04_kraken2_unknown","F04_kraken2_unknown","F04","Classify an unknown bacterial isolate (paired Illumina FASTQ) using Kraken2.","Y","Y","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_devstral_labs/_shared_inputdir/2026/2026.UNK.4.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","2","2","Y","","","","step_3TX_class__kraken2","step_3TX_class__kraken2","step_3TX_class__kraken2","397","19","1","2","10.4","Approved. I will proceed with the Kraken2 classification step for your paired Illumina FASTQ files.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1288,7 +1288,7 @@ workflow {
     assembled = step_2AS_denovo__flye(trimmed).assembly
 }
 "
-"H01_mlst_plus_cgmlst_lis","H01_mlst_plus_cgmlst_lis","H01","Run both MLST and cgMLST typing on Listeria monocytogenes from paired Illumina FASTQ.","N","N","missing_param","ERROR ~ missing required param: step_3TX_species__kmerfinder__db","0","10","N","step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka, step_4AN_AMR__abricate, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","2713","120","8","2","58.5","Thank you for approving the plan. I will now proceed with designing the pipeline using the specified components and templates.","nextflow.enable.dsl=2
+"H01_mlst_plus_cgmlst_lis","H01_mlst_plus_cgmlst_lis","H01","Run both MLST and cgMLST typing on Listeria monocytogenes from paired Illumina FASTQ.","Y","N","missing_param","ERROR ~ missing required param: step_3TX_species__kmerfinder__db","0","10","N","step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4AN_AMR__abricate, step_4AN_AMR__staramr, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__kmerfinder, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka, step_4AN_AMR__abricate, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","2713","120","8","2","58.5","Thank you for approving the plan. I will now proceed with designing the pipeline using the specified components and templates.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1678,7 +1678,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"I02_mash_fastp_shovill","I02_mash_fastp_shovill","I02","Species sketch with Mash plus assembly via fastp + Shovill from paired Illumina reads.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","606","24","3","2","13.5","Thank you for approving the plan. I will now proceed with the pipeline design based on the steps we discussed.","nextflow.enable.dsl=2
+"I02_mash_fastp_shovill","I02_mash_fastp_shovill","I02","Species sketch with Mash plus assembly via fastp + Shovill from paired Illumina reads.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_1PP_trimming__fastp, step_3TX_species__mash, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","606","24","3","2","13.5","Thank you for approving the plan. I will now proceed with the pipeline design based on the steps we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1714,7 +1714,7 @@ workflow {
     assembled = step_2AS_denovo__shovill(trimmed).assembly
 }
 "
-"J01_mobsuite_plasmid","J01_mobsuite_plasmid","J01","Detect and reconstruct plasmids from paired Illumina FASTQ using MOB-suite.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","N","","step_4TY_plasmid__mobsuite","","","","step_4TY_plasmid__mobsuite","346","18","0","2","19.2","Approved. I will design a pipeline using the module_plasmids template, which includes the step_4TY_plasmid__mobsuite component for plasmid detection and reconstruction from paired Illumina FASTQ files.","nextflow.enable.dsl=2
+"J01_mobsuite_plasmid","J01_mobsuite_plasmid","J01","Detect and reconstruct plasmids from paired Illumina FASTQ using MOB-suite.","Y","N","missing_param","ERROR ~ missing required param: genus_species","0","1","N","","step_4TY_plasmid__mobsuite","","","","step_4TY_plasmid__mobsuite","346","18","0","2","19.2","Approved. I will design a pipeline using the module_plasmids template, which includes the step_4TY_plasmid__mobsuite component for plasmid detection and reconstruction from paired Illumina FASTQ files.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1739,7 +1739,7 @@ workflow {
     step_4TY_plasmid__mobsuite(getSingleInput())
 }
 "
-"J02_bbnorm_downsampling","J02_bbnorm_downsampling","J02","Read normalization / downsampling of paired Illumina FASTQ with BBnorm at k=25, target depth 100x.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_1PP_downsampling__bbnorm","step_1PP_downsampling__bbnorm","step_1PP_downsampling__bbnorm","396","22","1","2","12.0","Approved. I will set up the pipeline using BBnorm for read normalization/downsampling of paired Illumina FASTQ files with k=25 and a target depth of 100x.","nextflow.enable.dsl=2
+"J02_bbnorm_downsampling","J02_bbnorm_downsampling","J02","Read normalization / downsampling of paired Illumina FASTQ with BBnorm at k=25, target depth 100x.","Y","Y","none","","1","1","Y","","","","step_1PP_downsampling__bbnorm","step_1PP_downsampling__bbnorm","step_1PP_downsampling__bbnorm","396","22","1","2","12.0","Approved. I will set up the pipeline using BBnorm for read normalization/downsampling of paired Illumina FASTQ files with k=25 and a target depth of 100x.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1838,7 +1838,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"K03_mlst_sal_fastp_spades","K03_mlst_sal_fastp_spades","K03","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (fastp + spades + mlst).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","598","24","3","2","12.0","Approved! I will now draft the pipeline for MLST typing of Salmonella enterica from paired-end Illumina FASTQ files using the following steps: 1) Quality trimming with fastp, 2) De novo assembly with SPAdes, and 3) MLST typing.","nextflow.enable.dsl=2
+"K03_mlst_sal_fastp_spades","K03_mlst_sal_fastp_spades","K03","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (fastp + spades + mlst).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","598","24","3","2","12.0","Approved! I will now draft the pipeline for MLST typing of Salmonella enterica from paired-end Illumina FASTQ files using the following steps: 1) Quality trimming with fastp, 2) De novo assembly with SPAdes, and 3) MLST typing.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -1908,7 +1908,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"K05_chewbbaca_lis_fastp_spades","K05_chewbbaca_lis_fastp_spades","K05","cgMLST allelic profiling on Listeria monocytogenes from paired-end Illumina FASTQ (fastp + spades + chewbbaca).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","730","30","3","2","15.3","Your cgMLST allelic profiling pipeline for Listeria monocytogenes has been approved. I will now draft the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
+"K05_chewbbaca_lis_fastp_spades","K05_chewbbaca_lis_fastp_spades","K05","cgMLST allelic profiling on Listeria monocytogenes from paired-end Illumina FASTQ (fastp + spades + chewbbaca).","Y","Y","none","","9","9","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca","730","30","3","2","15.3","Your cgMLST allelic profiling pipeline for Listeria monocytogenes has been approved. I will now draft the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2136,7 +2136,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"K11_abricate_cam_fastp_spades","K11_abricate_cam_fastp_spades","K11","ABRicate AMR screening on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + spades + abricate).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","2","12.6","Thank you for approving the pipeline. I will now proceed with the design based on the steps we discussed.","nextflow.enable.dsl=2
+"K11_abricate_cam_fastp_spades","K11_abricate_cam_fastp_spades","K11","ABRicate AMR screening on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + spades + abricate).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate","607","24","3","2","12.6","Thank you for approving the pipeline. I will now proceed with the design based on the steps we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2208,7 +2208,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"K13_prokka_eco_fastp_spades","K13_prokka_eco_fastp_spades","K13","Prokka annotation on Escherichia coli from paired-end Illumina FASTQ (fastp + spades + prokka).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","718","26","3","2","13.8","Thank you for approving the pipeline. I will now proceed with the implementation using the specified components: trimming with fastp, assembly with SPAdes, and annotation with Prokka.","nextflow.enable.dsl=2
+"K13_prokka_eco_fastp_spades","K13_prokka_eco_fastp_spades","K13","Prokka annotation on Escherichia coli from paired-end Illumina FASTQ (fastp + spades + prokka).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka","718","26","3","2","13.8","Thank you for approving the pipeline. I will now proceed with the implementation using the specified components: trimming with fastp, assembly with SPAdes, and annotation with Prokka.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2319,7 +2319,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"K16_flaA_cam_fastp_spades","K16_flaA_cam_fastp_spades","K16","flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + spades + flaA).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","629","24","3","2","10.7","Approved! I will now generate the pipeline for Campylobacter jejuni flaA typing using the specified steps.","nextflow.enable.dsl=2
+"K16_flaA_cam_fastp_spades","K16_flaA_cam_fastp_spades","K16","flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + spades + flaA).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA","629","24","3","2","10.7","Approved! I will now generate the pipeline for Campylobacter jejuni flaA typing using the specified steps.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2494,7 +2494,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"K21_mlst_cam_fastp_shovill","K21_mlst_cam_fastp_shovill","K21","MLST typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + mlst).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","598","24","3","2","11.9","Pipeline approved! I will now design the Nextflow DSL2 pipeline for MLST typing of Campylobacter jejuni using the specified steps.","nextflow.enable.dsl=2
+"K21_mlst_cam_fastp_shovill","K21_mlst_cam_fastp_shovill","K21","MLST typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + mlst).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_MLST__mlst","598","24","3","2","11.9","Pipeline approved! I will now design the Nextflow DSL2 pipeline for MLST typing of Campylobacter jejuni using the specified steps.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2778,7 +2778,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"K29_prokka_lis_fastp_shovill","K29_prokka_lis_fastp_shovill","K29","Prokka annotation on Listeria monocytogenes from paired-end Illumina FASTQ (fastp + shovill + prokka).","N","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","718","26","3","2","15.2","Perfect! I will proceed with the pipeline you approved. It will include trimming with fastp, assembly with Shovill, and annotation with Prokka.","nextflow.enable.dsl=2
+"K29_prokka_lis_fastp_shovill","K29_prokka_lis_fastp_shovill","K29","Prokka annotation on Listeria monocytogenes from paired-end Illumina FASTQ (fastp + shovill + prokka).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","718","26","3","2","15.2","Perfect! I will proceed with the pipeline you approved. It will include trimming with fastp, assembly with Shovill, and annotation with Prokka.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2854,7 +2854,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"K31_prokka_sal_fastp_shovill","K31_prokka_sal_fastp_shovill","K31","Prokka annotation on Salmonella enterica from paired-end Illumina FASTQ (fastp + shovill + prokka).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","718","26","3","2","11.4","Thank you for your approval. I will proceed with the pipeline design using the specified steps: trimming with fastp, assembly with Shovill, and annotation with Prokka.","nextflow.enable.dsl=2
+"K31_prokka_sal_fastp_shovill","K31_prokka_sal_fastp_shovill","K31","Prokka annotation on Salmonella enterica from paired-end Illumina FASTQ (fastp + shovill + prokka).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","718","26","3","2","11.4","Thank you for your approval. I will proceed with the pipeline design using the specified steps: trimming with fastp, assembly with Shovill, and annotation with Prokka.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2891,7 +2891,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"K32_prokka_cam_fastp_shovill","K32_prokka_cam_fastp_shovill","K32","Prokka annotation on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + prokka).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","701","26","3","2","24.6","Thank you for your approval. I will proceed with the pipeline implementation as discussed.","nextflow.enable.dsl=2
+"K32_prokka_cam_fastp_shovill","K32_prokka_cam_fastp_shovill","K32","Prokka annotation on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + prokka).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_genes__prokka","701","26","3","2","24.6","Thank you for your approval. I will proceed with the pipeline implementation as discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2928,7 +2928,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"K33_flaA_cam_fastp_shovill","K33_flaA_cam_fastp_shovill","K33","flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + flaA).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_flaA__flaA","629","24","3","2","10.3","Perfect! I will proceed with the pipeline for flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ using the following steps: 1. Trimming with fastp, 2. Assembly with Shovill, and 3. flaA typing.","nextflow.enable.dsl=2
+"K33_flaA_cam_fastp_shovill","K33_flaA_cam_fastp_shovill","K33","flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + flaA).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4TY_flaA__flaA","629","24","3","2","10.3","Perfect! I will proceed with the pipeline for flaA typing on Campylobacter jejuni from paired-end Illumina FASTQ using the following steps: 1. Trimming with fastp, 2. Assembly with Shovill, and 3. flaA typing.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -2963,7 +2963,7 @@ workflow {
     step_4TY_flaA__flaA(assembled, param('genus_species'))
 }
 "
-"K34_staramr_cam_fastp_shovill","K34_staramr_cam_fastp_shovill","K34","staramr AMR profiling on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + staramr).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__staramr","663","26","3","2","11.9","Thank you for approving the pipeline. I will now proceed with generating the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
+"K34_staramr_cam_fastp_shovill","K34_staramr_cam_fastp_shovill","K34","staramr AMR profiling on Campylobacter jejuni from paired-end Illumina FASTQ (fastp + shovill + staramr).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_4AN_AMR__staramr","663","26","3","2","11.9","Thank you for approving the pipeline. I will now proceed with generating the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -3070,7 +3070,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"K37_mlst_sal_fastp_unicycler","K37_mlst_sal_fastp_unicycler","K37","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (fastp + unicycler + mlst).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","607","24","3","2","11.7","Perfect! I will proceed with the pipeline for MLST typing of Salmonella enterica from paired-end Illumina FASTQ files using the following steps: 1) Preprocessing with fastp, 2) De novo assembly with Unicycler, and 3) MLST typing with mlst.","nextflow.enable.dsl=2
+"K37_mlst_sal_fastp_unicycler","K37_mlst_sal_fastp_unicycler","K37","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (fastp + unicycler + mlst).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4TY_MLST__mlst","607","24","3","2","11.7","Perfect! I will proceed with the pipeline for MLST typing of Salmonella enterica from paired-end Illumina FASTQ files using the following steps: 1) Preprocessing with fastp, 2) De novo assembly with Unicycler, and 3) MLST typing with mlst.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -3294,7 +3294,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"K43_abricate_eco_fastp_unicycler","K43_abricate_eco_fastp_unicycler","K43","ABRicate AMR screening on Escherichia coli from paired-end Illumina FASTQ (fastp + unicycler + abricate).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","616","24","3","2","12.5","Thank you for approving the pipeline. I will now generate the detailed plan for the Architect Agent to build the pipeline for Escherichia coli AMR screening using fastp, Unicycler, and ABRicate.","nextflow.enable.dsl=2
+"K43_abricate_eco_fastp_unicycler","K43_abricate_eco_fastp_unicycler","K43","ABRicate AMR screening on Escherichia coli from paired-end Illumina FASTQ (fastp + unicycler + abricate).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_AMR__abricate","616","24","3","2","12.5","Thank you for approving the pipeline. I will now generate the detailed plan for the Architect Agent to build the pipeline for Escherichia coli AMR screening using fastp, Unicycler, and ABRicate.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -3436,7 +3436,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"K47_prokka_eco_fastp_unicycler","K47_prokka_eco_fastp_unicycler","K47","Prokka annotation on Escherichia coli from paired-end Illumina FASTQ (fastp + unicycler + prokka).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_genes__prokka","727","26","3","2","13.7","The pipeline has been approved. I will now generate a detailed plan for the Architect Agent to implement the Prokka annotation workflow for Escherichia coli using paired-end Illumina FASTQ data.","nextflow.enable.dsl=2
+"K47_prokka_eco_fastp_unicycler","K47_prokka_eco_fastp_unicycler","K47","Prokka annotation on Escherichia coli from paired-end Illumina FASTQ (fastp + unicycler + prokka).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__unicycler, step_4AN_genes__prokka","727","26","3","2","13.7","The pipeline has been approved. I will now generate a detailed plan for the Architect Agent to implement the Prokka annotation workflow for Escherichia coli using paired-end Illumina FASTQ data.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -3617,7 +3617,7 @@ workflow {
     step_4AN_AMR__staramr(assembled, param('genus_species'))
 }
 "
-"K52_mlst_lis_trimmomatic_spades","K52_mlst_lis_trimmomatic_spades","K52","MLST typing on Listeria monocytogenes from paired-end Illumina FASTQ (trimmomatic + spades + mlst).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","616","24","3","2","10.9","The pipeline for MLST typing of Listeria monocytogenes from paired-end Illumina FASTQ files has been approved. I will now proceed with the detailed design using the specified components.","nextflow.enable.dsl=2
+"K52_mlst_lis_trimmomatic_spades","K52_mlst_lis_trimmomatic_spades","K52","MLST typing on Listeria monocytogenes from paired-end Illumina FASTQ (trimmomatic + spades + mlst).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","616","24","3","2","10.9","The pipeline for MLST typing of Listeria monocytogenes from paired-end Illumina FASTQ files has been approved. I will now proceed with the detailed design using the specified components.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -3687,7 +3687,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"K54_mlst_sal_trimmomatic_spades","K54_mlst_sal_trimmomatic_spades","K54","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (trimmomatic + spades + mlst).","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","616","24","3","2","12.6","The pipeline for MLST typing of Salmonella enterica from paired-end Illumina FASTQ has been approved. I will now generate the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
+"K54_mlst_sal_trimmomatic_spades","K54_mlst_sal_trimmomatic_spades","K54","MLST typing on Salmonella enterica from paired-end Illumina FASTQ (trimmomatic + spades + mlst).","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__trimmomatic, step_2AS_denovo__spades, step_4TY_MLST__mlst","616","24","3","2","12.6","The pipeline for MLST typing of Salmonella enterica from paired-end Illumina FASTQ has been approved. I will now generate the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -4023,7 +4023,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"L03_mlst_chewbbaca_sal","L03_mlst_chewbbaca_sal","L03","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run mlst and chewbbaca in parallel.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","10","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","828","31","4","2","12.0","Pipeline approved! I will now provide the detailed plan for the Architect Agent to build the pipeline for your Salmonella enterica data.","nextflow.enable.dsl=2
+"L03_mlst_chewbbaca_sal","L03_mlst_chewbbaca_sal","L03","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run mlst and chewbbaca in parallel.","Y","Y","none","","10","10","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","828","31","4","2","12.0","Pipeline approved! I will now provide the detailed plan for the Architect Agent to build the pipeline for your Salmonella enterica data.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -4227,7 +4227,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"L08_chewbbaca_prokka_sal","L08_chewbbaca_prokka_sal","L08","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run chewbbaca and prokka in parallel.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","10","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_cgMLST__chewbbaca","1170","36","4","2","13.6","Thank you for approving the pipeline. I will now proceed with the design based on the steps we discussed.","nextflow.enable.dsl=2
+"L08_chewbbaca_prokka_sal","L08_chewbbaca_prokka_sal","L08","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run chewbbaca and prokka in parallel.","Y","N","file_not_found","WARN: file not found: '/mnt/data/cohesive_bench/scratch/llm_full_200_devstral_labs/_shared_inputdir/2026/2026.SAL.115.1.1/0SQ_rawreads/DS99999-DT260224_import/result/*.fastq*'","6","10","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_cgMLST__chewbbaca","1170","36","4","2","13.6","Thank you for approving the pipeline. I will now proceed with the design based on the steps we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -4321,7 +4321,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"L10_mlst_prokka_sal","L10_mlst_prokka_sal","L10","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run mlst and prokka in parallel.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst","822","29","4","2","9.7","Thank you for approving the pipeline. I will now proceed with the implementation based on the steps we discussed.","nextflow.enable.dsl=2
+"L10_mlst_prokka_sal","L10_mlst_prokka_sal","L10","From paired Illumina FASTQ of Salmonella enterica: trim with fastp, assemble with SPAdes, then run mlst and prokka in parallel.","Y","Y","none","","8","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst","822","29","4","2","9.7","Thank you for approving the pipeline. I will now proceed with the implementation based on the steps we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -4532,7 +4532,7 @@ workflow {
     step_4AN_AMR__staramr(assembled, param('genus_species'))
 }
 "
-"L15_flaA_staramr_cam","L15_flaA_staramr_cam","L15","From paired Illumina FASTQ of Campylobacter jejuni: trim with fastp, assemble with SPAdes, then run flaA and staramr in parallel.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4TY_flaA__flaA","763","27","4","2","10.5","Thank you for your approval. I will now proceed with the pipeline design based on the steps we discussed.","nextflow.enable.dsl=2
+"L15_flaA_staramr_cam","L15_flaA_staramr_cam","L15","From paired Illumina FASTQ of Campylobacter jejuni: trim with fastp, assemble with SPAdes, then run flaA and staramr in parallel.","Y","Y","none","","8","8","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4TY_flaA__flaA","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_flaA__flaA, step_4AN_AMR__staramr","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__staramr, step_4TY_flaA__flaA","763","27","4","2","10.5","Thank you for your approval. I will now proceed with the pipeline design based on the steps we discussed.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -4792,7 +4792,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"M01_mlst+chewbbaca+abricate_lis","M01_mlst+chewbbaca+abricate_lis","M01","Comprehensive typing+AMR+annotation pipeline for Listeria monocytogenes from paired Illumina FASTQ: trim, assemble, then run mlst, chewbbaca, abricate in parallel on the assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","11","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","923","34","5","2","13.6","Your Listeria monocytogenes typing and annotation pipeline has been approved. I will now proceed with the implementation using the specified steps: trimming with fastp, assembly with SPAdes, and parallel typing/AMR analysis with MLST, chewbbaca, and abricate.","nextflow.enable.dsl=2
+"M01_mlst+chewbbaca+abricate_lis","M01_mlst+chewbbaca+abricate_lis","M01","Comprehensive typing+AMR+annotation pipeline for Listeria monocytogenes from paired Illumina FASTQ: trim, assemble, then run mlst, chewbbaca, abricate in parallel on the assembly.","Y","Y","none","","11","11","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_AMR__abricate","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_AMR__abricate, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","923","34","5","2","13.6","Your Listeria monocytogenes typing and annotation pipeline has been approved. I will now proceed with the implementation using the specified steps: trimming with fastp, assembly with SPAdes, and parallel typing/AMR analysis with MLST, chewbbaca, and abricate.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -4841,7 +4841,7 @@ workflow {
     step_4AN_AMR__abricate(assembled)
 }
 "
-"M02_mlst+chewbbaca+prokka_sal","M02_mlst+chewbbaca+prokka_sal","M02","Comprehensive typing+AMR+annotation pipeline for Salmonella enterica from paired Illumina FASTQ: trim, assemble, then run mlst, chewbbaca, prokka in parallel on the assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","11","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","1030","32","5","2","14.0","The pipeline has been approved and will be built as follows: 1. Trimming with fastp, 2. Assembly with SPAdes, and 3. Parallel execution of MLST, chewBBACA, and Prokka for typing and annotation.","nextflow.enable.dsl=2
+"M02_mlst+chewbbaca+prokka_sal","M02_mlst+chewbbaca+prokka_sal","M02","Comprehensive typing+AMR+annotation pipeline for Salmonella enterica from paired Illumina FASTQ: trim, assemble, then run mlst, chewbbaca, prokka in parallel on the assembly.","Y","Y","none","","11","11","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca, step_4AN_genes__prokka","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4AN_genes__prokka, step_4TY_MLST__mlst, step_4TY_cgMLST__chewbbaca","1030","32","5","2","14.0","The pipeline has been approved and will be built as follows: 1. Trimming with fastp, 2. Assembly with SPAdes, and 3. Parallel execution of MLST, chewBBACA, and Prokka for typing and annotation.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5286,7 +5286,7 @@ workflow {
     step_4AN_genes__prokka(assembled)
 }
 "
-"N01_canonical_mlst_lis","N01_canonical_mlst_lis","N01","Canonical bacterial typing pipeline (fastp + SPAdes + mlst) on paired Illumina FASTQ of Listeria monocytogenes.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","598","24","3","2","11.9","The pipeline has been approved and will be implemented as discussed. I will now provide the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
+"N01_canonical_mlst_lis","N01_canonical_mlst_lis","N01","Canonical bacterial typing pipeline (fastp + SPAdes + mlst) on paired Illumina FASTQ of Listeria monocytogenes.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_4TY_MLST__mlst","598","24","3","2","11.9","The pipeline has been approved and will be implemented as discussed. I will now provide the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5544,7 +5544,7 @@ workflow {
     step_4TY_cgMLST__chewbbaca(assembled, param('genus_species'), optionalOrDefault('schema', ''))
 }
 "
-"NA01_mlst_cam_assembly","NA01_mlst_cam_assembly","NA01","Run mlst on a pre-existing Campylobacter jejuni assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_4TY_MLST__mlst","step_4TY_MLST__mlst","step_4TY_MLST__mlst","319","18","1","2","8.9","Approved. I will now prepare the pipeline to run MLST on your Campylobacter jejuni assembly using the specified component.","nextflow.enable.dsl=2
+"NA01_mlst_cam_assembly","NA01_mlst_cam_assembly","NA01","Run mlst on a pre-existing Campylobacter jejuni assembly.","Y","Y","none","","1","1","Y","","","","step_4TY_MLST__mlst","step_4TY_MLST__mlst","step_4TY_MLST__mlst","319","18","1","2","8.9","Approved. I will now prepare the pipeline to run MLST on your Campylobacter jejuni assembly using the specified component.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5569,7 +5569,7 @@ workflow {
     step_4TY_MLST__mlst(getInput())
 }
 "
-"NA02_mlst_sal_assembly","NA02_mlst_sal_assembly","NA02","Run mlst on a pre-existing Salmonella enterica assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_4TY_MLST__mlst","step_4TY_MLST__mlst","step_4TY_MLST__mlst","319","18","1","2","9.3","I will proceed with running MLST on your pre-existing Salmonella enterica assembly using the specified component.","nextflow.enable.dsl=2
+"NA02_mlst_sal_assembly","NA02_mlst_sal_assembly","NA02","Run mlst on a pre-existing Salmonella enterica assembly.","Y","Y","none","","1","1","Y","","","","step_4TY_MLST__mlst","step_4TY_MLST__mlst","step_4TY_MLST__mlst","319","18","1","2","9.3","I will proceed with running MLST on your pre-existing Salmonella enterica assembly using the specified component.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5619,7 +5619,7 @@ workflow {
     step_4AN_AMR__abricate(getInput())
 }
 "
-"NA04_abricate_sal_assembly","NA04_abricate_sal_assembly","NA04","Run abricate on a pre-existing Salmonella enterica assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_4AN_AMR__abricate","step_4AN_AMR__abricate","step_4AN_AMR__abricate","328","18","1","2","7.2","Approved. I will run abricate on your pre-existing Salmonella enterica assembly using the step_4AN_AMR__abricate component.","nextflow.enable.dsl=2
+"NA04_abricate_sal_assembly","NA04_abricate_sal_assembly","NA04","Run abricate on a pre-existing Salmonella enterica assembly.","Y","Y","none","","1","1","Y","","","","step_4AN_AMR__abricate","step_4AN_AMR__abricate","step_4AN_AMR__abricate","328","18","1","2","7.2","Approved. I will run abricate on your pre-existing Salmonella enterica assembly using the step_4AN_AMR__abricate component.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5644,7 +5644,7 @@ workflow {
     step_4AN_AMR__abricate(getInput())
 }
 "
-"NA05_abricate_cam_assembly","NA05_abricate_cam_assembly","NA05","Run abricate on a pre-existing Campylobacter jejuni assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_4AN_AMR__abricate","step_4AN_AMR__abricate","step_4AN_AMR__abricate","328","18","1","2","7.2","Approved. I will now design the pipeline to run Abricate on your pre-existing Campylobacter jejuni assembly.","nextflow.enable.dsl=2
+"NA05_abricate_cam_assembly","NA05_abricate_cam_assembly","NA05","Run abricate on a pre-existing Campylobacter jejuni assembly.","Y","Y","none","","1","1","Y","","","","step_4AN_AMR__abricate","step_4AN_AMR__abricate","step_4AN_AMR__abricate","328","18","1","2","7.2","Approved. I will now design the pipeline to run Abricate on your pre-existing Campylobacter jejuni assembly.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5727,7 +5727,7 @@ workflow {
     step_4AN_genes__prokka(getInput())
 }
 "
-"NA08_prokka_eco_assembly","NA08_prokka_eco_assembly","NA08","Run prokka on a pre-existing Escherichia coli assembly.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_4AN_genes__prokka","step_4AN_genes__prokka","step_4AN_genes__prokka","439","20","1","2","8.2","Approved. I will now design the pipeline to run Prokka on your pre-existing Escherichia coli assembly using the default setup.","nextflow.enable.dsl=2
+"NA08_prokka_eco_assembly","NA08_prokka_eco_assembly","NA08","Run prokka on a pre-existing Escherichia coli assembly.","Y","Y","none","","1","1","Y","","","","step_4AN_genes__prokka","step_4AN_genes__prokka","step_4AN_genes__prokka","439","20","1","2","8.2","Approved. I will now design the pipeline to run Prokka on your pre-existing Escherichia coli assembly using the default setup.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5754,7 +5754,7 @@ workflow {
     step_4AN_genes__prokka(getInput())
 }
 "
-"O01_spades_lis","O01_spades_lis","O01","De novo assembly with spades from paired Illumina FASTQ of Listeria monocytogenes.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1190","57","2","2","17.2","I will proceed with the basic de novo assembly pipeline using the `module_denovo` template. This will include host depletion with Bowtie and assembly with SPAdes for your Listeria monocytogenes paired Illumina FASTQ files.","nextflow.enable.dsl=2
+"O01_spades_lis","O01_spades_lis","O01","De novo assembly with spades from paired Illumina FASTQ of Listeria monocytogenes.","Y","Y","none","","5","3","N","step_1PP_hostdepl__bowtie","","","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_1PP_hostdepl__bowtie, step_2AS_denovo__spades","step_2AS_denovo__spades","1190","57","2","2","17.2","I will proceed with the basic de novo assembly pipeline using the `module_denovo` template. This will include host depletion with Bowtie and assembly with SPAdes for your Listeria monocytogenes paired Illumina FASTQ files.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5927,7 +5927,7 @@ workflow {
     step_2AS_denovo__shovill(getSingleInput())
 }
 "
-"O06_shovill_cam","O06_shovill_cam","O06","De novo assembly with shovill from paired Illumina FASTQ of Campylobacter jejuni.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","N","step_1PP_trimming__fastp","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_2AS_denovo__shovill","495","21","2","2","10.5","Approved. I will design a pipeline that includes trimming with fastp followed by de novo assembly with Shovill for your Campylobacter jejuni paired Illumina FASTQ data.","nextflow.enable.dsl=2
+"O06_shovill_cam","O06_shovill_cam","O06","De novo assembly with shovill from paired Illumina FASTQ of Campylobacter jejuni.","Y","Y","none","","6","3","N","step_1PP_trimming__fastp","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_2AS_denovo__shovill","495","21","2","2","10.5","Approved. I will design a pipeline that includes trimming with fastp followed by de novo assembly with Shovill for your Campylobacter jejuni paired Illumina FASTQ data.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -5983,7 +5983,7 @@ workflow {
     step_2AS_denovo__unicycler(getSingleInput())
 }
 "
-"O08_unicycler_eco","O08_unicycler_eco","O08","De novo assembly with unicycler from paired Illumina FASTQ of Escherichia coli.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","N","step_1PP_trimming__fastp","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_2AS_denovo__unicycler","503","21","2","2","9.6","Pipeline approved! I will now generate the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
+"O08_unicycler_eco","O08_unicycler_eco","O08","De novo assembly with unicycler from paired Illumina FASTQ of Escherichia coli.","Y","Y","none","","6","3","N","step_1PP_trimming__fastp","","","step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_1PP_trimming__fastp, step_2AS_denovo__unicycler","step_2AS_denovo__unicycler","503","21","2","2","9.6","Pipeline approved! I will now generate the detailed plan for the Architect Agent.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6067,7 +6067,7 @@ workflow {
     step_2AS_denovo__plasmidspades(getSingleInput())
 }
 "
-"P01_chopper_flye_mlst_lis","P01_chopper_flye_mlst_lis","P01","Nanopore pipeline for Listeria monocytogenes: chopper trimming + Flye assembly + mlst.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","5","Y","","","","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","595","24","3","2","12.7","Thank you for approving the pipeline. I will now proceed with the detailed plan for the Listeria monocytogenes nanopore pipeline using the specified components.","nextflow.enable.dsl=2
+"P01_chopper_flye_mlst_lis","P01_chopper_flye_mlst_lis","P01","Nanopore pipeline for Listeria monocytogenes: chopper trimming + Flye assembly + mlst.","Y","Y","none","","5","5","Y","","","","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","595","24","3","2","12.7","Thank you for approving the pipeline. I will now proceed with the detailed plan for the Listeria monocytogenes nanopore pipeline using the specified components.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6102,7 +6102,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"P02_chopper_flye_mlst_sal","P02_chopper_flye_mlst_sal","P02","Nanopore pipeline for Salmonella enterica: chopper trimming + Flye assembly + mlst.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","5","Y","","","","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","595","24","3","2","14.4","Pipeline approved. I will now provide the detailed plan for the Architect Agent to build the pipeline for Salmonella enterica using Nanopore data.","nextflow.enable.dsl=2
+"P02_chopper_flye_mlst_sal","P02_chopper_flye_mlst_sal","P02","Nanopore pipeline for Salmonella enterica: chopper trimming + Flye assembly + mlst.","Y","Y","none","","5","5","Y","","","","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","595","24","3","2","14.4","Pipeline approved. I will now provide the detailed plan for the Architect Agent to build the pipeline for Salmonella enterica using Nanopore data.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6172,7 +6172,7 @@ workflow {
     step_4TY_MLST__mlst(assembled)
 }
 "
-"P04_chopper_flye_mlst_cam","P04_chopper_flye_mlst_cam","P04","Nanopore pipeline for Campylobacter jejuni: chopper trimming + Flye assembly + mlst.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","5","Y","","","","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","595","24","3","2","11.8","Thank you for approving the pipeline. I will now proceed with the design for your Campylobacter jejuni nanopore pipeline using the specified steps.","nextflow.enable.dsl=2
+"P04_chopper_flye_mlst_cam","P04_chopper_flye_mlst_cam","P04","Nanopore pipeline for Campylobacter jejuni: chopper trimming + Flye assembly + mlst.","Y","Y","none","","5","5","Y","","","","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","step_1PP_trimming__chopper, step_2AS_denovo__flye, step_4TY_MLST__mlst","595","24","3","2","11.8","Thank you for approving the pipeline. I will now proceed with the design for your Campylobacter jejuni nanopore pipeline using the specified steps.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6583,7 +6583,7 @@ workflow {
     assembled = step_2AS_denovo__shovill(trimmed).assembly
 }
 "
-"Q05_kmerfinder_fastp_shovill_eco","Q05_kmerfinder_fastp_shovill_eco","Q05","In parallel, identify the species with kmerfinder and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + shovill.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder","step_3TX_species__kmerfinder, step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder","636","24","3","2","10.0","Approved. I will now draft the pipeline using the specified components for species identification, trimming, and assembly.","nextflow.enable.dsl=2
+"Q05_kmerfinder_fastp_shovill_eco","Q05_kmerfinder_fastp_shovill_eco","Q05","In parallel, identify the species with kmerfinder and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + shovill.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder","step_3TX_species__kmerfinder, step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__kmerfinder","636","24","3","2","10.0","Approved. I will now draft the pipeline using the specified components for species identification, trimming, and assembly.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6662,7 +6662,7 @@ workflow {
     assembled = step_2AS_denovo__shovill(trimmed).assembly
 }
 "
-"Q07_mash_fastp_spades_lis","Q07_mash_fastp_spades_lis","Q07","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + spades.","Y","Y","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","592","24","3","2","13.5","Thank you for approving the plan. I will now proceed with generating the pipeline for species identification using Mash and trimming and assembling paired Illumina FASTQ data for Listeria monocytogenes using Fastp and SPAdes.","nextflow.enable.dsl=2
+"Q07_mash_fastp_spades_lis","Q07_mash_fastp_spades_lis","Q07","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + spades.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","592","24","3","2","13.5","Thank you for approving the plan. I will now proceed with generating the pipeline for species identification using Mash and trimming and assembling paired Illumina FASTQ data for Listeria monocytogenes using Fastp and SPAdes.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6698,7 +6698,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"Q08_mash_fastp_spades_eco","Q08_mash_fastp_spades_eco","Q08","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + spades.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","592","24","3","2","11.0","Approved! I will proceed with the pipeline using the following steps:
+"Q08_mash_fastp_spades_eco","Q08_mash_fastp_spades_eco","Q08","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Escherichia coli with fastp + spades.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","592","24","3","2","11.0","Approved! I will proceed with the pipeline using the following steps:
 1. Species identification with Mash (`step_3TX_species__mash`).
 2. Trimming of paired Illumina FASTQ reads with Fastp (`step_1PP_trimming__fastp`).
 3. De novo assembly of trimmed reads with SPAdes (`step_2AS_denovo__spades`).","nextflow.enable.dsl=2
@@ -6737,7 +6737,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"Q09_mash_fastp_spades_sal","Q09_mash_fastp_spades_sal","Q09","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","592","24","3","2","12.2","Approved. I will now generate the pipeline based on the steps we discussed: species identification with Mash, trimming with fastp, and assembly with SPAdes.","nextflow.enable.dsl=2
+"Q09_mash_fastp_spades_sal","Q09_mash_fastp_spades_sal","Q09","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Salmonella enterica with fastp + spades.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__spades","step_1PP_trimming__fastp, step_2AS_denovo__spades, step_3TX_species__mash","592","24","3","2","12.2","Approved. I will now generate the pipeline based on the steps we discussed: species identification with Mash, trimming with fastp, and assembly with SPAdes.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6773,7 +6773,7 @@ workflow {
     assembled = step_2AS_denovo__spades(trimmed).assembled
 }
 "
-"Q10_mash_fastp_shovill_lis","Q10_mash_fastp_shovill_lis","Q10","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + shovill.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","595","24","3","2","10.7","The pipeline has been approved and will be designed to perform species identification using Mash and trim and assemble paired Illumina FASTQ data for Listeria monocytogenes using fastp and Shovill.","nextflow.enable.dsl=2
+"Q10_mash_fastp_shovill_lis","Q10_mash_fastp_shovill_lis","Q10","In parallel, identify the species with mash and trim+assemble paired Illumina FASTQ of Listeria monocytogenes with fastp + shovill.","Y","N","none","","7","7","Y","","","","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","step_3TX_species__mash, step_1PP_trimming__fastp, step_2AS_denovo__shovill","step_1PP_trimming__fastp, step_2AS_denovo__shovill, step_3TX_species__mash","595","24","3","2","10.7","The pipeline has been approved and will be designed to perform species identification using Mash and trim and assemble paired Illumina FASTQ data for Listeria monocytogenes using fastp and Shovill.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6893,7 +6893,7 @@ workflow {
     step_3TX_species__mash(getSingleInput())
 }
 "
-"R04_mash_eco","R04_mash_eco","R04","mash on paired Illumina FASTQ of Escherichia coli.","N","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","1","Y","","","","step_3TX_species__mash","step_3TX_species__mash","step_3TX_species__mash","334","18","1","2","7.1","Approved. I will proceed with the species identification pipeline using Mash on your paired Illumina FASTQ data for Escherichia coli.","nextflow.enable.dsl=2
+"R04_mash_eco","R04_mash_eco","R04","mash on paired Illumina FASTQ of Escherichia coli.","Y","N","none","","1","1","Y","","","","step_3TX_species__mash","step_3TX_species__mash","step_3TX_species__mash","334","18","1","2","7.1","Approved. I will proceed with the species identification pipeline using Mash on your paired Illumina FASTQ data for Escherichia coli.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -6918,7 +6918,7 @@ workflow {
     step_3TX_species__mash(getSingleInput())
 }
 "
-"R05_kraken2_lis","R05_kraken2_lis","R05","kraken2 on paired Illumina FASTQ of Listeria monocytogenes.","Y","N","missing_param","ERROR ~ missing required param: hosts_dir","0","2","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_3TX_class__kraken2","step_3TX_class__kraken2","760","28","3","2","10.7","The pipeline has been approved and will proceed with the following steps: 1. Trimming raw reads using fastp. 2. Host depletion using Bowtie. 3. Taxonomic classification using Kraken2. The Architect Agent will now build the pipeline accordingly.","nextflow.enable.dsl=2
+"R05_kraken2_lis","R05_kraken2_lis","R05","kraken2 on paired Illumina FASTQ of Listeria monocytogenes.","Y","Y","none","","7","2","N","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp","","","step_1PP_hostdepl__bowtie, step_1PP_trimming__fastp, step_3TX_class__kraken2","step_1PP_trimming__fastp, step_1PP_hostdepl__bowtie, step_3TX_class__kraken2","step_3TX_class__kraken2","760","28","3","2","10.7","The pipeline has been approved and will proceed with the following steps: 1. Trimming raw reads using fastp. 2. Host depletion using Bowtie. 3. Taxonomic classification using Kraken2. The Architect Agent will now build the pipeline accordingly.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 
@@ -7062,7 +7062,7 @@ workflow {
     step_1PP_trimming__fastp(getInput())
 }
 "
-"S02_fastp_sal","S02_fastp_sal","S02","fastp read trimming on illumina paired FASTQ of Salmonella enterica.","Y","N","silent_no_op","No process placeholders appeared. when: clause filtered everything?","0","3","Y","","","","step_1PP_trimming__fastp","step_1PP_trimming__fastp","step_1PP_trimming__fastp","358","18","1","2","9.3","Approved. I will proceed with the pipeline using the step_1PP_trimming__fastp component for trimming Illumina paired FASTQ reads of Salmonella enterica.","nextflow.enable.dsl=2
+"S02_fastp_sal","S02_fastp_sal","S02","fastp read trimming on illumina paired FASTQ of Salmonella enterica.","Y","Y","none","","3","3","Y","","","","step_1PP_trimming__fastp","step_1PP_trimming__fastp","step_1PP_trimming__fastp","358","18","1","2","9.3","Approved. I will proceed with the pipeline using the step_1PP_trimming__fastp component for trimming Illumina paired FASTQ reads of Salmonella enterica.","nextflow.enable.dsl=2
 
 // --- IMPORTS ---
 

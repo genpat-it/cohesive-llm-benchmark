@@ -165,6 +165,65 @@ def determine_inputs(params: dict) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
+# Safe defaults for extras the model frequently adds that the harness would
+# otherwise fail to parametrise. The framework's getters bail with
+# "missing required param: X" if a workflow includes e.g. host depletion
+# without params.host / params.hosts_dir. By pre-populating sensible
+# placeholders we let the stub-run reach the actual process scheduling
+# logic, so the verdict reflects what the model actually said.
+#
+# Disabled by setting BENCH_DISABLE_EXTRAS_DEFAULTS=1.
+# ---------------------------------------------------------------------------
+_STUB_DIR = Path(os.environ.get("BENCH_STUB_DIR",
+                                tempfile.gettempdir() + "/cohesive_stub")).resolve()
+
+
+def _ensure_stub_dir() -> Path:
+    """Create a directory + a couple of placeholder fasta files that the host
+    depletion / mapping getters glob for. Idempotent."""
+    _STUB_DIR.mkdir(parents=True, exist_ok=True)
+    for name in ("human.fa", "host.fa", "human_1.fa"):
+        (_STUB_DIR / name).touch(exist_ok=True)
+    return _STUB_DIR
+
+
+def _safe_defaults_for_step(step: str, stub_dir: Path) -> dict:
+    if step in ("step_1PP_hostdepl__bowtie", "step_1PP_hostdepl__minimap2",
+                "step_1PP_filtering__bowtie", "step_1PP_filtering__minimap2"):
+        return {"host": "human", "hosts_dir": str(stub_dir)}
+    if step == "step_4AN_genes__prokka":
+        return {"kingdom": "Bacteria"}
+    if step == "step_2AS_denovo__shovill":
+        return {"skip_checkm": True}
+    if step == "step_4AN_AMR__staramr":
+        return {"pointfinder": "salmonella"}
+    if step == "step_3TX_species__kmerfinder":
+        return {"bacterial_reference_path": str(stub_dir)}
+    if step == "step_2AS_hybrid__unicycler":
+        return {"long_reads": True}
+    if step == "step_4TY_lineage__westnile":
+        return {"assets_dir": str(stub_dir),
+                "step_4TY_lineage__westnile___threshold": 0.95}
+    return {}
+
+
+def inject_safe_defaults(params: dict, called_steps: list[str]) -> dict:
+    """Return a copy of `params` extended with placeholder values for any
+    extras-introduced parameter the framework would require. Existing keys are
+    preserved."""
+    if os.environ.get("BENCH_DISABLE_EXTRAS_DEFAULTS") == "1":
+        return params
+    if not called_steps:
+        return params
+    stub = _ensure_stub_dir()
+    out = dict(params)
+    for step in called_steps:
+        for k, v in _safe_defaults_for_step(step, stub).items():
+            out.setdefault(k, v)
+    return out
+
+
+# ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 # Static analysis of an .nf string
 # ---------------------------------------------------------------------------
@@ -277,6 +336,9 @@ def main() -> None:
         elif "cmp" in params and "riscd" in params and "input" not in params:
             params = {**params,
                       "input": [{"cmp": params["cmp"], "riscd": params["riscd"]}]}
+
+        # Stub params for extras the model added (host depletion, prokka, ...)
+        params = inject_safe_defaults(params, llm_analysis["called_steps"])
 
         # Level 1: syntax-only via -preview
         ok_syntax, syntax_log = syntax_check(nf_code, eid, params)
