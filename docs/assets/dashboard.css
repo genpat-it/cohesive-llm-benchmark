@@ -108,6 +108,21 @@
 .chart-card .small {
   font-size: 0.82rem;
 }
+/* CRITICAL: Chart.js with responsive:true + maintainAspectRatio:false
+   needs a parent with a FIXED height, otherwise the canvas grows on
+   every ResizeObserver tick — infinite expansion. */
+.chart-canvas-wrap {
+  position: relative;
+  height: 260px;
+  width: 100%;
+}
+.chart-canvas-wrap.chart-h-tall { height: 320px; }
+.chart-canvas-wrap canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
 
 /* Heatmap */
 .heatmap {
