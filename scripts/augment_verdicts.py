@@ -157,6 +157,12 @@ def main() -> int:
     targets = sys.argv[1:] or [
         "results/llm_full_200",
         "results/llm_full_multi_turn",
+        "results/llm_full_200_mistral_small",
+        "results/llm_full_multi_turn_mistral_small",
+        "results/llm_full_200_devstral_2507",
+        "results/llm_full_multi_turn_devstral_2507",
+        "results/llm_full_200_devstral_labs",
+        "results/llm_full_multi_turn_devstral_labs",
         "results/example_run_mistral",
         "results/example_run_mistral_multi_turn",
     ]

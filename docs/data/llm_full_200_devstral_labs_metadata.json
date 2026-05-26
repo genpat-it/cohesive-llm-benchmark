@@ -1,0 +1,23 @@
+{
+  "run_started_at": "2026-05-22T16:59:07Z",
+  "bench": {
+    "commit": "b8948afd3e444cc6e30c1aa3bb1e58bcdbf4537a",
+    "short_commit": "b8948af",
+    "branch": "main",
+    "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
+    "dirty": true
+  },
+  "framework": {
+    "commit": "5c2d0192e116f50d7905f289b81d61fd9d61d2cf",
+    "short_commit": "5c2d019",
+    "branch": "HEAD",
+    "remote": "https://github.com/genpat-it/cohesive-ngsmanager.git",
+    "dirty": true
+  },
+  "llm": {
+    "name": "?",
+    "model": "labs-devstral-small-2512",
+    "api_url": "http://127.0.0.1:8765"
+  },
+  "dataset": "dataset_50.jsonl"
+}

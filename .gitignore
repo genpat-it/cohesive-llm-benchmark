@@ -22,6 +22,12 @@ results/*/
 !results/example_run_mistral_multi_turn/
 !results/llm_full_200/
 !results/llm_full_multi_turn/
+!results/llm_full_200_mistral_small/
+!results/llm_full_multi_turn_mistral_small/
+!results/llm_full_200_devstral_2507/
+!results/llm_full_multi_turn_devstral_2507/
+!results/llm_full_200_devstral_labs/
+!results/llm_full_multi_turn_devstral_labs/
 !results/llm_multi_workflows/
 
 # Harness scratch (work dirs, dummy inputs)
@@ -30,3 +36,6 @@ _out/
 *.nextflow.log*
 .nextflow/
 work/
+
+# Local snapshots of the Claude Code session JSONL (manual backups outside ~/.claude/)
+.session-backup/
