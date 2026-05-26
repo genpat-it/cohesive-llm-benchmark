@@ -5,22 +5,19 @@
     "short_commit": "1dd5441",
     "branch": "main",
     "remote": "https://github.com/genpat-it/cohesive-llm-benchmark.git",
-    "dirty": true,
-    "repo_path": "/home/IZSNT/a.deruvo/cohesive-llm-benchmark"
+    "dirty": true
   },
   "framework": {
     "commit": "5c2d0192e116f50d7905f289b81d61fd9d61d2cf",
     "short_commit": "5c2d019",
     "branch": "HEAD",
     "remote": "https://github.com/genpat-it/cohesive-ngsmanager.git",
-    "dirty": true,
-    "repo_path": "/home/IZSNT/a.deruvo/cohesive-ngsmanager-cli/cohesive-ngsmanager"
+    "dirty": true
   },
   "llm": {
     "name": "?",
     "model": "codestral-latest",
     "api_url": "http://127.0.0.1:8765",
-    "repo_path": null,
     "api_alias": "codestral-latest",
     "resolved_model": "codestral-2508 (or whatever -latest pins to today; mid-2025)",
     "model_family": "Codestral (Mistral production, code-tuned, ~22B params)",

@@ -57,16 +57,22 @@ def write_metadata(out_dir: Path,
     out_dir.mkdir(parents=True, exist_ok=True)
     bench_repo = Path(__file__).resolve().parent.parent
     framework_dir = os.environ.get("NGSMANAGER_DIR")
+    # repo_path leaks the local username and internal directory layout into a
+    # public artifact. Suppress by default; set BENCH_EMIT_REPO_PATH=1 to keep
+    # the field when running locally for debugging.
+    emit_paths = os.environ.get("BENCH_EMIT_REPO_PATH") == "1"
+    bench_info = _git_info(str(bench_repo))
+    framework_info = _git_info(framework_dir)
+    llm_path = llm_repo_path or os.environ.get("LLM_REPO_PATH")
+    llm_info = _git_info(llm_path)
+    if emit_paths:
+        bench_info["repo_path"] = str(bench_repo)
+        framework_info["repo_path"] = framework_dir
+        llm_info["repo_path"] = llm_path
     md = {
         "run_started_at": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
-        "bench": {
-            **_git_info(str(bench_repo)),
-            "repo_path": str(bench_repo),
-        },
-        "framework": {
-            **_git_info(framework_dir),
-            "repo_path": framework_dir,
-        },
+        "bench": bench_info,
+        "framework": framework_info,
         "llm": {
             "name":     llm_name or os.environ.get("LLM_NAME", "?"),
             # NOTE: this is the model NAME the LLM service is configured to
@@ -78,8 +84,7 @@ def write_metadata(out_dir: Path,
             # (see docs/IZS_LLM_INFO_ENDPOINT_PROPOSAL.md for the fix).
             "model":    llm_model or os.environ.get("LLM_MODEL", "unknown_no_info_endpoint"),
             "api_url":  llm_api_url,
-            **_git_info(llm_repo_path or os.environ.get("LLM_REPO_PATH")),
-            "repo_path": llm_repo_path or os.environ.get("LLM_REPO_PATH"),
+            **llm_info,
         },
         "dataset": dataset_used,
     }
